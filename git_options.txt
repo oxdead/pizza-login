@@ -12,7 +12,7 @@ git config --global alias.br branch
 git config --global alias.ci commit
 git config --global alias.st status
 
-
+//////////////////////////////////////////////////////////
 // create repo inside existing folder
 git init
 
@@ -25,9 +25,70 @@ git add .
 // to unstage mistaken file
 git rm --cached file.name
 
-
 // commit changed files, which are at staging state (-m means message)
 git commit -m "add description for changes, which were made"
+
+//show all commits made, extended info
+git log
+
+//show all commits made, condensed info
+git log --oneline
+
+// switch to other state in time(some commit(e.g. af6b84c) or other branch(e.g. master))
+git checkout type_commit_id_here_or_branch_name
+
+// adds new commit to revert changes made in chosen commit (:wq and Enter to proceed after command)
+git revert commit_id
+
+// removes all changes after chosen commit, but they are still present in local files  (destructive!)
+// to not retain and remove completely use flag --hard (e.g. git reset commit_id --hard)
+git reset commit_id
+
+
+// Before creating a new branch, pull the changes from upstream(git pull). Your master needs to be up to date.
+// update all data on local repo from remote
+git pull origin master
+
+//create new branch (alternative: git branch branch_name)
+git checkout -b branch_name
+
+//show all branches
+git branch -a
+
+//delete branch
+git branch -d branch_name
+
+// merge branch to master (switch to master branch first)
+git checkout master
+git merge merge branch_name
+
+// push local repo to remote ( e.g. git push https://url.git)
+// make alias for repo url (e.g. git remote add origin https://url.git)
+// if repo was cloned from remote, then noneed to create alias for origin, it's done automatically
+git push origin master
+
+// clone remote repo to local
+git clone https://url.git
+
+
+// Push an existing repository…
+// to not input pw everytime, for use with ssh: (e.g. git remote add origin git@github.com:username/new_repo)
+git remote add origin https://github.com/username/new_repo.git
+git push -u origin master
+
+// check existing remotes
+git remote -v
+
+// clear remote reference, it doesn't delete repo, just removes info from local settings
+git remote rm destination_url_or_alias_e_g_origin
+
+
+
+
+
+
+
+
 
 
 
