@@ -2,7 +2,7 @@
 
     //include('somefile.php'); // includes file. if doesn't exist, skips and proceeds further incode
     //require('somefile.php'); // includes file. But stops(fatal error), if file was not found, further code is not getting processed
-
+    echo 'Current PHP version: ' . phpversion();
 
     //superglobals: e.g. $_GET['name'], $_POST['name']
     echo $_SERVER['SERVER_NAME'].'<br />'; // output: localhost
