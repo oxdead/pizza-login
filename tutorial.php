@@ -1,5 +1,11 @@
 <?php
 
+    // install composer
+    // install local phpunit from projet folder: composer require phpunit/phpunit --dev
+    // create tests, unit folders, create phpunit.xml file and set it up
+    // better phpunit vscode extension allows to use shortcut to run tests
+
+
     //include('somefile.php'); // includes file. if doesn't exist, skips and proceeds further incode
     //require('somefile.php'); // includes file. But stops(fatal error), if file was not found, further code is not getting processed
     echo 'Current PHP version: ' . phpversion();
