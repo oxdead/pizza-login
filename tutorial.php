@@ -26,8 +26,6 @@
     //cookie superglobal stores data on client side
 
 
-
-
     // number
     $number = 15;
     //string

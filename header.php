@@ -16,7 +16,10 @@
 
     $locationbar_str = htmlspecialchars($_SERVER['QUERY_STRING']);
     $session_name = htmlspecialchars($_SESSION['name']);
-    echo "<br />".($_SERVER['REQUEST_METHOD'])."<br />locationbar_str= $locationbar_str<br />session = $session_name<br />";
+    if(strlen($locationbar_str) > 0 || strlen($session_name) > 0)
+    {
+        echo "<br />".($_SERVER['REQUEST_METHOD'])."<br />locationbar_str= $locationbar_str<br />session = $session_name<br />";
+    }
 
     if(strpos($locationbar_str, 'name=Guest') !== false) // if in input in tutorial.php was not submitted and string in location bar contains Guest, then unset name and create name "Guest", usage of !== is important as return maybe 0(int) or false
     {
