@@ -4,6 +4,11 @@
     // install local phpunit from projet folder: composer require phpunit/phpunit --dev
     // create tests, unit folders, create phpunit.xml file and set it up
     // better phpunit vscode extension allows to use shortcut to run tests
+    // travis: configure your repo according to the default or define a script:   
+    //    before_install:
+    //        - chmod +x build.sh
+    //    script: ./build.sh
+    //to execute when running the build , otherwise it will fail with error 2 
 
 
     //include('somefile.php'); // includes file. if doesn't exist, skips and proceeds further incode
