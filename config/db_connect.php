@@ -5,7 +5,7 @@
     $dbhost = 'eporqep6b4b8ql12.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306';
     $dbuser = 'crjbrew5zx2e5ofj';
     $dbpass = 'tff3cduhu03wgx8k';
-    $dbname = 'phptest';
+    $dbname = 'j7pi3mr52z5cw6c7';
     $conn = mysqli_connect($dbhost, $dbuser, $dbpass) or die("Unable to connect to '$dbhost'");
     mysqli_select_db($conn, $dbname) or die("Could not open the database '$dbname'");
 
