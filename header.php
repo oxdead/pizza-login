@@ -78,7 +78,7 @@
 <body class="grey lighten-4">
     <nav class="white z-depth-0">
         <div class="container">
-            <a href="index.php" class="brand-logo brand-text">Pizza, dude!</a>
+            <!--<a href="index.php" class="brand-logo brand-text">Pizza, dude!</a>-->
             <ul id="nav-mobile" class="right hide-on-small-and-down">
                 <li class="grey-text">
 
@@ -93,6 +93,13 @@
                 <li>
                     <a href="add.php" class="btn brand z-depth-0">Add a pizza</a>
                 </li>
+                <li>
+                    <a href="login/login.php" class="btn brand z-depth-0">Login</a>
+                </li>
+                <li>
+                    <a href="login/register.php" class="btn brand z-depth-0">Register</a>
+                </li>
+
 
 
             </ul>
