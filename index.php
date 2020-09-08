@@ -3,7 +3,32 @@
 
     //1. wite query for all pizzas
     //$sql = 'SELECT * FROM pizzas'; // select data from all(*) columns from pizzas table
-    $sql = "SELECT id, title, ingredients FROM pizzas ORDER BY created"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
+    //$sql = "SELECT id, title, ingredients FROM pizzas ORDER BY created"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
+
+
+
+
+
+    $sql = "CREATE DATABASE accounts";
+    if ($conn->query($sql) === TRUE) 
+    {
+        echo "Database created successfully";
+        $sql = "CREATE TABLE `accounts`.`users` ( `id` INT NOT NULL AUTO_INCREMENT, `first_name` VARCHAR(50) NOT NULL, `last_name` VARCHAR(50) NOT NULL, `email` VARCHAR(100) NOT NULL, `password` VARCHAR(100) NOT NULL, `hash` VARCHAR(32) NOT NULL, `active` BOOL NOT NULL DEFAULT 0, PRIMARY KEY (`id`) )";
+        if ($conn->query($sql) === TRUE) 
+        {
+            echo "Table created successfully";
+        }
+        else
+        {
+            echo "Error creating table: " . $conn->error;    
+        }
+    } 
+    else 
+    {
+        echo "Error creating database: " . $conn->error;
+    }
+    
+    
 
     //2. send query and get some results
     $results = mysqli_query($conn, $sql);
