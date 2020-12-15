@@ -1,6 +1,6 @@
 <?php
-
-    include('config/db_connect.php'); 
+    session_start();
+    include('db_connect.php'); 
 
     //after clicking Submit button for deletion of pizza row
     if(isset($_POST['delete']))

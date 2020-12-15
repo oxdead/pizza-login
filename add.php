@@ -1,6 +1,6 @@
 <?php
-
-    include('config/db_connect.php'); 
+    session_start();
+    include('db_connect.php'); 
 
     // isset listens for GET request from web-browser, _GET is a global array, which contains our data
     // if(isset($_GET['submit']))
@@ -106,39 +106,39 @@
 
 <!DOCTYPE html>
 <html>
-    <?php include('header.php'); ?>
+<?php include('header.php'); ?>
 
-    <section class="container grey-text">
-        <h4 class="center">
-            Add a Pizza
-        </h4>
-        <form class="white" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-            
-            <input type="text" name="email" id="email_id" value="<?php echo empty($email) ? '' : htmlspecialchars($email); ?>"> <!-- persist inputed data-->
-            <label for="email_id">Your Email</label>
-            <div class="red-text">
-                <?php echo $errors['email']; ?>
-            </div>
-            
-            <input type="text" name="title" id="title_id" value="<?php echo empty($title) ? '' : htmlspecialchars($title); ?>">
-            <label for="title_id">Pizza title</label>
-            <div class="red-text">
-                <?php echo $errors['title']; ?>
-            </div>
-            
-            <input type="text" name="ingredients" id="ingredients_id" value="<?php echo empty($ingredients) ? '' : htmlspecialchars($ingredients); ?>">
-            <label for="ingredients_id">Ingredients(comma separated)</label>
-            <div class="red-text">
-                <?php echo $errors['ingredients']; ?>
-            </div>
-            
-            <div class="center">
-                <input type="submit" name="submit" value="submit" class="btn brand z-depth-0">
-            </div>
-        </form>
+<section class="container grey-text">
+    <h4 class="center">
+        Add a Pizza
+    </h4>
+    <form class="white" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        
+        <input type="text" name="email" id="email_id" value="<?php echo empty($email) ? '' : htmlspecialchars($email); ?>"> <!-- persist inputed data-->
+        <label for="email_id">Your Email</label>
+        <div class="red-text">
+            <?php echo $errors['email']; ?>
+        </div>
+        
+        <input type="text" name="title" id="title_id" value="<?php echo empty($title) ? '' : htmlspecialchars($title); ?>">
+        <label for="title_id">Pizza title</label>
+        <div class="red-text">
+            <?php echo $errors['title']; ?>
+        </div>
+        
+        <input type="text" name="ingredients" id="ingredients_id" value="<?php echo empty($ingredients) ? '' : htmlspecialchars($ingredients); ?>">
+        <label for="ingredients_id">Ingredients(comma separated)</label>
+        <div class="red-text">
+            <?php echo $errors['ingredients']; ?>
+        </div>
+        
+        <div class="center">
+            <input type="submit" name="submit" value="submit" class="btn brand z-depth-0">
+        </div>
+    </form>
 
-    </section>
+</section>
             
-    <?php include('footer.php'); ?>
+<?php include('footer.php'); ?>
 </html>
 
