@@ -54,7 +54,10 @@
 <!DOCTYPE html>
 <html>
 
-    <?php include('header.php'); ?>
+<?php include 'head.php'; ?>
+<body class="grey lighten-4">
+
+    <?php include 'header.php'; ?>
 
     <div class="container center grey-text">
         <?php if($pizza_row): ?> <!-- ':' is alternative syntax for '{' -->
@@ -90,4 +93,5 @@
     </div>
 
     <?php include('footer.php'); ?>
+</body>
 </html>

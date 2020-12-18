@@ -7,14 +7,23 @@
 
 
 .pizza_img{
-    width: 100px;
-    margin: 40px auto -30px; /*40px at top, auto left and right and -30px at bottom*/
     display: block;
     position: relative;
-    top: -30px;
+    z-index: auto;
 }  
 
+.container_img {
+  position: relative;
+  text-align: center;
+  color: white;
+}
 
+.centered_text_over_img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 html {
     overflow-y: scroll; 

@@ -21,7 +21,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 <!DOCTYPE html>
 <html>
 
-<?php include('../header.php'); ?>
+<?php include '../head.php'; ?>
+<body class="grey lighten-4">
+
+    <?php include '../header.php'; ?>
 
 <section class="container grey-text">
 	<div class="form">
@@ -94,7 +97,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 </section>
 
-<?php include('../footer.php'); ?>
+<?php include '../footer.php'; ?>
+</body>
 
 
 </html>

@@ -106,7 +106,10 @@
 
 <!DOCTYPE html>
 <html>
-<?php include('header.php'); ?>
+<?php include 'head.php'; ?>
+<body class="grey lighten-4">
+
+    <?php include 'header.php'; ?>
 
 <section class="container grey-text">
     <h4 class="center">
@@ -140,5 +143,6 @@
 </section>
             
 <?php include('footer.php'); ?>
+</body>
 </html>
 

@@ -80,7 +80,7 @@ git push -u origin master
 git remote -v
 
 // clear remote reference, it doesn't delete repo, just removes info from local settings
-git emote remove destination_url_or_alias_e_g_origin
+git remote remove destination_url_or_alias_e_g_origin
 git remote rm destination_url_or_alias_e_g_origin
 
 
