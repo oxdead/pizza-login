@@ -6,8 +6,15 @@
 #todo:
 #clear session message 
 #how to use a cookie to set mail automatically, when entering input field
+#add buttons for medium and big sizes of pizza and add their prices to database
+#add cart
+#make sure all text inputs wrapped into htmlspecialchars
+#suypport for small screens
+#clean code 
+#change fonts from google
+#fix 
 
-
+    /////////////////////////////////////////////////
     // for development only
     $sql = "CREATE DATABASE IF NOT EXISTS accounts";
     if ($conn->query($sql) === TRUE) 
@@ -25,7 +32,6 @@
         }
 
 
-        // testing
         $sql = "INSERT INTO `pizzas` (`id`, `title`, `ingredients`, `size`, `thickness`) VALUES ('1', 'Піца Пепероні з томатами', 'Моцарела, Пепероні, Помідори, Соус Барбекю', '0', '0')"; 
         $conn->query($sql);
         $sql = "INSERT INTO `pizzas` (`id`, `title`, `ingredients`, `size`, `thickness`) VALUES ('2', 'Піца Маргарита', 'Моцарела, Соус Мама-Мія', '0', '0')"; 
@@ -36,7 +42,7 @@
         $conn->query($sql);
         $sql = "INSERT INTO `pizzas` (`id`, `title`, `ingredients`, `size`, `thickness`) VALUES ('5', 'Піца Гавайська', 'Курка, Ананас, Моцарела, Соус Мама-Мія', '0', '0')"; 
         $conn->query($sql);
-        $sql = "INSERT INTO `pizzas` (`id`, `title`, `ingredients`, `size`, `thickness`) VALUES ('6', 'Піца Піца Барбекю', 'Курка, Цибуля, Бекон, Гриби, Моцарела, Соус Барбекю', '0', '0')"; 
+        $sql = "INSERT INTO `pizzas` (`id`, `title`, `ingredients`, `size`, `thickness`) VALUES ('6', 'Піца Барбекю', 'Курка, Цибуля, Бекон, Гриби, Моцарела, Соус Барбекю', '0', '0')"; 
         $conn->query($sql);
         $sql = "INSERT INTO `pizzas` (`id`, `title`, `ingredients`, `size`, `thickness`) VALUES ('7', 'Піца Тоскана', 'Курка, Фета, Моцарела, Помідори чері, Соус Альфредо, Шпинат', '0', '0')"; 
         $conn->query($sql);
@@ -69,7 +75,7 @@
         echo "Error creating database: " . $conn->error;
         die();
     }
-
+    ////////////////////////////////////////////////////////
 
 
     //1. query for all pizzas
@@ -99,23 +105,61 @@
 
 <?php include 'header.php'; ?>
 
-    <!-- <div class="row">
-        <div class="valign-wrapper">
-            <img src="img/mikey_main.jpg" alt="Mikey's Pizza!" title="Mikey's Pizza!"style="width:100%;">
-            <div class="valign">Піца від Mikey!</div>
-        </div> 
-    </div>  -->
-
-
-
     <div class="row">
-          <div class="card" style="margin:0">
-            <div class="card-image">
-              <img src="img/mikey_main.jpg">
-              <span class="card-title">Піца від Mikey!</span>
+        <!-- Slideshow container -->
+        <div class="slideshow-container">
+
+            <!-- Full-width images with number and caption text -->
+            <div class="mySlides fade">
+                <!-- <div class="numbertext">1 / 4</div> -->
+                <img src="img/mikey_main.jpg" style="width:100%">
+                <div class="captiontext" style="background-color: rgba(0,0,0,0.2)!important;">Піца від Mikey! :)</div>
             </div>
-          </div>
+
+
+            <div class="mySlides fade">
+                <!-- <div class="numbertext">2 / 4</div> -->
+                <img src="img/carousel1.jpg" style="width:100%">
+                <div class="captiontext" style="background-color: rgba(0,0,0,0.2)!important;">Піца Барбекю: Класика, Незрівнянний смак!</div>
+            </div>
+
+            <div class="mySlides fade">
+                <!-- <div class="numbertext">3 / 4</div> -->
+                <img src="img/carousel2.jpg" style="width:100%">
+                <div class="captiontext" style="background-color: rgba(0,0,0,0.2)!important;">Піца Тоскана: Для справжніх гурманів</div>
+            </div>
+
+            <div class="mySlides fade">
+                <!-- <div class="numbertext">4 / 4</div> -->
+                <img src="img/carousel3.jpg" style="width:100%">
+                <div class="captiontext" style="background-color: rgba(0,0,0,0.2)!important;">Піца Техас: Спробуй неймовірну суміш інгредієнтів</div>
+            </div>
+
+            <!-- Next and previous buttons -->
+            <a class="prev" onclick="prevSlide()">&#10094;</a>
+            <a class="next" onclick="nextSlide()">&#10095;</a>
+        </div>
+
+        <br>
+
+        <!-- The dots/circles -->
+        <div style="text-align:center">
+            <span class="dot" onclick="thumbnailSlide(1)"></span>
+            <span class="dot" onclick="thumbnailSlide(2)"></span>
+            <span class="dot" onclick="thumbnailSlide(3)"></span>
+            <span class="dot" onclick="thumbnailSlide(4)"></span>
+        </div> 
     </div>
+
+    
+
+
+
+
+
+
+
+
 
 
     <!-- <h4 class="center grey-text">Піца від Mikey!</h4> -->
@@ -145,11 +189,11 @@
                                 class="pizza_img">
 
                         <div class="card-content center">
-                            <h6>
+                            <h5>
                                 <?php 
                                     echo htmlspecialchars($pizza['title']); 
                                 ?>
-                            </h6>
+                            </h5>
 
                             <ul>
                                 <?php 
@@ -166,7 +210,7 @@
                         </div>
 
                         <div class="card-action right-align">
-                            <a class="brand-text" href="details.php?id=<?php echo $pizza['id'] ?>">Замовити</a>
+                            <a class="brand-text" href="details.php?id=<?php echo $pizza['id'] ?>">В кошик</a>
                         </div>
                     </div>
                 </div>
@@ -177,6 +221,7 @@
     </div>
 
     <?php include('footer.php'); ?>
+    <?php include('script.php'); ?>
 </body>
 </html>
 
