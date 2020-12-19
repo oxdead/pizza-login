@@ -9,10 +9,11 @@
 #add buttons for medium and big sizes of pizza and add their prices to database
 #add cart
 #make sure all text inputs wrapped into htmlspecialchars
-#suypport for small screens
+#support for small screens
 #clean code 
-#change fonts from google
-#fix 
+#add links to pizza profiles in carousel images
+#fix all paths
+#make all cards the same size
 
     /////////////////////////////////////////////////
     // for development only
@@ -102,54 +103,52 @@
 <?php include 'head.php'; ?>
 <body class="grey lighten-4">
 
-
 <?php include 'header.php'; ?>
 
-    <div class="row">
-        <!-- Slideshow container -->
-        <div class="slideshow-container">
 
-            <!-- Full-width images with number and caption text -->
-            <div class="mySlides fade">
-                <!-- <div class="numbertext">1 / 4</div> -->
-                <img src="img/mikey_main.jpg" style="width:100%">
-                <div class="captiontext" style="background-color: rgba(0,0,0,0.2)!important;">Піца від Mikey! :)</div>
-            </div>
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
 
-
-            <div class="mySlides fade">
-                <!-- <div class="numbertext">2 / 4</div> -->
-                <img src="img/carousel1.jpg" style="width:100%">
-                <div class="captiontext" style="background-color: rgba(0,0,0,0.2)!important;">Піца Барбекю: Класика, Незрівнянний смак!</div>
-            </div>
-
-            <div class="mySlides fade">
-                <!-- <div class="numbertext">3 / 4</div> -->
-                <img src="img/carousel2.jpg" style="width:100%">
-                <div class="captiontext" style="background-color: rgba(0,0,0,0.2)!important;">Піца Тоскана: Для справжніх гурманів</div>
-            </div>
-
-            <div class="mySlides fade">
-                <!-- <div class="numbertext">4 / 4</div> -->
-                <img src="img/carousel3.jpg" style="width:100%">
-                <div class="captiontext" style="background-color: rgba(0,0,0,0.2)!important;">Піца Техас: Спробуй неймовірну суміш інгредієнтів</div>
-            </div>
-
-            <!-- Next and previous buttons -->
-            <a class="prev" onclick="prevSlide()">&#10094;</a>
-            <a class="next" onclick="nextSlide()">&#10095;</a>
+        <!-- Full-width images with number and caption text -->
+        <div class="my-slides fade">
+            <!-- <div class="numbertext">1 / 4</div> -->
+            <img src="img/mikey_main.jpg" class="crsl-img">
+            <div class="captiontext">Піца від Mikey! :)</div>
         </div>
 
-        <br>
 
-        <!-- The dots/circles -->
-        <div style="text-align:center">
-            <span class="dot" onclick="thumbnailSlide(1)"></span>
-            <span class="dot" onclick="thumbnailSlide(2)"></span>
-            <span class="dot" onclick="thumbnailSlide(3)"></span>
-            <span class="dot" onclick="thumbnailSlide(4)"></span>
-        </div> 
+        <div class="my-slides fade">
+            <!-- <div class="numbertext">2 / 4</div> -->
+            <img src="img/carousel1.jpg" class="crsl-img">
+            <div class="captiontext">Піца Барбекю: Класика, Незрівнянний смак!</div>
+        </div>
+
+        <div class="my-slides fade">
+            <!-- <div class="numbertext">3 / 4</div> -->
+            <img src="img/carousel2.jpg" class="crsl-img">
+            <div class="captiontext">Піца Тоскана: Для справжніх гурманів</div>
+        </div>
+
+        <div class="my-slides fade">
+            <!-- <div class="numbertext">4 / 4</div> -->
+            <img src="img/carousel3.jpg" class="crsl-img">
+            <div class="captiontext">Піца Техас: Спробуй неймовірну суміш інгредієнтів</div>
+        </div>
+
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="prevSlide()">&#10094;</a>
+        <a class="next" onclick="nextSlide()">&#10095;</a>
     </div>
+
+    <br>
+
+    <!-- The dots/circles -->
+    <div style="text-align:center">
+        <span class="dot" onclick="thumbnailSlide(1)"></span>
+        <span class="dot" onclick="thumbnailSlide(2)"></span>
+        <span class="dot" onclick="thumbnailSlide(3)"></span>
+        <span class="dot" onclick="thumbnailSlide(4)"></span>
+    </div> 
 
     
 
@@ -221,7 +220,8 @@
     </div>
 
     <?php include('footer.php'); ?>
-    <?php include('script.php'); ?>
 </body>
+<?php include('script_carousel.php'); ?>
+<?php include('script.php'); ?>
 </html>
 

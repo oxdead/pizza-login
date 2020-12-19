@@ -8,5 +8,5 @@
 <head>
 <meta charset="UTF-8">
 <!-- todo: meta -->
-<title> Mikey's Pizza!</title>
+<title>Mikey's Pizza!</title>
 </head>

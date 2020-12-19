@@ -1,5 +1,6 @@
+<br />
 <footer class="section grey darken-4">
-    <p class="red-text center" style="padding:none;margin:none;"> This site is fake. It's made for portfolio purpose only! </p>
+    <p class="red-text center"> This site is fake. It's made for portfolio purpose only! </p>
 
     <div class="row">
         <div class="col s3 offset-s2 grey-text text-lighten-2">
@@ -31,12 +32,8 @@
 
         </div>
     </div>
-
-    
-
-
     <div class="center grey-text">
-        Pasteleft 2020 Dope Pizza, Inc.
+        Pasteleft 2020 Dope Stuff, Inc.
     </div>
 </footer>
 

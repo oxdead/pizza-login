@@ -1,128 +1,45 @@
+<?php 
+$rooturl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/pizza_login';
+?>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
+
+<!-- Materialize -->
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-<link rel="stylesheet" href="stylesheet_carousel.css" />
-<!-- <link rel="stylesheet" href="stylesheet_local.css" /> -->
+<!-- Local stylesheets -->
+<!-- <link rel="stylesheet" href="<?=$rooturl?>/stylesheet_login.css" /> -->
+<link rel="stylesheet" href="<?=$rooturl?>/stylesheet.css" />
 
-<!-- auto carousel  -->
+
 <script>
 
-var slideId = 0;
-var currentTimerId = 0;
-showSlides();
-
-function updateSlides()
+function footerBehaviour()
 {
-	var slides = document.getElementsByClassName("mySlides");
-	for (let i = 0; i < slides.length; ++i) 
+	var f = document.getElementsByTagName('footer')[0];
+	if(!f) { return; }
+	if(document.body.clientHeight < window.innerHeight)
 	{
-		slides[i].style.display = "none";
+		f.style.position = "absolute";
+		f.style.bottom = "0";
+		f.style.width = "100%";
 	}
-	slides[slideId-1].style.display = "block";
-}
-
-function updateDots()
-{
-	var dots = document.getElementsByClassName("dot");
-	for (let i = 0; i < dots.length; ++i) 
+	else
 	{
-		dots[i].className = dots[i].className.replace(" active", "");
-	}
-	dots[slideId-1].className += " active";
-}
-
-function thumbnailSlide(n) 
-{
-	clearTimeout(currentTimerId); // cancel current timer before creating another
-		
-	var slides = document.getElementsByClassName("mySlides");
-	slideId = n;
-	if (slideId > slides.length) { slideId = 1 }
-	if (slideId < 1) { slideId = slides.length }
-
-	updateSlides();
-	updateDots();
-
-	currentTimerId = setTimeout(showSlides, 8000); // Change image every 8 seconds
-
-}
-
-function showSlides() 
-{
-	var slides = document.getElementsByClassName("mySlides");
-	slideId++;
-	if (slideId > slides.length) 
-	{
-		slideId = 1;
+		f.style.position = "static";
+		f.style.bottom = "";
 	}
 
-	updateSlides();
-	updateDots();
-	
-	currentTimerId = setTimeout(showSlides, 8000); // Change image every 8 seconds
-}
-
-function prevSlide() 
-{
-	clearTimeout(currentTimerId); // cancel current timer before creating another
-	var slides = document.getElementsByClassName("mySlides");
-	if(slides.length > 1)
-	{
-		slideId += slides.length - 2;
-		slideId %= slides.length;
-		
-	}
-
-	showSlides();
+	window.addEventListener("resize", footerBehaviour);
 
 }
 
-function nextSlide() 
-{	
-	clearTimeout(currentTimerId); // cancel current timer before creating another
-	showSlides();
-}
-
-
-
-
+footerBehaviour();
 
 </script>
 
-
-
-
-<!-- other scripts -->
-<script>
-function toggleLogin() 
-{
-	var loginSection = document.getElementById("login");
-	var regSection = document.getElementById("register");
-	loginSection.style.display = "block";
-	regSection.style.display = "none";
-} 
-function toggleRegister() 
-{
-	var loginSection = document.getElementById("login");
-	var regSection = document.getElementById("register");
-    loginSection.style.display = "none";
-	regSection.style.display = "block";
-} 
-
-// reload page
-window.onload = function() 
-{
-    toggleLogin();
-}
-
-
-
-
-
-
-
-
-
-</script>
