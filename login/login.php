@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 <html>
 
 <?php include "../head.php"; ?>
-<body class="grey lighten-4">
+<body class="grey lighten-4" onload="load()">
 
 <?php include "../header.php"; ?>
 
@@ -73,6 +73,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	</form>
 
 </section>
+
+
+
 
 <?php include '../footer.php'; ?>
 

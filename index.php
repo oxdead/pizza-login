@@ -8,13 +8,16 @@
 #clear session message 
 #how to use a cookie to set mail automatically, when entering input field
 #add buttons for medium and big sizes of pizza and add their prices to database
-#add cart
+#add cart, email, sms
+
 #make sure all text inputs wrapped into htmlspecialchars
 #support for small screens
 #clean code 
 #fix all paths
 #add links to pizza profiles in carousel images
 #make all cards the same size
+#Menu: Головна, Реєстрація, Мій Профіль, Залишити відгук, Про нас
+#redo into php func pizza cards
 
 
     /////////////////////////////////////////////////
@@ -103,7 +106,7 @@
 <!DOCTYPE html>
 <html>
 <?php include 'head.php'; ?>
-<body>
+<body onload="load()">
 
 <?php include 'header.php'; ?>
 
@@ -153,13 +156,15 @@
     </div> 
 
     
-
-
-
-
-
-
-
+    <div class="container">
+        <div class="row">
+            <select name="select"> <!--Supplement an id here instead of using 'name'-->
+                <option value="value1">Значение 1</option>
+                <option value="value2" selected>Значение 2</option>
+                <option value="value3">Значение 3</option>
+            </select>
+        </div>
+    </div>
 
 
 
@@ -182,13 +187,15 @@
                         
                         <!-- make another picture for mobile -->
                         <!-- learn how to use sizes and srcset -->
-                        <img src="<?= $pizza['img']; ?>" 
-                                title="<?= $pizza['title']; ?>" 
-                                alt="<?= $pizza['title']; ?>" 
-                                sizes="" 
-                                srcset="<?=$pizza['img'];?> 2960w"
-                                class="pizza_img">
 
+                        <div class="row">
+                            <img src="<?= $pizza['img']; ?>" 
+
+                                sizes="" 
+                                srcset="<?=$pizza['img'];?> 2960w" 
+                                
+                                class="col s12">
+                        </div>
                         <div class="card-content center">
                             <h5>
                                 <?php 
@@ -206,12 +213,23 @@
                                             <?php echo htmlspecialchars($ingredient); ?>
                                         </li>  
 
-                                <?php } ?>
+                                <?php }
+                                    if ($ingredients_exploded !== false && count($ingredients_exploded) > 0 && count($ingredients_exploded) < 7)
+                                    {
+                                        for($i = 0; $i < 7 - count($ingredients_exploded); ++$i)
+                                        {
+                                ?>
+                                            <li> <br /> </li>
+                                <?php
+                                        }
+                                    }
+                                ?>
                             </ul>
                         </div>
 
+                        
                         <div class="card-action right-align">
-                            <a class="brand-text" href="details.php?id=<?php echo $pizza['id'] ?>">В кошик</a>
+                            <a id="card-action" href="details.php?id=<?php echo $pizza['id'] ?>">В кошик</a>
                         </div>
                     </div>
                 </div>

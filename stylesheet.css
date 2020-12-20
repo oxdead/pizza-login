@@ -16,16 +16,16 @@ html {
 .body{
     background-color: #f5f5f5;
     font-family: 'Titillium Web', sans-serif;
+    /* font-family: 'Open Sans', sans-serif; */
 }
 
-.brand{
-    background: #26a69a;
-}
-.brand-text{
-    color: #26a69a;
+/* #card-action {
+    color: #FFBF00;
 }
 
-
+#card-action:hover {
+    color: #FFDA7C;
+} */
 
 a {
     text-decoration:none;
@@ -62,3 +62,20 @@ label.active {
 label.highlight {
     color: #26a69a;
 }
+
+.brand{
+    background: #26a69a;
+}
+.brand-text{
+    color: #26a69a;
+}
+
+
+#circle {
+    width: 20px;
+    height: 20px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background: #26a69a;
+  }
