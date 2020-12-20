@@ -23,6 +23,7 @@ function footerBehaviour()
 {
 	var f = document.getElementsByTagName('footer')[0];
 	if(!f) { return; }
+	
 	if(document.body.clientHeight < window.innerHeight)
 	{
 		f.style.position = "absolute";
@@ -35,8 +36,8 @@ function footerBehaviour()
 		f.style.bottom = "";
 	}
 
+	window.removeEventListener("resize", footerBehaviour);
 	window.addEventListener("resize", footerBehaviour);
-
 }
 
 footerBehaviour();

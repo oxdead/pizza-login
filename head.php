@@ -1,7 +1,7 @@
 <?php 
     $rooturl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/pizza_login';
-    $gender = 'Male';
-    $name = 'Guest';
+    $gender = '';
+    $name = 'гість';
 ?>
 
 

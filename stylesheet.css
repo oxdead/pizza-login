@@ -1,3 +1,8 @@
+html {
+    overflow-y: scroll; 
+}
+
+
 .logolabel{
     font-family: 'Nerko One', cursive;
     font-size: 18px;
@@ -5,4 +10,55 @@
     padding:0%;
     margin:0%;
     
+}
+
+
+.body{
+    background-color: #f5f5f5;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.brand{
+    background: #26a69a;
+}
+.brand-text{
+    color: #26a69a;
+}
+
+
+
+a {
+    text-decoration:none;
+    color: #26a69a;
+    transition:.5s ease;
+    color: lighten(#26a69a,5%);
+}
+
+a:hover {
+    background:none;
+    color: #37F2DF;
+}
+  
+a.btn {
+    color: #ffffff;
+}
+
+
+label {
+    transform:translateY(6px);
+    transition:all 0.25s ease;
+    pointer-events: none;
+    font-size:16px;
+    color: #757575;
+} 
+  
+label.active {
+    transform:translateY(50px);
+    font-size:20px;
+    color: #26a69a;
+}
+
+  /* make it work*/
+label.highlight {
+    color: #26a69a;
 }

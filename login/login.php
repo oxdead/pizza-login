@@ -46,35 +46,31 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <?php include "../header.php"; ?>
 
-<section class="container grey-text">
-	<div class="form">
+<section class="container">
 
-		<div class="tab-content">
-			<div id="login">
-				<h1 class=center>Welcome Back!</h1>
-				<form action="login_index.php" method="post" autocomplete="off">
-					<div class="field-wrap">
-						<label>Email Address<span class="req">*</span></label>
-						<input type="email" required autocomplete="off" name="email"/>
-					</div>			
-
-					<div class="field-wrap">
-						<label>Password<span class="req">*</span></label>
-						<input type="password" required autocomplete="off" name="password"/>
-					</div>
-				
-					<p class="forgot"><a href="forgot.php">Forgot password?</a></p>
-					<button class="button button-click" name="login">Log In</button>
-				
-				</form>
-			</div>
-			
+	<h3 class="center grey-text text-darken-1">Дякую, що ви з нами!</h3>
+	<br />
+	
+	<form action="login.php" method="post" autocomplete="off">
+		<div class="row">
+			<div class="col s6 offset-s3">
+				<label>Адреса Email<span class="req">*</span></label>
+				<input type="email" required autocomplete="off" name="email"/>
+			</div>			
 		</div>
 
-
-
-	</div>
-
+		<div class="row">
+			<div class="col s6 offset-s3">
+				<label>Пароль<span class="req">*</span></label>
+				<input type="password" required autocomplete="off" name="password"/>
+			</div>
+		</div>
+	
+		<div class="row">
+			<button class="btn brand z-depth-0 col s2 offset-s7" name="login">Ввійти</button>
+			<p class="col s6 offset-s7 no-padding"><a class="active" href="forgot.php">Забув пароль?</a></p>
+		</div>
+	</form>
 
 </section>
 
@@ -82,5 +78,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 </body>
 <?php include '../script.php'; ?>
+
 
 </html>

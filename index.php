@@ -4,6 +4,7 @@
     
 
 #todo:
+#change language of errors in tooltips on input field submit
 #clear session message 
 #how to use a cookie to set mail automatically, when entering input field
 #add buttons for medium and big sizes of pizza and add their prices to database
@@ -11,9 +12,10 @@
 #make sure all text inputs wrapped into htmlspecialchars
 #support for small screens
 #clean code 
-#add links to pizza profiles in carousel images
 #fix all paths
+#add links to pizza profiles in carousel images
 #make all cards the same size
+
 
     /////////////////////////////////////////////////
     // for development only
@@ -101,7 +103,7 @@
 <!DOCTYPE html>
 <html>
 <?php include 'head.php'; ?>
-<body class="grey lighten-4">
+<body>
 
 <?php include 'header.php'; ?>
 

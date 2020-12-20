@@ -10,10 +10,10 @@
             </ul>
 
             <ul id="nav-mobile" class="right hide-on-small-and-down">
-                <li class="grey-text"> Hello <?php echo htmlspecialchars($name); ?> </li>
-                <li class=grey-text> (<?php echo htmlspecialchars($gender); ?>) </li>
-                <li> <a href="<?=$rooturl?>/login/login.php" class="btn brand z-depth-0">Login</a> </li>
-                <li> <a href="<?=$rooturl?>/login/register.php" class="btn brand z-depth-0">Register</a> </li>
+                <li class="grey-text"> Привіт, <?php echo htmlspecialchars($name); ?> </li>
+                <li class=grey-text> <?php echo htmlspecialchars($gender); ?> </li>
+                <li> <a href="<?=$rooturl?>/login/login.php" class="btn brand z-depth-0">Ввійти </a> </li>
+                <li> <a href="<?=$rooturl?>/login/register.php" class="btn brand z-depth-0">Реєстр..</a> </li>
             </ul>
         </div>
     </nav>

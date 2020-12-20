@@ -1,66 +1,11 @@
 <?php
 session_start();
-include('../db_connect.php'); 
+include '../db_connect.php'; 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-	//include ('../vendor/phpmailer/phpmailer/src/PHPMailer.php');
-	//include ('../vendor/phpmailer/phpmailer/src/SMTP.php');
-
-	// Import PHPMailer classes into the global namespace
-	// These must be at the top of your script, not inside a function
-	//use PHPMailer\PHPMailer\PHPMailer;
-	//use PHPMailer\PHPMailer\SMTP;
-
-
-	// Load Composer's autoloader
-	//require '../vendor/autoload.php';
-
-
-
-
-	// Instantiation and passing `true` enables exceptions
-	//$mail = new PHPMailer(true);
-
-
-		// //Server settings
-		// $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-		// $mail->isSMTP();                                            // Send using SMTP
-
-		// $mail->Host = 'smtp.gmail.com';   // Set the SMTP server to send through
-		// //$mail->Host = 'gmail-smtp-in.l.google.com';
-		// //$mail->Host = 'alt1.gmail-smtp-in.l.google.com';
-		// //$mail->Host = gethostbyname('gmail-smtp-in.l.google.com'); // if your network does not support SMTP over IPv6
-		// //$mail->Host = 'mxs.meta.ua';
-
-		// $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-		// //$mail->SMTPAuth   = false;     
-		// $mail->Username   = "ytubescks@gmail.com";                     // SMTP username
-		// $mail->Password   = "ytre2@5%";                               // SMTP password
-		// $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-		// $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-		// //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-		// //$mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-
-		// //Recipients
-		// $mail->setFrom('ytubescks@gmail.com', 'Mailer');
-		// $mail->addAddress('som0@meta.ua', 'Joe User');     // Add a recipient
-
-		// // Content
-		// $mail->isHTML(true);                                  // Set email format to HTML
-		// $mail->Subject = 'Here is the subject';
-		// $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-		// $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-		// //send the message, check for errors
-		// if (!$mail->send()) 
-		// {
-		//     echo 'SOM0_ERROR: '. $mail->ErrorInfo;
-		// } 
-		// else 
-		// {
-		//     echo 'Message sent!';
-		// }
+	//php mailer extension option, not needed for now:
+	//include 'mail_phpmailer.php';
 
 	/*
 		Registration process, inserts user info into the database and sends account confirmation email message
@@ -82,7 +27,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	$result = mysqli_query($conn, "SELECT * FROM users WHERE email='$email'") or die($conn->error);
 
 	// we know user email exists if the rows returned are more than 0
-
 	if($result->num_rows > 0)
 	{
 		$_SESSION['message'] = 'User with this email exists!';
@@ -97,7 +41,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 		if($conn->query($sql))
 		{
-
 			$_SESSION['active'] = 0;
 			$_SESSION['logged_in'] = true;
 			$_SESSION['message'] = "Confirmation email was sent to $email, please verify!";
@@ -113,14 +56,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 			mail($to, $subject, $message_body);
 			header("location: profile.php");
-
 		}
 		else
 		{
 			$_SESSION['message'] = 'Registration failed!';
 			header("location: error.php");
 		}
-
 	}
 
 }
@@ -132,52 +73,46 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 <?php include "../head.php"; ?>
 <body class="grey lighten-4">
 
-
 <?php include "../header.php"; ?>
 
-<section class="container grey-text">
+<section class="container">
 	<div class="form">
-
-		<ul class="tab-group">
-		
-			<li id="openreg" class="center tab"><a href="#register" onclick="toggleRegister()">Register</a></li>
-			<li id="openlogin" class="center tab-active"><a href="#login" onclick="toggleLogin()">Log In</a></li>
-
-		</ul>
-
-		<div class="tab-content">
-			<div id="register">
-				<h1 class=center>Sign Up for free</h1>
-				<form action="login_index.php" method="post" autocomplete="off">
-			
-					<div class="top-row">
-						<div class="field-wrap">
-							<label>First Name<span class="req">*</span></label>
-							<input type="text" required autocomplete="off" name="first_name"/>
-						</div>
-						<div class="field-wrap">
-							<label>Last Name<span class="req">*</span></label>
-							<input type="text" required autocomplete="off" name="last_name"/>
-						</div>
-
-					</div>
-
-					<div class="field-wrap">
-						<label>Email Address<span class="req">*</span></label>
-						<input type="email" required autocomplete="off" name="email"/>					
-					</div>
-					<div class="field-wrap">
-						<label>Set a password<span class="req">*</span></label>
-						<input type="password" required autocomplete="off" name="password"/>					
-					</div>
-					
-					<button type="submit" class="button button-block" name="register" >Register</button>
-
-				</form>
-
+		<h3 class="center grey-text text-darken-1">Реєстрація</h3>
+		<br />
+		<form action="register.php" method="post" autocomplete="off">
+	
+			<div class="row">
+				<div class="col s6 offset-s3">
+					<label>Ім'я<span class="req">*</span></label>
+					<input type="text" required autocomplete="off" name="first_name"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6 offset-s3">
+					<label>Прізвище<span class="req">*</span></label>
+					<input type="text" required autocomplete="off" name="last_name"/>
+				</div>
 			</div>
 			
-		</div>
+			<div class="row">
+				<div class="col s6 offset-s3">
+					<label>Адреса Email<span class="req">*</span></label>
+					<input type="email" required autocomplete="off" name="email"/>					
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6 offset-s3">
+					<label>Новий пароль<span class="req">*</span></label>
+					<input type="password" required autocomplete="off" name="password"/>					
+				</div>
+			</div>
+			<div class="row">
+				<button type="submit" class="btn brand z-depth-0 col s4 offset-s5" name="register">Зареєструватись</button>
+			</div>
+
+		</form>
+
+			
 
 
 
@@ -186,9 +121,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 </section>
 
-
 <?php include '../footer.php'; ?>
-
 </body>
+
 <?php include '../script.php'; ?>
 </html>
