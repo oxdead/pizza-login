@@ -8,7 +8,7 @@
 #clear session message 
 #how to use a cookie to set mail automatically, when entering input field
 #add cart, email, sms
-
+#learn how to use sizes and srcset
 #make sure all text inputs wrapped into htmlspecialchars
 #support for small screens
 #clean code 
@@ -177,23 +177,19 @@
         <span class="dot" onclick="thumbnailSlide(4)"></span>
     </div> 
 
+    <br>
     
 
 
 
-    <!-- <h4 class="center grey-text">Піца від Mikey!</h4> -->
+    
     <div class='container'>
-        <!-- <ul>
-            <li> <a href="add.php" class="btn brand z-depth-0">Add a pizza</a> </li>
-        </ul> -->
-
-        
-
-        
         <div class="row">
             
-            <?php foreach($pizzas as $pizza) { ?>
-
+            <?php 
+            foreach($pizzas as $pizza) { 
+                $pizza_id = htmlspecialchars($pizza['id']);
+            ?>
                 <div class="col s6 md3">
                     <div class="card z-depth-1 hoverable">
 
@@ -202,38 +198,28 @@
                         <!-- learn how to use sizes and srcset -->
 
                         <div class="row">
-                            <img src="<?= $pizza['img']; ?>" 
-
+                            <img src="<?= htmlspecialchars($pizza['img']); ?>" 
                                 sizes="" 
-                                srcset="<?=$pizza['img'];?> 2960w" 
-                                
+                                srcset="<?= htmlspecialchars($pizza['img']);?> 2960w" 
                                 class="col s12">
                         </div>
                         <div class="card-content center">
-                            <h5 class="truncate">
-                                <?php 
-                                    echo htmlspecialchars($pizza['title']); 
-                                ?>
-                            </h5>
+                            <h5 class="truncate"> <?php echo htmlspecialchars($pizza['title']); ?> </h5>
 
                             <ul>
                                 <?php 
-                                    $ingredients_exploded = explode(',', $pizza['ingredients']);
-                                    foreach($ingredients_exploded as $ingredient)
+                                    $ingrs_exploded = explode(',', $pizza['ingredients']);
+                                    foreach($ingrs_exploded as $ingredient)
                                     {
-                                ?>
-                                        <li>
-                                            <?php echo htmlspecialchars($ingredient); ?>
-                                        </li>  
+                                        echo '<li>', htmlspecialchars($ingredient), '</li>';
+                                    }
 
-                                <?php }
-                                    if ($ingredients_exploded !== false && count($ingredients_exploded) > 0 && count($ingredients_exploded) < 7)
+                                    $ingrs_expl_sz = ($ingrs_exploded !== false) ? count($ingrs_exploded) : 0;
+                                    if ($ingrs_expl_sz > 0 && $ingrs_expl_sz < 7)
                                     {
-                                        for($i = 0; $i < 7 - count($ingredients_exploded); ++$i)
+                                        for($i = 0; $i < 7 - $ingrs_expl_sz; ++$i)
                                         {
-                                ?>
-                                            <li> <br /> </li>
-                                <?php
+                                            echo '<li><br/></li>';
                                         }
                                     }
                                 ?>
@@ -241,43 +227,20 @@
                         </div>
                         <div class="card-tabs">
                             <ul class="tabs tabs-fixed-width ">
-                                <li class="tab"><a class="grey-text text-darken-4" href="#psmall<?=$pizza['id'];?>">Мала</a></li>
-                                <li class="tab"><a class="grey-text text-darken-4 active" href="#pmedium<?=$pizza['id'];?>">Середня</a></li>
-                                <li class="tab"><a class="grey-text text-darken-4" href="#plarge<?=$pizza['id'];?>">Велика</a></li>
+                                <li class="tab"><a id="isactvsmall<?=$pizza_id;?>" class="grey-text text-darken-4" href="#psmall<?=$pizza_id;?>">Мала</a></li>
+                                <li class="tab"><a id="isactvmedium<?=$pizza_id;?>" class="grey-text text-darken-4 active" href="#pmedium<?=$pizza_id;?>">Середня</a></li>
+                                <li class="tab"><a id="isactvlarge<?=$pizza_id;?>" class="grey-text text-darken-4" href="#plarge<?=$pizza_id;?>">Велика</a></li>
                             </ul>
                         </div>
                         <div class="divider"></div>
                         <div class="card-content right-align">
-                            <div class="white left price-tag" id="psmall<?=$pizza['id'];?>"><?=$pizza['price_small'];?>&nbspгрн.</div>
-                            <div class="white left price-tag" id="pmedium<?=$pizza['id'];?>"><?=$pizza['price_medium'];?>&nbspгрн.</div>
-                            <div class="white left price-tag" id="plarge<?=$pizza['id'];?>"><?=$pizza['price_large'];?>&nbspгрн.</div>
-
-
-                            <a href="details.php?id=<?php echo $pizza['id'] ?>">В кошик</a>
+                            <div class="white left price-tag" id="psmall<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_small']);?>&nbspгрн.</div>
+                            <div class="white left price-tag" id="pmedium<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_medium']);?>&nbspгрн.</div>
+                            <div class="white left price-tag" id="plarge<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_large']);?>&nbspгрн.</div>
+                            
+                            <a id="addpizza<?=$pizza_id;?>" href="details.php">В кошик</a>
 
                         </div>
-
-                        <!-- <script>
-                            var el = document.querySelector('.tabs');
-                            var instance = M.Tabs.init(el, {});
-                        </script> -->
-
-                        <!-- <div class="card-action right-align">
-                        <div class="left">
-                            <p style="margin:0px;">
-                                <?php 
-
-                                ?>
-                            </p>
-                        </div>
-                        <a class="" href="details.php?id=<?php echo $pizza['id'] ?>">В кошик</a>
-
-
-
-
-                        </div> -->
-                        
-
                     </div>
                 </div>
             <?php } ?>
@@ -286,9 +249,9 @@
     
     </div>
 
-    <?php include('footer.php'); ?>
+    <?php include 'footer.php'; ?>
 </body>
-<?php include('script_carousel.php'); ?>
-<?php include('script.php'); ?>
+<?php include 'script_carousel.php'; ?>
+<?php include 'script.php'; ?>
 </html>
 

@@ -37,8 +37,8 @@
                 <img src="http://placehold.it/640/555">
             </div>
             <a href="#!"><img class="circle" src="http://placehold.it/640/333"></a>
-            <a href="#!"><span class="white-text name">John Doe</span></a>
-            <a href="#!"><span class="white-text email">jdandturk@gmail.com</span></a>
+            <a href="#!"><span class="white-text name"><?=$name;?></span></a>
+            <a href="#!"><span class="white-text email"><?=$user_email;?></span></a>
         </div>
     </li>    
     <li><a href="https://github.com/dogfalo/materialize/" target="_blank">Головна</a></li>

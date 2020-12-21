@@ -48,7 +48,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <section class="container">
 
-	<h3 class="center grey-text text-darken-1">Дякую, що ви з нами!</h3>
+	<h3 class="center grey-text text-darken-1">Вітаю, з поверненням!</h3>
 	<br />
 	
 	<form action="login.php" method="post" autocomplete="off">

@@ -29,8 +29,8 @@ $rooturl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_H
 function menuBehavior()
 {
 	document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init(elems, {edge:'right'});
+		var elems = document.querySelectorAll('.sidenav');
+		var instances = M.Sidenav.init(elems, {edge:'right'});
 	});
 
 	var sidenavs = document.querySelectorAll('.sidenav')
@@ -105,6 +105,55 @@ function load()
 {
 	footerBehaviour();
 }
+
+
+// window.addEventListener("load", () => {
+//         document.querySelector('[class^="addpizza"]').addEventListener("click", e => {
+//             console.log("HERE");
+// 			// alert("Clicked!");
+//             // Can also cancel the event and manually navigate
+//             e.preventDefault();
+//             // window.location = e.target.href;
+//         });
+//     });
+
+
+
+window.addEventListener("load", () => {
+	document.body.addEventListener('click', event => {
+		console.log(event);
+
+		if (event.target.id.startsWith("addpizza")) {
+			
+			event.preventDefault();
+
+			var pid = event.target.id.replace("addpizza", "");
+
+			var psmall = document.querySelector('#isactvsmall'.concat(pid));
+			var pmedium = document.querySelector('#isactvmedium'.concat(pid));
+			var plarge = document.querySelector('#isactvlarge'.concat(pid));
+
+			// do check typeof psmall != "undefined" or not necessary ??
+			if(psmall && psmall.className.includes(" active"))
+			{
+				window.location = event.target.href + "?id=" + pid + "&sz=" + "s";
+			}
+			else if(pmedium && pmedium.className.includes(" active"))
+			{
+				window.location = event.target.href + "?id=" + pid + "&sz=" + "m";
+			}
+			else if(pmedium && plarge.className.includes(" active"))
+			{
+				window.location = event.target.href + "?id=" + pid + "&sz=" + "l";
+			}
+
+		}
+	});
+});
+
+
+// var el = document.querySelector('.tabs');
+// var instance = M.Tabs.init(el, {});
 
 // var tabs = document.querySelector('.tabs');
 // tabs.style.backgroundColor = "#FFFFFF";
