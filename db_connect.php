@@ -2,10 +2,11 @@
 <?php
     //MySQLi or PDO approaches exist for now wewill use MySQLi, but experineced user should learn PDO
 
-    // $dbhost = 'f80b6byii2vwv8cx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306';
-    // $dbuser = 'a58qtnfe0nj4m8ru';
-    // $dbpass = 'a8f513huzrcyztck';
-    // $dbname = 'kp5h26uxj4asym5b';
+    // remote
+    // $dbhost = 'host:3306';
+    // $dbuser = 'name';
+    // $dbpass = 'word';
+    // $dbname = 'db';
 
     //$dburl = getenv('JAWSDB_URL');
     //$dbparts = parse_url($dburl);

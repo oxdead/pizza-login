@@ -7,7 +7,6 @@
 #change language of errors in tooltips on input field submit
 #clear session message 
 #how to use a cookie to set mail automatically, when entering input field
-#add buttons for medium and big sizes of pizza and add their prices to database
 #add cart, email, sms
 
 #make sure all text inputs wrapped into htmlspecialchars
@@ -15,9 +14,9 @@
 #clean code 
 #fix all paths
 #add links to pizza profiles in carousel images
-#make all cards the same size
 #Menu: Головна, Реєстрація, Мій Профіль, Залишити відгук, Про нас
 #redo into php func pizza cards
+#details.php before sending to cart
 
 
     /////////////////////////////////////////////////
@@ -74,7 +73,30 @@
         $sql = "UPDATE `pizzas` SET `img` = 'img/spicy-960x960-70.jpg' WHERE `pizzas`.`id` = 8";
         $conn->query($sql);
 
+        
+        $sql = "ALTER TABLE `pizzas` ADD `price_small` FLOAT NOT NULL AFTER `img`;"; 
+        $conn->query($sql);
+        $sql = "ALTER TABLE `pizzas` ADD `price_medium` FLOAT NOT NULL AFTER `price_small`;"; 
+        $conn->query($sql);
+        $sql = "ALTER TABLE `pizzas` ADD `price_large` FLOAT NOT NULL AFTER `price_medium`;"; 
+        $conn->query($sql);
 
+        $sql = "UPDATE `pizzas` SET `price_small` = '90.5', `price_medium` = '164.5', `price_large` = '199.5' WHERE `pizzas`.`id` = 1";
+        $conn->query($sql);
+        $sql = "UPDATE `pizzas` SET `price_small` = '90.5', `price_medium` = '164.5', `price_large` = '199.5' WHERE `pizzas`.`id` = 2";
+        $conn->query($sql);
+        $sql = "UPDATE `pizzas` SET `price_small` = '90.5', `price_medium` = '164.5', `price_large` = '199.5' WHERE `pizzas`.`id` = 3";
+        $conn->query($sql);
+        $sql = "UPDATE `pizzas` SET `price_small` = '121.5', `price_medium` = '191.5', `price_large` = '233.5' WHERE `pizzas`.`id` = 4";
+        $conn->query($sql);
+        $sql = "UPDATE `pizzas` SET `price_small` = '121.5', `price_medium` = '191.5', `price_large` = '233.5' WHERE `pizzas`.`id` = 5";
+        $conn->query($sql);
+        $sql = "UPDATE `pizzas` SET `price_small` = '121.5', `price_medium` = '191.5', `price_large` = '233.5' WHERE `pizzas`.`id` = 6";
+        $conn->query($sql);
+        $sql = "UPDATE `pizzas` SET `price_small` = '167.5', `price_medium` = '227.5', `price_large` = '259.5' WHERE `pizzas`.`id` = 7";
+        $conn->query($sql);
+        $sql = "UPDATE `pizzas` SET `price_small` = '167.5', `price_medium` = '227.5', `price_large` = '259.5' WHERE `pizzas`.`id` = 8";
+        $conn->query($sql);
     } 
     else 
     {
@@ -86,7 +108,7 @@
 
     //1. query for all pizzas
     //$sql = 'SELECT * FROM pizzas'; // select data from all(*) columns from pizzas table
-    $sql = "SELECT id, title, ingredients, img FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
+    $sql = "SELECT id, title, ingredients, img, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
     
     //2. send query and get some results
     $results = mysqli_query($conn, $sql);
@@ -156,15 +178,6 @@
     </div> 
 
     
-    <div class="container">
-        <div class="row">
-            <select name="select"> <!--Supplement an id here instead of using 'name'-->
-                <option value="value1">Значение 1</option>
-                <option value="value2" selected>Значение 2</option>
-                <option value="value3">Значение 3</option>
-            </select>
-        </div>
-    </div>
 
 
 
@@ -197,7 +210,7 @@
                                 class="col s12">
                         </div>
                         <div class="card-content center">
-                            <h5>
+                            <h5 class="truncate">
                                 <?php 
                                     echo htmlspecialchars($pizza['title']); 
                                 ?>
@@ -226,11 +239,45 @@
                                 ?>
                             </ul>
                         </div>
-
-                        
-                        <div class="card-action right-align">
-                            <a id="card-action" href="details.php?id=<?php echo $pizza['id'] ?>">В кошик</a>
+                        <div class="card-tabs">
+                            <ul class="tabs tabs-fixed-width ">
+                                <li class="tab"><a class="grey-text text-darken-4" href="#psmall<?=$pizza['id'];?>">Мала</a></li>
+                                <li class="tab"><a class="grey-text text-darken-4 active" href="#pmedium<?=$pizza['id'];?>">Середня</a></li>
+                                <li class="tab"><a class="grey-text text-darken-4" href="#plarge<?=$pizza['id'];?>">Велика</a></li>
+                            </ul>
                         </div>
+                        <div class="divider"></div>
+                        <div class="card-content right-align">
+                            <div class="white left price-tag" id="psmall<?=$pizza['id'];?>"><?=$pizza['price_small'];?>&nbspгрн.</div>
+                            <div class="white left price-tag" id="pmedium<?=$pizza['id'];?>"><?=$pizza['price_medium'];?>&nbspгрн.</div>
+                            <div class="white left price-tag" id="plarge<?=$pizza['id'];?>"><?=$pizza['price_large'];?>&nbspгрн.</div>
+
+
+                            <a href="details.php?id=<?php echo $pizza['id'] ?>">В кошик</a>
+
+                        </div>
+
+                        <!-- <script>
+                            var el = document.querySelector('.tabs');
+                            var instance = M.Tabs.init(el, {});
+                        </script> -->
+
+                        <!-- <div class="card-action right-align">
+                        <div class="left">
+                            <p style="margin:0px;">
+                                <?php 
+
+                                ?>
+                            </p>
+                        </div>
+                        <a class="" href="details.php?id=<?php echo $pizza['id'] ?>">В кошик</a>
+
+
+
+
+                        </div> -->
+                        
+
                     </div>
                 </div>
             <?php } ?>

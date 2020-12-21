@@ -71,11 +71,43 @@ label.highlight {
 }
 
 
-#circle {
-    width: 20px;
-    height: 20px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    background: #26a69a;
-  }
+.tabs .tab a{
+    background-color:transparent;
+    color:#FFA000;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active{
+    background-color:rgba(255,160,0,0.1) !important;
+    color:#FFA000 !important;
+}
+
+
+
+.tabs .tab.disabled a,.tabs .tab.disabled a:hover {
+    background-color:transparent;
+}
+
+
+.tabs .indicator {
+	background-color: #FFA000;
+}
+
+.card-content a {
+    background-color:transparent;
+    text-transform: uppercase;
+    font-weight: bold;
+    color:#FFA000;
+}
+
+.card-content a:hover {
+    background-color:transparent;
+    text-transform: uppercase;
+    font-weight: bold;
+    color:#FFD593;
+}
+
+.card-content .price-tag {
+    background-color:transparent;
+    font-weight: bold;
+    color:#26a69a;
+}
