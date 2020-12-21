@@ -76,11 +76,22 @@ label.highlight {
     color:#FFA000;
 }
 
-.tabs .tab a:hover, .tabs .tab a.active{
+/* .tabs .tab a:hover, .tabs .tab a.active{
+    background-color:rgba(255,160,0,0.1) !important;
+    color:#FFA000 !important;
+    font-weight: bold;
+} */
+
+
+.tabs .tab a:hover {
+    background-color:rgba(255,160,0,0.1) !important;
+} 
+
+
+.tabs .tab a.active {
     background-color:rgba(255,160,0,0.1) !important;
     color:#FFA000 !important;
 }
-
 
 
 .tabs .tab.disabled a,.tabs .tab.disabled a:hover {
