@@ -24,9 +24,12 @@
     //     mysqli_close($conn);
     // }
 
+
+
     // check GET request id parameter
     if(isset($_GET['id']))
     {
+
         $id = mysqli_real_escape_string($conn, $_GET['id']); // escaping any sensitive char sequence, that user may put in location bar himself
 
         // make sql sequence

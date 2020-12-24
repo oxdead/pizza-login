@@ -84,18 +84,21 @@ label.highlight {
 
 
 .tabs .tab a:hover {
-    background-color:rgba(255,160,0,0.1) !important;
+    background-color:rgba(255,160,0,0.08) !important;
+    border-radius: 10px 10px 0px 0px;
 } 
 
 
 .tabs .tab a.active {
-    background-color:rgba(255,160,0,0.1) !important;
+    background-color:rgba(255,160,0,0.08) !important;
     color:#FFA000 !important;
+    border-radius: 10px 10px 0px 0px;
 }
 
 
 .tabs .tab.disabled a,.tabs .tab.disabled a:hover {
     background-color:transparent;
+    border-radius: 10px 10px 0px 0px;
 }
 
 
@@ -122,3 +125,4 @@ label.highlight {
     font-weight: bold;
     color:#26a69a;
 }
+

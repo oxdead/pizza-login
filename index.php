@@ -6,17 +6,20 @@
 #todo:
 #change language of errors in tooltips on input field submit
 #clear session message 
+#client's profile logs all orders
 #how to use a cookie to set mail automatically, when entering input field
 #add cart, email, sms
 #learn how to use sizes and srcset
-#make sure all text inputs wrapped into htmlspecialchars
+#make sure all text inputs wrapped into htmlspecialchars | msqli_escape_string
 #support for small screens
 #clean code 
-#fix all paths
-#add links to pizza profiles in carousel images
 #Menu: Головна, Реєстрація, Мій Профіль, Залишити відгук, Про нас
 #redo into php func pizza cards
-#details.php before sending to cart
+#fix all paths
+#fix all login pages
+#details.php (summary cart)
+#fix circle in header for number of items in cart
+#add -1/+1 html elms and add number of pizzas to cookie, check if such pizza already added to cookie, then just increase quantity, do not add new object
 
 
     /////////////////////////////////////////////////
@@ -120,6 +123,13 @@
     //4. free from memory and close connection (optional, but it's good practice to do so)
     mysqli_free_result($results);
     mysqli_close($conn);
+
+    // $cookie_k0 = 'id';
+    // $cookie_v0 = 5;
+    // $cookie_k1 = 'sz';
+    // $cookie_v1 = 'large';
+    // setcookie($cookie_k1, $cookie_v1, time() + (86400*30));
+    // setcookie($cookie_k0, $cookie_v0, time() + (86400*30));
 
 ?>
 

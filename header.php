@@ -13,11 +13,63 @@
                     </ul>
 
                     <ul id="nav-mobile" class="right">
-                        <li class="grey-text hide-on-small-and-down"> Привіт, <?php echo htmlspecialchars($name); ?>! </li>
-                        <li class="grey-text hide-on-small-and-down"> <?php echo htmlspecialchars($gender); ?> </li>
-                        <li class="hide-on-small-and-down"> <a href="<?=$rooturl?>/login/login.php" class="btn brand z-depth-0">Ввійти </a> </li>
+                        <li class="grey-text hide-on-small-and-down"> Привіт, <?php echo htmlspecialchars($name); ?>!&nbsp&nbsp</li>
+                        <!-- <li class="grey-text hide-on-small-and-down"> <?php echo htmlspecialchars($gender); ?> </li> -->
                         <li> 
-                            <a href="#!" data-target="mobile-menu-open" class="sidenav-trigger show-on-large no-padding">
+                            <a href="details.php" class="no-padding transparent">
+                                <img src="<?=$rooturl?>/img/shopping-cart-icon.png" alt="Shopping cart" width="36px" height="36px" style="vertical-align:middle;">
+                                <!-- <div style="text-align:center">
+                                    <span class="circle" style="position:relative;
+                                                                top:-70px;left:10px;
+                                                                color:white;
+                                                                background-color:coral;
+                                                                padding:0.2em 0.2em;
+                                                                width:same-as-height;">
+                                        <?php 
+                                            if(count($cartroll) < 9) { echo '&nbsp'; } 
+                                            echo count($cartroll);
+                                        ?>
+                                    </span>
+                                </div> -->
+                                    
+                                    <?php
+                                        if(isset($_COOKIES['cart']))
+                                        {
+                                            $cartroll = json_decode($_COOKIES['cart'], true);
+
+                                            if(isset($cartroll) && is_array($cartroll))
+                                            {
+                                                if(count($cartroll) > 0)
+                                                {
+                                    ?>
+                                                    <div class="" style="text-align:center">
+                                                        <span class="circle" style="position:relative;
+                                                                                    top:-70px;left:10px;
+                                                                                    color:white;
+                                                                                    background-color:coral;
+                                                                                    padding:0.2em 0.2em;
+                                                                                    width:same-as-height;">
+                                                            <?php 
+                                                                
+                                                                if(count($cartroll) < 9) { echo '&nbsp'; } 
+                                                                echo count($cartroll);
+                                                            ?>
+                                                        </span>
+                                                    </div>
+                                    <?php
+                                                }
+                                            }
+                                        }
+                                    ?>
+                                    
+                                
+                            </a>
+
+                        </li>
+
+                        <li class="hide-on-small-and-down"> <a href="<?=$rooturl?>/login/login.php" class="btn brand z-depth-0" style="margin-right:0px;">Ввійти </a> </li>
+                        <li> 
+                            <a href="#!" data-target="mobile-menu-open" class="sidenav-trigger show-on-large no-padding transparent">
                                 <img src="<?=$rooturl?>/img/menu-icon.png" alt="Side menu" width="36px" height="36px" style="vertical-align:middle;">
                             </a>
                         </li>
