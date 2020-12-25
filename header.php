@@ -16,7 +16,7 @@
                         <li class="grey-text hide-on-small-and-down"> Привіт, <?php echo htmlspecialchars($name); ?>!&nbsp&nbsp</li>
                         <!-- <li class="grey-text hide-on-small-and-down"> <?php echo htmlspecialchars($gender); ?> </li> -->
                         <li> 
-                            <a href="details.php" class="no-padding transparent">
+                            <a href="details.php" class="no-padding transparent my-relative">
                                 <img src="<?=$rooturl?>/img/shopping-cart-icon.png" alt="Shopping cart" width="36px" height="36px" style="vertical-align:middle;">
                                 <!-- <div style="text-align:center">
                                     <span class="circle" style="position:relative;
@@ -32,35 +32,11 @@
                                     </span>
                                 </div> -->
                                     
-                                    <?php
-                                        if(isset($_COOKIES['cart']))
-                                        {
-                                            $cartroll = json_decode($_COOKIES['cart'], true);
 
-                                            if(isset($cartroll) && is_array($cartroll))
-                                            {
-                                                if(count($cartroll) > 0)
-                                                {
-                                    ?>
-                                                    <div class="" style="text-align:center">
-                                                        <span class="circle" style="position:relative;
-                                                                                    top:-70px;left:10px;
-                                                                                    color:white;
-                                                                                    background-color:coral;
-                                                                                    padding:0.2em 0.2em;
-                                                                                    width:same-as-height;">
-                                                            <?php 
-                                                                
-                                                                if(count($cartroll) < 9) { echo '&nbsp'; } 
-                                                                echo count($cartroll);
-                                                            ?>
-                                                        </span>
-                                                    </div>
-                                    <?php
-                                                }
-                                            }
-                                        }
-                                    ?>
+                                <div id="showcartnumber1">
+                                    <span id="showcartnumber2"></span>
+                                </div>
+
                                     
                                 
                             </a>

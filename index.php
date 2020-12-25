@@ -18,8 +18,9 @@
 #fix all paths
 #fix all login pages
 #details.php (summary cart)
-#fix circle in header for number of items in cart
 #add -1/+1 html elms and add number of pizzas to cookie, check if such pizza already added to cookie, then just increase quantity, do not add new object
+
+
 
 
     /////////////////////////////////////////////////
@@ -123,7 +124,7 @@
     //4. free from memory and close connection (optional, but it's good practice to do so)
     mysqli_free_result($results);
     mysqli_close($conn);
-
+    
     // $cookie_k0 = 'id';
     // $cookie_v0 = 5;
     // $cookie_k1 = 'sz';

@@ -26,6 +26,26 @@ $rooturl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_H
 
 <script type="text/javascript">
 
+
+// reloads entire stylesheet, tries to trick caching, can be visual artefacts, no need to use
+refreshCSS = () => { 
+            let links = document.getElementsByTagName('link'); 
+            for (let i = 0; i < links.length; i++) { 
+                if (links[i].getAttribute('rel') == 'stylesheet') { 
+
+					let href = links[i].getAttribute('href').split('?')[0];
+					if (href == location.protocol + '//' + location.hostname + '/pizza_login/stylesheet.css') { 
+						let newHref = href + '?version=' + new Date().getMilliseconds();
+						links[i].setAttribute('href', newHref);
+					}
+
+
+                } 
+            } 
+        } 
+
+
+
 function menuBehavior()
 {
 	document.addEventListener('DOMContentLoaded', function() {
@@ -101,73 +121,34 @@ function footerBehaviour()
 }
 
 
-function load()
-{
-	footerBehaviour();
+function cartIconBehaviour() {
+
+	var cooStr = getCookie("mikeypizzacart");
+	var coo = cooStr ? JSON.parse(cooStr) : [];
+
+	if(coo && coo.length > 0)
+	{
+		var cartnumbg = document.querySelector('#showcartnumber1');
+		var cartnumtext = document.querySelector('#showcartnumber2');
+		if(cartnumbg && cartnumtext)
+		{
+			cartnumbg.style.display = "inline";		
+			cartnumtext.innerHTML = coo.length;
+		}
+	}
+	                 
 }
 
 
 
-// window.addEventListener('load', function()
-// {
-//     var xhr = null;
-
-//     getXmlHttpRequestObject = function()
-//     {
-//         if(!xhr)
-//         {               
-//             // Create a new XMLHttpRequest object 
-//             xhr = new XMLHttpRequest();
-//         }
-//         return xhr;
-//     };
-
-//     function evenHandler()
-//     {
-//         // Check response is ready or not
-//         if(xhr.readyState == 4 && xhr.status == 200)
-//         {
-//             dataDiv = document.getElementById('liveData');
-//             // Set current data text
-//             dataDiv.innerHTML = xhr.responseText;
-//             // Update the live data every 1 sec
-//             setTimeout(updateLiveData(), 1000);
-//         }
-//     }
-
-//     updateLiveData = function()
-//     {
-//         var now = new Date();
-//         // Date string is appended as a query with live data 
-//         // for not to use the cached version 
-//         var url = 'livefeed.txt?' + now.getTime();
-//         xhr = getXmlHttpRequestObject();
-//         xhr.onreadystatechange = evenHandler;
-//         // asynchronous requests
-//         xhr.open("GET", url, true);
-//         // Send the request over the network
-//         xhr.send(null);
-//     };
-
-//     updateLiveData();
+function load()
+{
+	footerBehaviour();
+	cartIconBehaviour();
+}
 
 
-// });
-
-
-
-// window.addEventListener("load", () => {
-//         document.querySelector('[class^="addpizza"]').addEventListener("click", e => {
-//             console.log("HERE");
-// 			// alert("Clicked!");
-//             // Can also cancel the event and manually navigate
-//             e.preventDefault();
-//             // window.location = e.target.href;
-//         });
-//     });
-
-
-// set listener wrapper for body and go to details.php with GET['id'] and GET['sz'] set.
+// // set listener wrapper for body and go to details.php with GET['id'] and GET['sz'] set.
 // window.addEventListener("load", () => {
 // 	document.body.addEventListener('click', event => {
 // 		console.log(event);
@@ -234,17 +215,12 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 
-
-
-
-
 window.addEventListener("load", () => {
 	document.body.addEventListener('click', event => {
-		console.log(event);
 
 		if (event.target.id.startsWith("addpizza")) {
 			
-			event.preventDefault();
+			event.preventDefault(); // cancel the event (do not go to destination page)
 
 			var pid = event.target.id.replace("addpizza", "");
 
@@ -252,178 +228,46 @@ window.addEventListener("load", () => {
 			var pmedium = document.querySelector('#isactvmedium'.concat(pid));
 			var plarge = document.querySelector('#isactvlarge'.concat(pid));
 
-			// do check typeof psmall != "undefined" or not necessary ??
-			if(psmall && psmall.className.includes(" active"))
-			{
+			var psz = null;
+			if(psmall && psmall.className.includes(" active")) { psz = 's'; }
+			else if(pmedium && pmedium.className.includes(" active")) { psz = 'm'; }
+			else if(pmedium && plarge.className.includes(" active")) { psz = 'l'; }
 
-				var cname = "cart";
-				var cvalue = {"id": pid, "sz": "s"};
-				var exdays = 30;
-				setCookie(cname, JSON.stringify(cvalue), exdays);
-				//window.location = event.target.href + "?id=" + pid + "&sz=" + "s";
+			var cooStr = getCookie("mikeypizzacart");
+			var coo = cooStr ? JSON.parse(cooStr) : [];
+			if(coo && coo.length > 0)
+			{
+				coo.push({"id": pid, "sz": psz});
+				setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
+				//window.location = event.target.href + "?id=" + pid + "&sz=" + psz;
 			}
-			else if(pmedium && pmedium.className.includes(" active"))
+			else
 			{
+				var cvalue = [];
+				cvalue.push({"id": pid, "sz": psz});
+				setCookie("mikeypizzacart", JSON.stringify(cvalue), 30); 
+				//window.location = event.target.href + "?id=" + pid + "&sz=" + psz;
+			}
 
-				//var getting = document.cookie;
-				//console.log(getting);
+			var cooStr = getCookie("mikeypizzacart");
+			var coo = cooStr ? JSON.parse(cooStr) : [];
 
-				var cooStr = getCookie("mikeypizzacart");
-				//console.log(coo["id"]);
-				var coo = [];
-				if(cooStr)
-				{	
-					coo = JSON.parse(cooStr);
-				}
-
-				if(coo)
+			if(coo && coo.length > 0)
+			{
+				var cartnumbg = document.querySelector('#showcartnumber1');
+				var cartnumtext = document.querySelector('#showcartnumber2');
+				if(cartnumbg && cartnumtext)
 				{
-					coo.push({"id": pid, "sz": "m"});
-					setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
-					console.log("PUSHED")
-					console.log(document.cookie);
+					cartnumbg.style.display = "inline";		
+					cartnumtext.innerHTML = coo.length;
 				}
-				else
-				{
-					var cvalue = [];
-					cvalue.push({"id": pid, "sz": "m"});
-					setCookie("mikeypizzacart", JSON.stringify(cvalue), 30); 
-					console.log("CREATED")
-				}
-	
-
-				
-
-				//todo: get cookie cart, json decode, append new added item instead of creating new one
-				
-
-				
-
-				
-				//window.location = event.target.href + "?id=" + pid + "&sz=" + "m";
 			}
-			else if(pmedium && plarge.className.includes(" active"))
-			{
-				var cname = "cart";
-				var cvalue = {"id": pid, "sz": "l"};
-				var exdays = 30;
-				setCookie(cname, JSON.stringify(cvalue), exdays);
-				//window.location = event.target.href + "?id=" + pid + "&sz=" + "l";
-			}
+
+			//refreshCSS();
 
 		}
 	});
 });
-
-
-
-
-
-
-// var el = document.querySelector('.tabs');
-// var instance = M.Tabs.init(el, {});
-
-// var tabs = document.querySelector('.tabs');
-// tabs.style.backgroundColor = "#FFFFFF";
-
-// var tabsi = document.querySelector('.tabs > .indicator');
-// tabsi.style.backgroundColor = "#FFFFFF";
-//console.log(tabsi.style);
-
-
-// var nodes = document.getElementsByClassName("tabs");
-// for(var i = 0; i < nodes.length; i++) 
-// {
-//     var node = nodes[i].getElementsByClassName("indicator");
-// 	for(var j = 0; j < node.length; j++) 
-// 	{
-// 		node[j].style.backgroundColor = "#FFA000";
-// 	}
-
-// 	var node = nodes[i].getElementsByClassName("tab");
-// 	for(var j = 0; j < node.length; j++) 
-// 	{
-// 		//console.log(node[j]);
-		
-// 		// for (let i = 0; i < dots.length; ++i) 
-// 		// {
-// 		// 	dots[i].className = dots[i].className.replace(" active", "");
-// 		// }
-// 		// dots[slideId-1].className += " active";
-
-
-// 		var n_a = nodes[i].getElementsByTagName("a");
-// 		for(var k = 0; k < n_a.length; k++) 
-// 		{
-// 			if (n_a[k].className.includes("active"))
-// 			{
-// 				console.log("IS");
-// 				node[j].style.backgroundColor = "#FFA000";
-// 				n_a[k].style.backgroundColor = "#FFA000";
-// 			}
-// 			else
-// 			{
-// 				console.log("NO");
-// 				node[j].style.backgroundColor = "transparent";
-// 			}
-// 		}
-		
-
-// 	}
-
-// }
-
-
-// function tabSwitch(tabIndex)
-// {
-// 	var nodes = document.getElementsByClassName("tabs");
-// 	for(var i = 0; i < nodes.length; i++) 
-// 	{
-
-
-// 		var node = nodes[i].getElementsByClassName("tab");
-// 		for(var j = 0; j < node.length; j++) 
-// 		{
-// 			var n_a = nodes[i].getElementsByTagName("a");
-// 			for(var k = 0; k < n_a.length; k++) 
-// 			{
-// 				if (n_a[k].className.includes(" active"))
-// 				{
-// 					n_a[k].style.backgroundColor = "";
-// 					n_a[k].style.opacity = "";
-// 					n_a[k].className = n_a[k].className.replace(" active", "");
-// 				}
-// 			}
-			
-// 			n_a[tabIndex-1].style.opacity = "0.1";
-// 			n_a[tabIndex-1].style.backgroundColor = "#FFA000";
-			
-// 			n_a[tabIndex-1].className += " active";
-// 		}
-
-// 		var node = nodes[i].getElementsByClassName("indicator");
-// 		for(var j = 0; j < node.length; j++) 
-// 		{
-// 			node[j].style.backgroundColor = "#FFA000";
-// 		}
-
-// 	}
-// }
-
-
-
-// var tabsla = document.querySelector('.tabs li a');
-// tabsla.style.backgroundColor = "#FFFFFF";
-
-//   // TAB Color
-// $(".tabs" ).css("background-color", "#ee6e73");
-
-// TAB Indicator/Underline Color
-// $(".tabs>.indicator").css("background-color", '#FFF');
-
-// // TAB Text Color
-// $(".tabs>li>a").css("color", '#FFF');
-
 
 </script>
 
