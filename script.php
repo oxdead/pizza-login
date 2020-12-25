@@ -27,26 +27,57 @@ $rooturl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_H
 <script type="text/javascript">
 
 
-// reloads entire stylesheet, tries to trick caching, can be visual artefacts, no need to use
-refreshCSS = () => { 
-            let links = document.getElementsByTagName('link'); 
-            for (let i = 0; i < links.length; i++) { 
-                if (links[i].getAttribute('rel') == 'stylesheet') { 
+// // hack to reload entire stylesheet, tries to trick caching, can be visual artefacts, no need to use
+// refreshCSS = () => { 
+//             let links = document.getElementsByTagName('link'); 
+//             for (let i = 0; i < links.length; i++) { 
+//                 if (links[i].getAttribute('rel') == 'stylesheet') { 
+// 					let href = links[i].getAttribute('href').split('?')[0];
+// 					if (href == location.protocol + '//' + location.hostname + '/pizza_login/stylesheet.css') { 
+// 						let newHref = href + '?version=' + new Date().getMilliseconds();
+// 						links[i].setAttribute('href', newHref);
+// 					}
+//                 } 
+//             } 
+//         } 
 
-					let href = links[i].getAttribute('href').split('?')[0];
-					if (href == location.protocol + '//' + location.hostname + '/pizza_login/stylesheet.css') { 
-						let newHref = href + '?version=' + new Date().getMilliseconds();
-						links[i].setAttribute('href', newHref);
-					}
+function isCookieExist(name)
+{
+	// unserialize cookie to object
+	var cooObj = document.cookie.split(';').reduce((res, c) => {
+		const [key, val] = c.trim().split('=').map(decodeURIComponent)
+		try {
+			return Object.assign(res, { [key]: JSON.parse(val) })
+		} catch (e) {
+			return Object.assign(res, { [key]: val })
+		}
+	}, {});
+
+	return (cooObj && cooObj.hasOwnProperty(name));
+
+}
 
 
-                } 
-            } 
-        } 
+function getCookie(name) {
+	const value = `; ${document.cookie}`;
+	const parts = value.split(`; ${name}=`);
+	if (parts.length === 2) 
+	{ 
+		return parts.pop().split(';').shift(); 
+	}
+}
+
+function setCookie(cname, cvalue, exdays) {
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	var expires = "expires="+ d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+///////////////////////////////////////
 
 
-
-function menuBehavior()
+function menuBehaviour()
 {
 	document.addEventListener('DOMContentLoaded', function() {
 		var elems = document.querySelectorAll('.sidenav');
@@ -95,10 +126,6 @@ function menuBehavior()
 	}
 }
 
-menuBehavior();
-
-
-
 function footerBehaviour()
 {
 	var f = document.getElementsByTagName('footer')[0];
@@ -128,15 +155,23 @@ function cartIconBehaviour() {
 
 	if(coo && coo.length > 0)
 	{
-		var cartnumbg = document.querySelector('#showcartnumber1');
-		var cartnumtext = document.querySelector('#showcartnumber2');
-		if(cartnumbg && cartnumtext)
+		var num_items = 0;
+		for(let item of coo)
 		{
-			cartnumbg.style.display = "inline";		
-			cartnumtext.innerHTML = coo.length;
+			num_items += parseInt(item["q"], 10);
 		}
-	}
-	                 
+
+		if(num_items > 0)
+		{
+			var cartnumbg = document.querySelector('#showcartnumber1');
+			var cartnumtext = document.querySelector('#showcartnumber2');
+			if(cartnumbg && cartnumtext)
+			{
+				cartnumbg.style.display = "inline";		
+				cartnumtext.innerHTML = num_items;
+			}
+		}
+	}    
 }
 
 
@@ -181,39 +216,50 @@ function load()
 // 	});
 // });
 
-function isCookieExist(name)
+
+function cartAdd(pid, psz)
 {
-	// unserialize cookie to object
-	var cooObj = document.cookie.split(';').reduce((res, c) => {
-		const [key, val] = c.trim().split('=').map(decodeURIComponent)
-		try {
-			return Object.assign(res, { [key]: JSON.parse(val) })
-		} catch (e) {
-			return Object.assign(res, { [key]: val })
+	var cooStr = getCookie("mikeypizzacart");
+	var coo = cooStr ? JSON.parse(cooStr) : [];
+	if(coo && coo.length > 0)
+	{
+		var isFound = false;
+		for (let item of coo) {
+			if(item["id"] == pid.toString() && item["sz"] == psz)
+			{
+				item["q"]++;
+				isFound = true;
+				console.log("ADDED ITEM")
+				break;
+			}
 		}
-	}, {});
+		
+		if(!isFound)
+		{
+			coo.push({"id": pid, "sz": psz, "q": "1"});
+			console.log("CREATED ITEM")
+		}
 
-	return (cooObj && cooObj.hasOwnProperty(name));
-
-}
-
-
-function getCookie(name) {
-	const value = `; ${document.cookie}`;
-	const parts = value.split(`; ${name}=`);
-	if (parts.length === 2) 
-	{ 
-		return parts.pop().split(';').shift(); 
+		setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
+		//window.location = event.target.href + "?id=" + pid + "&sz=" + psz;
+	}
+	else // create cookie
+	{
+		var cvalue = [];
+		cvalue.push({"id": pid, "sz": psz, "q": "1"});
+		setCookie("mikeypizzacart", JSON.stringify(cvalue), 30); 
+		//window.location = event.target.href + "?id=" + pid + "&sz=" + psz;
+		console.log("CREATED COOKIE")
 	}
 }
 
-function setCookie(cname, cvalue, exdays) {
-	var d = new Date();
-	d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	var expires = "expires="+ d.toUTCString();
-	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+function cartFeedback(event)
+{
+	event.target.innerHTML = "Додано!";
+	setTimeout(() => {
+		event.target.innerHTML = "В кошик";
+	}, 3000);
 }
-
 
 window.addEventListener("load", () => {
 	document.body.addEventListener('click', event => {
@@ -233,46 +279,19 @@ window.addEventListener("load", () => {
 			else if(pmedium && pmedium.className.includes(" active")) { psz = 'm'; }
 			else if(pmedium && plarge.className.includes(" active")) { psz = 'l'; }
 
-			var cooStr = getCookie("mikeypizzacart");
-			var coo = cooStr ? JSON.parse(cooStr) : [];
-			if(coo && coo.length > 0)
-			{
-				coo.push({"id": pid, "sz": psz});
-				setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
-				//window.location = event.target.href + "?id=" + pid + "&sz=" + psz;
-			}
-			else
-			{
-				var cvalue = [];
-				cvalue.push({"id": pid, "sz": psz});
-				setCookie("mikeypizzacart", JSON.stringify(cvalue), 30); 
-				//window.location = event.target.href + "?id=" + pid + "&sz=" + psz;
-			}
-
-			event.target.innerHTML = "Додано!";
-			setTimeout(() => {
-				event.target.innerHTML = "В кошик";
-			}, 3000);
-
-			var cooStr = getCookie("mikeypizzacart");
-			var coo = cooStr ? JSON.parse(cooStr) : [];
-
-			if(coo && coo.length > 0)
-			{
-				var cartnumbg = document.querySelector('#showcartnumber1');
-				var cartnumtext = document.querySelector('#showcartnumber2');
-				if(cartnumbg && cartnumtext)
-				{
-					cartnumbg.style.display = "inline";		
-					cartnumtext.innerHTML = coo.length;
-				}
-			}
-
-			//refreshCSS();
-
+			cartAdd(pid, psz);
+			cartFeedback(event);
+			cartIconBehaviour();
 		}
 	});
 });
+
+
+
+/////////////////////////////////////////////////
+// run
+
+menuBehaviour();
 
 </script>
 

@@ -21,7 +21,13 @@
 #add orders to database (email, foreign_user_id, created_by, created_at)
 #load from db orders and list them in details.php
 #show ingredients in details.php
-
+#add phone, name, email fields to details.php
+#every day run event at 2:00 to clean stale cart items (not purchased in 30 days)
+#input field for quantity
+#e.stopPropagation() of collapsible event for -/+ buttons in details.php
+#add order_id into database and make it unique primary key
+#save data into database as datetime
+#finish -/+ buttons (add events on click)
 
 
     /////////////////////////////////////////////////
@@ -245,10 +251,10 @@
                             </ul>
                         </div>
                         <div class="divider"></div>
-                        <div class="card-content right-align">
-                            <div class="white left price-tag" id="psmall<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_small']);?>&nbspгрн.</div>
-                            <div class="white left price-tag" id="pmedium<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_medium']);?>&nbspгрн.</div>
-                            <div class="white left price-tag" id="plarge<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_large']);?>&nbspгрн.</div>
+                        <div class="card-content right-align grey lighten-4">
+                            <div class="white left price-tag grey lighten-4" id="psmall<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_small']);?>&nbspгрн.</div>
+                            <div class="white left price-tag grey lighten-4" id="pmedium<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_medium']);?>&nbspгрн.</div>
+                            <div class="white left price-tag grey lighten-4" id="plarge<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_large']);?>&nbspгрн.</div>
                             
                             <a id="addpizza<?=$pizza_id;?>" href="details.php">В кошик</a>
 

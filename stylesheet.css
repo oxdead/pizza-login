@@ -74,7 +74,7 @@ html {
 a {
     text-decoration:none;
     color: #26a69a;
-    transition:.5s ease;
+    transition: .5s ease;
     color: lighten(#26a69a,5%);
 }
 
@@ -87,6 +87,30 @@ a.btn {
     color: #ffffff;
 }
 
+.btn-minus, .btn-plus {
+    position: relative;
+    height: 24px;
+    line-height: 24px;
+    background: #26a69a;
+    color: #FFFFFF;
+    padding-left: 30%;
+    padding-right: 30%;
+
+}
+
+.btn-minus:hover, .btn-plus:hover {
+    background:#2BBBAD;
+}
+
+.btn-minus {
+    margin-left: 20%;
+    border-radius: 15% 0% 0% 15%;
+}
+
+.btn-plus {
+    margin-right: 20%;
+    border-radius: 0% 15% 15% 0%;
+}
 
 label {
     transform:translateY(6px);

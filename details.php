@@ -2,7 +2,7 @@
     session_start();
     require 'db_connect.php'; 
 
-    $sql = "SELECT id, title, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
+    $sql = "SELECT id, title, ingredients, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
     $results = mysqli_query($conn, $sql);
     $pizzas = mysqli_fetch_all($results, MYSQLI_ASSOC);
     mysqli_free_result($results);
@@ -103,17 +103,30 @@
                                                 </div>
                                                 <div class="col s2 price-tag">
                                                     <?php
-                                                        if($order['sz'] === 's') { echo number_format((float)$pizza['price_small'], 2, '.', ''); }
-                                                        else if($order['sz'] === 'm') { echo number_format((float)$pizza['price_medium'], 2, '.', ''); }
-                                                        else if($order['sz'] === 'l') { echo number_format((float)$pizza['price_large'], 2, '.', ''); }
+                                                        if($order['sz'] === 's') { echo number_format((float)($pizza['price_small']*$order['q']), 2, '.', ''); }
+                                                        else if($order['sz'] === 'm') { echo number_format((float)($pizza['price_medium']*$order['q']), 2, '.', ''); }
+                                                        else if($order['sz'] === 'l') { echo number_format((float)($pizza['price_large']*$order['q']), 2, '.', ''); }
                                                     ?>
                                                 </div>
-                                                <div class="col s4">
-                                                    -&nbspQuantityTodo&nbsp+
+                                                <div class="col s1">
+                                                    <div class="btn-minus">
+                                                        -
+                                                    </div>
                                                 </div>
+                                                <!-- todo: make this an input field -->
+                                                <p class="col s1 center-align" style="margin:0%;padding:0%;">
+                                                    <?=$order['q'];?>
+                                                </p>
+                                                <div class="col s1">
+                                                    <div class="btn-plus">
+                                                        +
+                                                    </div>
+                                                </div>
+                                                                        
+                                                    
                                             </div>
                                         </div>
-                                        <div class="collapsible-body"><p>Todo: Add ingredients here</p></div>
+                                        <div class="collapsible-body"><p><?=$pizza['ingredients']?></p></div>
                                     </li>
             <?php
                                 }
@@ -177,7 +190,7 @@
                         ?>
                     </p>
 
-                    <a href="#" class="col offset-s4 btn brand z-depth-0" style="margin-top:1%;padding-left:3%;padding-right:3%">Підтвердити</a>
+                    <a href="#" class="col offset-s4 btn brand z-depth-0" style="margin-top:1%;margin-bottom:1%;padding-left:3%;padding-right:3%">Підтвердити</a>
 
                 </div>
             </li>

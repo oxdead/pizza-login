@@ -1,42 +1,45 @@
-<nav class="z-depth-0 grey darken-4">
-	<div class="nav-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <ul class="left hide-on-small-and-down">
-                        <li >
-                            <a href="<?php echo $rooturl?>/index.php">
-                                <img src="<?=$rooturl?>/img/mikey_icon.png" alt="Mikey's Pizza!" width="44px" height="44px" style="vertical-align:middle;"> 
-                                <p class="logolabel grey-text text-lighten-2">MIKEY's PIZZA!</p>
-                            </a>
-                        </li>
-                    </ul>
 
-                    <ul id="nav-mobile" class="right">
-                        <li class="grey-text hide-on-small-and-down"> Привіт, <?php echo htmlspecialchars($name); ?>!&nbsp&nbsp</li>
-                        <!-- <li class="grey-text hide-on-small-and-down"> <?php echo htmlspecialchars($gender); ?> </li> -->
-                        <li> 
-                            <a href="details.php" class="no-padding transparent my-relative">
-                                <img src="<?=$rooturl?>/img/shopping-cart-icon.png" alt="Shopping cart" width="36px" height="36px" style="vertical-align:middle;">
-                                <div id="showcartnumber1">
-                                    <span id="showcartnumber2"></span>
-                                </div>
-                            </a>
-                        </li>
+<div id="nav">
+    <div class="navbar-fixed">
+        <nav class="z-depth-0 grey darken-4">
+            <div class="nav-wrapper container">
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="left hide-on-small-and-down">
+                            <li >
+                                <a href="<?php echo $rooturl?>/index.php">
+                                    <img src="<?=$rooturl?>/img/mikey_icon.png" alt="Mikey's Pizza!" width="44px" height="44px" style="vertical-align:middle;"> 
+                                    <p class="logolabel grey-text text-lighten-2">MIKEY's PIZZA!</p>
+                                </a>
+                            </li>
+                        </ul>
 
-                        <li class="hide-on-small-and-down"> <a href="<?=$rooturl?>/login/login.php" class="btn brand z-depth-0" style="margin-right:0px;">Ввійти </a> </li>
-                        <li> 
-                            <a href="#!" data-target="mobile-menu-open" class="sidenav-trigger show-on-large no-padding transparent">
-                                <img src="<?=$rooturl?>/img/menu-icon.png" alt="Side menu" width="36px" height="36px" style="vertical-align:middle;">
-                            </a>
-                        </li>
-                          
-                    </ul>
-                </div>			
+                        <ul id="nav-mobile" class="right">
+                            <li class="grey-text hide-on-small-and-down"> Привіт, <?php echo htmlspecialchars($name); ?>!&nbsp&nbsp</li>
+                            <!-- <li class="grey-text hide-on-small-and-down"> <?php echo htmlspecialchars($gender); ?> </li> -->
+                            <li> 
+                                <a href="details.php" class="no-padding transparent my-relative">
+                                    <img src="<?=$rooturl?>/img/shopping-cart-icon.png" alt="Shopping cart" width="36px" height="36px" style="vertical-align:middle;">
+                                    <div id="showcartnumber1">
+                                        <span id="showcartnumber2"></span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="hide-on-small-and-down"> <a href="<?=$rooturl?>/login/login.php" class="btn brand z-depth-0" style="margin-right:0px;">Ввійти </a> </li>
+                            <li> 
+                                <a href="#!" data-target="mobile-menu-open" class="sidenav-trigger show-on-large no-padding transparent">
+                                    <img src="<?=$rooturl?>/img/menu-icon.png" alt="Side menu" width="36px" height="36px" style="vertical-align:middle;">
+                                </a>
+                            </li>
+                                
+                        </ul>
+                    </div>			
+                </div>
             </div>
-        </div>
-	</div>
-</nav>
+        </nav>
+    </div>
+</div>
 
 
 <ul id="mobile-menu-open" class="sidenav">
