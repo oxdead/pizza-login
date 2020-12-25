@@ -18,29 +18,10 @@
                         <li> 
                             <a href="details.php" class="no-padding transparent my-relative">
                                 <img src="<?=$rooturl?>/img/shopping-cart-icon.png" alt="Shopping cart" width="36px" height="36px" style="vertical-align:middle;">
-                                <!-- <div style="text-align:center">
-                                    <span class="circle" style="position:relative;
-                                                                top:-70px;left:10px;
-                                                                color:white;
-                                                                background-color:coral;
-                                                                padding:0.2em 0.2em;
-                                                                width:same-as-height;">
-                                        <?php 
-                                            if(count($cartroll) < 9) { echo '&nbsp'; } 
-                                            echo count($cartroll);
-                                        ?>
-                                    </span>
-                                </div> -->
-                                    
-
                                 <div id="showcartnumber1">
                                     <span id="showcartnumber2"></span>
                                 </div>
-
-                                    
-                                
                             </a>
-
                         </li>
 
                         <li class="hide-on-small-and-down"> <a href="<?=$rooturl?>/login/login.php" class="btn brand z-depth-0" style="margin-right:0px;">Ввійти </a> </li>

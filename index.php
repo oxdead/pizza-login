@@ -17,9 +17,10 @@
 #redo into php func pizza cards
 #fix all paths
 #fix all login pages
-#details.php (summary cart)
 #add -1/+1 html elms and add number of pizzas to cookie, check if such pizza already added to cookie, then just increase quantity, do not add new object
-
+#add orders to database (email, foreign_user_id, created_by, created_at)
+#load from db orders and list them in details.php
+#show ingredients in details.php
 
 
 

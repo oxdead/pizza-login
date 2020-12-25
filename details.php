@@ -2,7 +2,14 @@
     session_start();
     require 'db_connect.php'; 
 
-    //after clicking Submit button for deletion of pizza row
+    $sql = "SELECT id, title, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
+    $results = mysqli_query($conn, $sql);
+    $pizzas = mysqli_fetch_all($results, MYSQLI_ASSOC);
+    mysqli_free_result($results);
+    mysqli_close($conn);
+
+
+    // // after clicking Submit button for deletion of pizza row
     // if(isset($_POST['delete']))
     // {
     //     $id_to_delete = mysqli_real_escape_string($conn, $_POST['id_to_delete']);
@@ -26,28 +33,28 @@
 
 
 
-    // check GET request id parameter
-    if(isset($_GET['id']))
-    {
+    // // check GET request id parameter
+    // if(isset($_GET['id']))
+    // {
 
-        $id = mysqli_real_escape_string($conn, $_GET['id']); // escaping any sensitive char sequence, that user may put in location bar himself
+    //     $id = mysqli_real_escape_string($conn, $_GET['id']); // escaping any sensitive char sequence, that user may put in location bar himself
 
-        // make sql sequence
-        $sql = "SELECT * FROM pizzas WHERE id=$id";
+    //     // make sql sequence
+    //     $sql = "SELECT * FROM pizzas WHERE id=$id";
         
-        // get the query results
-        $results = mysqli_query($conn, $sql);
+    //     // get the query results
+    //     $results = mysqli_query($conn, $sql);
 
-        // fetch the result in array format
-        $pizza_row = mysqli_fetch_assoc($results);
+    //     // fetch the result in array format
+    //     $pizza_row = mysqli_fetch_assoc($results);
 
-        // free from memory and close connection (optional, but it's good practice to do so)
-        mysqli_free_result($results);
-        mysqli_close($conn);
+    //     // free from memory and close connection (optional, but it's good practice to do so)
+    //     mysqli_free_result($results);
+    //     mysqli_close($conn);
 
         
 
-    }
+    // }
 
 
 ?>
@@ -61,28 +68,128 @@
 
 <?php include 'header.php'; ?>
 
-    <div class="container center grey-text text-darken-2">
-        <?php if($pizza_row) { ?> <!-- ':' is alternative syntax for '{' -->
+    <div class="container">
         
-            <h4> <?php echo htmlspecialchars($pizza_row['title']); ?> </h4>
+        <ul class="collapsible">
+            <?php 
+                if(isset($_COOKIE['mikeypizzacart']))
+                {
+                    $orders = JSON_decode($_COOKIE['mikeypizzacart'], true);
+                    if(count($orders) < 1)
+                    {
+                        echo "Замовлення відсутні";
+                    }
+                    else
+                    {
+                        foreach($orders as $order)
+                        {
+                            foreach($pizzas as $pizza)
+                            {
+                                if($pizza['id'] == $order['id'])
+                                {
+            ?>
+                                    <li>
+                                        <div class="row">
+                                            <div class="collapsible-header">
+                                                <div class="col s4 truncate">
+                                                    <?=$pizza['title'];?>
+                                                </div>
+                                                <div class="col s2">
+                                                    <?php
+                                                        if($order['sz'] === 's') { echo "Мала"; }
+                                                        else if($order['sz'] === 'm') { echo "Середня"; }
+                                                        else if($order['sz'] === 'l') { echo "Велика"; }
+                                                    ?>
+                                                </div>
+                                                <div class="col s2 price-tag">
+                                                    <?php
+                                                        if($order['sz'] === 's') { echo number_format((float)$pizza['price_small'], 2, '.', ''); }
+                                                        else if($order['sz'] === 'm') { echo number_format((float)$pizza['price_medium'], 2, '.', ''); }
+                                                        else if($order['sz'] === 'l') { echo number_format((float)$pizza['price_large'], 2, '.', ''); }
+                                                    ?>
+                                                </div>
+                                                <div class="col s4">
+                                                    -&nbspQuantityTodo&nbsp+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapsible-body"><p>Todo: Add ingredients here</p></div>
+                                    </li>
+            <?php
+                                }
+                            }
+                        }
+                    }
+                }
 
-            <h4>Інгредієнти:<br/> <?= htmlspecialchars($pizza_row['ingredients']); ?> </h4>
-            
-            <p> Create by: <?php echo htmlspecialchars($pizza_row['email']); ?> </p>
-            <p> <?php echo date(htmlspecialchars($pizza_row['created'])); ?> </p>
 
-            <!-- delete pizza row -->
-            <!-- <form action="details.php" method="POST">
-                <input type='hidden' name="id_to_delete" value="<?php echo $pizza_row['id']; ?>">
-                <input type='submit' name="delete" value="Delete" class="btn brand z-depth-0">
-            </form> -->
+            ?>
 
-        <?php } else { ?> <!-- 'else:' is alternative syntax for '} else {' -->
-            <p> No such pizza exists! </p>
-        <?php } ?> <!-- 'endif' is alternative syntax for '}' -->
+            <li>
+                <div class="row teal lighten-4">
+                    <p class="col s2 push-s4">
+                            Всього:
+                    </p>
+                    <p class="col s2 push-s4 price-tag">
+                        <?php
+                            $total_price = 0.0;
+                            if(isset($orders))
+                            {
+                                if(isset($order)) { unset($order); }
+                                foreach($orders as $order)
+                                {
+                                    if($order['sz'] === 's') 
+                                    { 
+                                        if(isset($pizza)) { unset($pizza); }
+                                        foreach($pizzas as $pizza)
+                                        {
+                                            if($pizza['id'] == $order['id'])
+                                            {
+                                                $total_price += round($pizza['price_small'], 2); 
+                                            }
+                                        }
+                                    }
+                                    else if($order['sz'] === 'm') 
+                                    { 
+                                        if(isset($pizza)) { unset($pizza); }
+                                        foreach($pizzas as $pizza)
+                                        {
+                                            if($pizza['id'] == $order['id'])
+                                            {
+                                                $total_price += round($pizza['price_medium'], 2); 
+                                            }
+                                        }
+                                    }
+                                    else if($order['sz'] === 'l') 
+                                    { 
+                                        if(isset($pizza)) { unset($pizza); }
+                                        foreach($pizzas as $pizza)
+                                        {
+                                            if($pizza['id'] == $order['id'])
+                                            {
+                                                $total_price += round($pizza['price_large'], 2); 
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            echo number_format((float)$total_price, 2, '.', ''), " грн.";
+                        ?>
+                    </p>
+
+                    <a href="#" class="col offset-s4 btn brand z-depth-0" style="margin-top:1%;padding-left:3%;padding-right:3%">Підтвердити</a>
+
+                </div>
+            </li>
+
+
+        </ul>    
+        
+
 
 
     </div>
+
 
     <?php include 'footer.php'; ?>
 </body>

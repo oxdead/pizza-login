@@ -249,6 +249,11 @@ window.addEventListener("load", () => {
 				//window.location = event.target.href + "?id=" + pid + "&sz=" + psz;
 			}
 
+			event.target.innerHTML = "Додано!";
+			setTimeout(() => {
+				event.target.innerHTML = "В кошик";
+			}, 3000);
+
 			var cooStr = getCookie("mikeypizzacart");
 			var coo = cooStr ? JSON.parse(cooStr) : [];
 

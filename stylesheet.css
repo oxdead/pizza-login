@@ -23,6 +23,19 @@ html {
     position: relative;
 }
 
+
+.my-center {
+    margin: 0px;
+    padding:0px;
+    float: left;
+    width:100%;
+    position:absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    left:50%;
+}
+
+
 #showcartnumber1 {
     position: absolute;
     display:none;
@@ -151,7 +164,7 @@ label.highlight {
     color:#FFD593;
 }
 
-.card-content .price-tag {
+.price-tag {
     background-color:transparent;
     font-weight: bold;
     color:#26a69a;
