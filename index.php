@@ -13,21 +13,17 @@
 #make sure all text inputs wrapped into htmlspecialchars | msqli_escape_string
 #support for small screens
 #clean code 
-#Menu: Головна, Реєстрація, Мій Профіль, Залишити відгук, Про нас
-#redo into php func pizza cards
+#replace pizza size with dropdown menu for changing size of pizza
+#input field for quantity
+#every day run event at 2:00 to clean stale cart items (not purchased in 30 days)
 #fix all paths
 #fix all login pages
-#add -1/+1 html elms and add number of pizzas to cookie, check if such pizza already added to cookie, then just increase quantity, do not add new object
+#Menu: Головна, Реєстрація, Мій Профіль, Залишити відгук, Про нас
 #add orders to database (email, foreign_user_id, created_by, created_at) use cartClean(); before saving to db to save only orders with more than 1 item
 #load from db orders and list them in details.php
-#show ingredients in details.php
-#add phone, name, email fields to details.php
-#every day run event at 2:00 to clean stale cart items (not purchased in 30 days)
-#input field for quantity
+#add phone, name, email fields to db
 #add order_id into database and make it unique primary key
 #save data into database as datetime
-#finish -/+ buttons (add events on click)
-#replace size with dropdown menu for changing size of pizza
 
 
     /////////////////////////////////////////////////

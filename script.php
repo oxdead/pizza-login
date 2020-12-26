@@ -189,9 +189,12 @@ function cartTotalUpdate()
 
 function cartIconBehaviour() {
 
+	var cartnumbg = document.querySelector('#showcartnumber1');
+	var cartnumtext = document.querySelector('#showcartnumber2');
+	if(!cartnumbg || !cartnumtext) { return; }
+	
 	cooStr = getCookie("mikeypizzacart");
 	coo = cooStr ? JSON.parse(cooStr) : [];
-
 	if(coo && coo.length > 0)
 	{
 		var num_items = 0;
@@ -200,22 +203,17 @@ function cartIconBehaviour() {
 			num_items += parseInt(item["q"], 10);
 		}
 
-		var cartnumbg = document.querySelector('#showcartnumber1');
-		var cartnumtext = document.querySelector('#showcartnumber2');
-		if(cartnumbg && cartnumtext)
+		if(num_items > 0)
 		{
-			if(num_items > 0)
-			{
-				cartnumbg.style.display = "inline";		
-				cartnumtext.innerHTML = num_items;
-			}
-			else
-			{
-				cartnumbg.style.display = "none";		
-				cartnumtext.innerHTML = 0;
-			}
+			cartnumbg.style.display = "inline";
+			cartnumtext.innerHTML = num_items;
+			return;
 		}
-	}    
+	}
+
+	cartnumbg.style.display = "none";
+	cartnumtext.innerHTML = 0;
+
 }
 
 
@@ -227,38 +225,7 @@ function load()
 }
 
 
-// // set listener wrapper for body and go to details.php with GET['id'] and GET['sz'] set.
-// window.addEventListener("load", () => {
-// 	document.body.addEventListener('click', event => {
-// 		console.log(event);
 
-// 		if (event.target.id.startsWith("addpizza")) {
-			
-// 			event.preventDefault();
-
-// 			var pid = event.target.id.replace("addpizza", "");
-
-// 			var psmall = document.querySelector('#isactvsmall'.concat(pid));
-// 			var pmedium = document.querySelector('#isactvmedium'.concat(pid));
-// 			var plarge = document.querySelector('#isactvlarge'.concat(pid));
-
-// 			// do check typeof psmall != "undefined" or not necessary ??
-// 			if(psmall && psmall.className.includes(" active"))
-// 			{
-// 				window.location = event.target.href + "?id=" + pid + "&sz=" + "s";
-// 			}
-// 			else if(pmedium && pmedium.className.includes(" active"))
-// 			{
-// 				window.location = event.target.href + "?id=" + pid + "&sz=" + "m";
-// 			}
-// 			else if(pmedium && plarge.className.includes(" active"))
-// 			{
-// 				window.location = event.target.href + "?id=" + pid + "&sz=" + "l";
-// 			}
-
-// 		}
-// 	});
-// });
 
 
 function cartAdd(pid, psz)
@@ -358,13 +325,14 @@ for (let node of nodeList) {
 					}
 					else //remove order row if quantity is 0
 					{
-						order['q'] = 0; //nullify to clean cartIcon and cookie
 						coo.splice(i, 1);
 						var li_elm = document.body.querySelector("#li" + pid + "-" + psz);
 						//console.log(li_elm.children[0].children[0].children[4].innerHTML);
 						li_elm.remove();
 					}
 					setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
+					console.log(document.cookie)
+					console.log(document.cookie)
 					cartClean(); // clean all orders with quantity = 0
 					cartIconBehaviour();
 				}
