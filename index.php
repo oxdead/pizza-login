@@ -18,16 +18,16 @@
 #fix all paths
 #fix all login pages
 #add -1/+1 html elms and add number of pizzas to cookie, check if such pizza already added to cookie, then just increase quantity, do not add new object
-#add orders to database (email, foreign_user_id, created_by, created_at)
+#add orders to database (email, foreign_user_id, created_by, created_at) use cartClean(); before saving to db to save only orders with more than 1 item
 #load from db orders and list them in details.php
 #show ingredients in details.php
 #add phone, name, email fields to details.php
 #every day run event at 2:00 to clean stale cart items (not purchased in 30 days)
 #input field for quantity
-#e.stopPropagation() of collapsible event for -/+ buttons in details.php
 #add order_id into database and make it unique primary key
 #save data into database as datetime
 #finish -/+ buttons (add events on click)
+#replace size with dropdown menu for changing size of pizza
 
 
     /////////////////////////////////////////////////

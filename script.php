@@ -148,10 +148,49 @@ function footerBehaviour()
 }
 
 
-function cartIconBehaviour() {
-
+function cartClean()
+{
 	var cooStr = getCookie("mikeypizzacart");
 	var coo = cooStr ? JSON.parse(cooStr) : [];
+	if(coo && coo.length > 0)
+	{
+		var init_len = coo.length
+		var i = init_len;
+
+		while (i-- && i >= 0) 
+		{
+			if (coo[i].q < 1) 
+			{ 
+				coo.splice(i, 1);
+			} 
+		}
+
+		if(coo.length !== init_len)
+		{
+			setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
+			return true;
+		}
+	}
+	return false;
+}
+
+function cartTotalUpdate()
+{
+	var cartPriceList = document.querySelectorAll("[id^='order-price']");
+	var totalPrice = 0;
+	for(let cartPrice of cartPriceList)
+	{
+		totalPrice += parseFloat(cartPrice.innerText);
+	}
+	var cartPriceTotal = document.querySelector("#order-total-price");
+	cartPriceTotal.innerText = totalPrice.toFixed(2).toString(10) + " грн.";
+
+}
+
+function cartIconBehaviour() {
+
+	cooStr = getCookie("mikeypizzacart");
+	coo = cooStr ? JSON.parse(cooStr) : [];
 
 	if(coo && coo.length > 0)
 	{
@@ -161,14 +200,19 @@ function cartIconBehaviour() {
 			num_items += parseInt(item["q"], 10);
 		}
 
-		if(num_items > 0)
+		var cartnumbg = document.querySelector('#showcartnumber1');
+		var cartnumtext = document.querySelector('#showcartnumber2');
+		if(cartnumbg && cartnumtext)
 		{
-			var cartnumbg = document.querySelector('#showcartnumber1');
-			var cartnumtext = document.querySelector('#showcartnumber2');
-			if(cartnumbg && cartnumtext)
+			if(num_items > 0)
 			{
 				cartnumbg.style.display = "inline";		
 				cartnumtext.innerHTML = num_items;
+			}
+			else
+			{
+				cartnumbg.style.display = "none";		
+				cartnumtext.innerHTML = 0;
 			}
 		}
 	}    
@@ -262,7 +306,7 @@ function cartFeedback(event)
 }
 
 window.addEventListener("load", () => {
-	document.body.addEventListener('click', event => {
+	document.body.addEventListener('click', (event) => {
 
 		if (event.target.id.startsWith("addpizza")) {
 			
@@ -287,11 +331,102 @@ window.addEventListener("load", () => {
 });
 
 
+var nodeList = document.querySelectorAll(".prevent-collapse");
+for (let node of nodeList) {
+	node.addEventListener("click", (event) => {
+		event.stopPropagation(); // prevent sending event to parent element "collapsible" (do not collapse/expand)
+		if(event.target.id.startsWith("order-q-minus"))
+		{
+			var pid = event.target.id.match(/[0-9]+/);
+			var psz = event.target.id.match(/s?m?l?$/);
+			var cooStr = getCookie('mikeypizzacart');
+			var coo = cooStr ? JSON.parse(cooStr) : [];
+			for(let [i, order] of coo.entries())
+			{
+				if(order['id'] == pid && order['sz'] == psz)
+				{
+					if(order['q'] > 1) //update input field
+					{ 
+						var price_elm = document.body.querySelector("#order-price" + pid + "-" + psz);
+						var item_price = (price_elm.innerHTML)/(order['q']);
+
+						order['q']--; 
+						price_elm.innerHTML = (item_price*order['q']).toFixed(2);
+						
+						var input_elm = document.body.querySelector("#order-q-input" + pid + "-" + psz);
+						input_elm.innerHTML = order['q'];
+					}
+					else //remove order row if quantity is 0
+					{
+						order['q'] = 0; //nullify to clean cartIcon and cookie
+						coo.splice(i, 1);
+						var li_elm = document.body.querySelector("#li" + pid + "-" + psz);
+						//console.log(li_elm.children[0].children[0].children[4].innerHTML);
+						li_elm.remove();
+					}
+					setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
+					cartClean(); // clean all orders with quantity = 0
+					cartIconBehaviour();
+				}
+			}
+		}
+		else if(event.target.id.startsWith("order-q-input"))
+		{
+			//console.log("INPUT TODO");
+		}
+		else if(event.target.id.startsWith("order-q-plus"))
+		{
+			var pid = event.target.id.match(/[0-9]+/);
+			var psz = event.target.id.match(/s?m?l?$/);
+			var cooStr = getCookie('mikeypizzacart');
+			var coo = cooStr ? JSON.parse(cooStr) : [];
+			for(let order of coo)
+			{
+				if(order['id'] == pid && order['sz'] == psz)
+				{
+					if(order['q'] >= 0) //update input field
+					{ 
+						var price_elm = document.body.querySelector("#order-price" + pid + "-" + psz);
+						var item_price = (price_elm.innerHTML)/(order['q']);
+
+						order['q']++; 
+						price_elm.innerHTML = (item_price*order['q']).toFixed(2); // .toFixed(2) round to float with 2 decimal places
+
+						var input_elm = document.body.querySelector("#order-q-input" + pid + "-" + psz);
+						input_elm.innerHTML = order['q'];
+					}
+
+					setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
+					cartClean(); // clean all orders with quantity = 0
+					cartIconBehaviour();
+				}
+			}
+		}
+
+		cartTotalUpdate();
+		
+
+	});
+}
+
+
+
+
+
+/////////////////////////////////////////////////
+// details.php
+function expandableBehaviour() {
+	document.addEventListener('DOMContentLoaded', function() {
+		var elems = document.querySelectorAll('.collapsible');
+		var instances = M.Collapsible.init(elems, {"accordion" : false});
+	});
+}
+
 
 /////////////////////////////////////////////////
 // run
-
-menuBehaviour();
+expandableBehaviour(); // details.php
+menuBehaviour(); // header
 
 </script>
 

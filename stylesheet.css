@@ -103,13 +103,13 @@ a.btn {
 }
 
 .btn-minus {
-    margin-left: 20%;
-    border-radius: 15% 0% 0% 15%;
+    margin-left: 0%;
+    border-radius: 10% 0% 0% 10%;
 }
 
 .btn-plus {
-    margin-right: 20%;
-    border-radius: 0% 15% 15% 0%;
+    margin-right: 0%;
+    border-radius: 0% 10% 10% 0%;
 }
 
 label {
