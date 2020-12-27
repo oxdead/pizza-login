@@ -26,6 +26,7 @@ if(isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['hash']) && !e
         // set user status to active (axtive = 1)
         $conn->query("UPDATE users SET active='1' WHERE email='$email'") or die($conn->error);
         $_SESSION['active'] = 1;
+        if($_SESSION['active'] && $_SESSION['logged_in']) { setcookie('mkpzactv', '1', 0); }
 
         header("location: success.php");
 

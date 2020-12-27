@@ -85,43 +85,43 @@ function menuBehaviour()
 	});
 
 	var sidenavs = document.querySelectorAll('.sidenav')
-	for (var i = 0; i < sidenavs.length; i++){
+	for (let i = 0; i < sidenavs.length; i++){
 		M.Sidenav.init(sidenavs[i]);
 	}
 	var dropdowns = document.querySelectorAll('.dropdown-trigger')
-	for (var i = 0; i < dropdowns.length; i++){
+	for (let i = 0; i < dropdowns.length; i++){
 		M.Dropdown.init(dropdowns[i]);
 	}
 	var collapsibles = document.querySelectorAll('.collapsible')
-	for (var i = 0; i < collapsibles.length; i++){
+	for (let i = 0; i < collapsibles.length; i++){
 		M.Collapsible.init(collapsibles[i]);
 	}
 	var featureDiscoveries = document.querySelectorAll('.tap-target')
-	for (var i = 0; i < featureDiscoveries.length; i++){
+	for (let i = 0; i < featureDiscoveries.length; i++){
 		M.FeatureDiscovery.init(featureDiscoveries[i]);
 	}
 	var materialboxes = document.querySelectorAll('.materialboxed')
-	for (var i = 0; i < materialboxes.length; i++){
+	for (let i = 0; i < materialboxes.length; i++){
 		M.Materialbox.init(materialboxes[i]);
 	}
 	var modals = document.querySelectorAll('.modal')
-	for (var i = 0; i < modals.length; i++){
+	for (let i = 0; i < modals.length; i++){
 		M.Modal.init(modals[i]);
 	}
 	var parallax = document.querySelectorAll('.parallax')
-	for (var i = 0; i < parallax.length; i++){
+	for (let i = 0; i < parallax.length; i++){
 		M.Parallax.init(parallax[i]);
 	}
 	var scrollspies = document.querySelectorAll('.scrollspy')
-	for (var i = 0; i < scrollspies.length; i++){
+	for (let i = 0; i < scrollspies.length; i++){
 		M.ScrollSpy.init(scrollspies[i]);
 	}
 	var tabs = document.querySelectorAll('.tabs')
-	for (var i = 0; i < tabs.length; i++){
+	for (let i = 0; i < tabs.length; i++){
 		M.Tabs.init(tabs[i]);
 	}
 	var tooltips = document.querySelectorAll('.tooltipped')
-	for (var i = 0; i < tooltips.length; i++){
+	for (let i = 0; i < tooltips.length; i++){
 		M.Tooltip.init(tooltips[i]);
 	}
 }
@@ -197,7 +197,7 @@ function cartIconBehaviour() {
 	coo = cooStr ? JSON.parse(cooStr) : [];
 	if(coo && coo.length > 0)
 	{
-		var num_items = 0;
+		let num_items = 0;
 		for(let item of coo)
 		{
 			num_items += parseInt(item["q"], 10);
@@ -234,13 +234,12 @@ function cartAdd(pid, psz)
 	var coo = cooStr ? JSON.parse(cooStr) : [];
 	if(coo && coo.length > 0)
 	{
-		var isFound = false;
+		let isFound = false;
 		for (let item of coo) {
 			if(item["id"] == pid.toString() && item["sz"] == psz)
 			{
 				item["q"]++;
 				isFound = true;
-				console.log("ADDED ITEM")
 				break;
 			}
 		}
@@ -248,19 +247,15 @@ function cartAdd(pid, psz)
 		if(!isFound)
 		{
 			coo.push({"id": pid, "sz": psz, "q": "1"});
-			console.log("CREATED ITEM")
 		}
 
 		setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
-		//window.location = event.target.href + "?id=" + pid + "&sz=" + psz;
 	}
 	else // create cookie
 	{
-		var cvalue = [];
+		let cvalue = [];
 		cvalue.push({"id": pid, "sz": psz, "q": "1"});
 		setCookie("mikeypizzacart", JSON.stringify(cvalue), 30); 
-		//window.location = event.target.href + "?id=" + pid + "&sz=" + psz;
-		console.log("CREATED COOKIE")
 	}
 }
 
@@ -271,6 +266,88 @@ function cartFeedback(event)
 		event.target.innerHTML = "В кошик";
 	}, 3000);
 }
+
+// loop way of creating callbacks
+// window.addEventListener("load", () => {
+// 	document.body.addEventListener('click', (event) => {
+
+// 		if (event.target.id.startsWith("addpizza")) {
+			
+// 			event.preventDefault(); // cancel the event (do not go to destination page)
+
+// 			var pid = event.target.id.replace("addpizza", "");
+
+// 			var psmall = document.querySelector('#isactvsmall'.concat(pid));
+// 			var pmedium = document.querySelector('#isactvmedium'.concat(pid));
+// 			var plarge = document.querySelector('#isactvlarge'.concat(pid));
+
+// 			var psz = null;
+// 			if(psmall && psmall.className.includes(" active")) { psz = 's'; }
+// 			else if(pmedium && pmedium.className.includes(" active")) { psz = 'm'; }
+// 			else if(pmedium && plarge.className.includes(" active")) { psz = 'l'; }
+
+// 			cartAdd(pid, psz);
+// 			cartFeedback(event);
+// 			cartIconBehaviour();
+// 		}
+// 	});
+// });
+
+
+// function sendData(data) 
+// {
+// 	console.log('Sending data');
+
+// 	const xhr = new XMLHttpRequest();
+
+// 	// let urlEncodedData = "";
+// 	// let urlEncodedDataPairs = [];
+// 	// let name;
+
+// 	// // Turn the data object into an array of URL-encoded key/value pairs.
+// 	// for( name in data ) 
+// 	// {
+// 	// 	urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
+// 	// }
+
+// 	// // Combine the pairs into a single string and replace all %-encoded spaces to
+// 	// // the '+' character; matches the behavior of browser form submissions.
+// 	// urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g,'+');
+
+// 	xhr.open('POST', 'index.php', true);
+// 	xhr.setRequestHeader('Content-Type', 'application/json');
+// 	xhr.send(JSON.stringify(data));
+// }
+
+
+function sendData(dataObj)
+{
+	console.log('Sending data');
+
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			let txt = "";
+			let myObj = JSON.parse(this.responseText);
+			// for (let x in myObj) {
+			// 	txt += myObj[x].order_id + "<br>"; 
+			// 	txt += myObj[x].user_id + "<br>"; 
+			// 	txt += myObj[x].pizza_id + "<br>"; 
+			// 	txt += myObj[x].pizza_sz + "<br>"; 
+			// 	txt += myObj[x].created + "<br>"; 
+			// 	txt += "<br>"; 
+			// }
+			document.getElementById("demo").innerHTML = txt;
+		}
+	};
+	var dbParam = JSON.stringify(dataObj);
+	xmlhttp.open("POST", "db_store_orders.php", true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send("x=" + dbParam);
+}
+
+
+
 
 window.addEventListener("load", () => {
 	document.body.addEventListener('click', (event) => {
@@ -293,11 +370,27 @@ window.addEventListener("load", () => {
 			cartAdd(pid, psz);
 			cartFeedback(event);
 			cartIconBehaviour();
+
+			var cooStr = getCookie('mkpzactv');
+			console.log(cooStr);
+			console.log(document.cookie);
+			if(cooStr == '1')
+			{
+				// todo: get user_id or email from session, delete user_id here, parse only pizza_id and pizza_sz and put it here
+				sendData({
+					user_id:"5",
+					pizza_id:"2",
+					pizza_sz:"l",
+				});
+			}
+
+
 		}
 	});
 });
 
 
+// event bubbling way of creating callbacks
 var nodeList = document.querySelectorAll(".prevent-collapse");
 for (let node of nodeList) {
 	node.addEventListener("click", (event) => {
@@ -314,25 +407,23 @@ for (let node of nodeList) {
 				{
 					if(order['q'] > 1) //update input field
 					{ 
-						var price_elm = document.body.querySelector("#order-price" + pid + "-" + psz);
-						var item_price = (price_elm.innerHTML)/(order['q']);
+						let price_elm = document.body.querySelector("#order-price" + pid + "-" + psz);
+						let item_price = (price_elm.innerHTML)/(order['q']);
 
 						order['q']--; 
 						price_elm.innerHTML = (item_price*order['q']).toFixed(2);
 						
-						var input_elm = document.body.querySelector("#order-q-input" + pid + "-" + psz);
+						let input_elm = document.body.querySelector("#order-q-input" + pid + "-" + psz);
 						input_elm.innerHTML = order['q'];
 					}
 					else //remove order row if quantity is 0
 					{
 						coo.splice(i, 1);
-						var li_elm = document.body.querySelector("#li" + pid + "-" + psz);
+						let li_elm = document.body.querySelector("#li" + pid + "-" + psz);
 						//console.log(li_elm.children[0].children[0].children[4].innerHTML);
 						li_elm.remove();
 					}
 					setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
-					console.log(document.cookie)
-					console.log(document.cookie)
 					cartClean(); // clean all orders with quantity = 0
 					cartIconBehaviour();
 				}
@@ -354,13 +445,13 @@ for (let node of nodeList) {
 				{
 					if(order['q'] >= 0) //update input field
 					{ 
-						var price_elm = document.body.querySelector("#order-price" + pid + "-" + psz);
-						var item_price = (price_elm.innerHTML)/(order['q']);
+						let price_elm = document.body.querySelector("#order-price" + pid + "-" + psz);
+						let item_price = (price_elm.innerHTML)/(order['q']);
 
 						order['q']++; 
 						price_elm.innerHTML = (item_price*order['q']).toFixed(2); // .toFixed(2) round to float with 2 decimal places
 
-						var input_elm = document.body.querySelector("#order-q-input" + pid + "-" + psz);
+						let input_elm = document.body.querySelector("#order-q-input" + pid + "-" + psz);
 						input_elm.innerHTML = order['q'];
 					}
 

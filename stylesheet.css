@@ -63,14 +63,6 @@ html {
     bottom:21px;
 }
 
-/* #card-action {
-    color: #FFBF00;
-}
-
-#card-action:hover {
-    color: #FFDA7C;
-} */
-
 a {
     text-decoration:none;
     color: #26a69a;
@@ -164,7 +156,7 @@ label.highlight {
 }
 
 
-.tabs .tab.disabled a,.tabs .tab.disabled a:hover {
+.tabs .tab.disabled a, .tabs .tab.disabled a:hover {
     background-color:transparent;
     border-radius: 10px 10px 0px 0px;
 }

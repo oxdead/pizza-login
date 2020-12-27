@@ -32,7 +32,7 @@ session_destroy();
         ?>
 
     </p>
-    <a href="login_index.php"><button class="button button-block">Home</button></a>
+    <a href="../index.php"><button class="button button-block">Home</button></a>
 </div>
 
 </body>

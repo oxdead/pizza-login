@@ -2,10 +2,10 @@
 session_start();
 include '../db_connect.php'; 
 
+include 'mail_phpmailer.php';
+
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-	//php mailer extension option, not needed for now:
-	//include 'mail_phpmailer.php';
 
 	/*
 		Registration process, inserts user info into the database and sends account confirmation email message
@@ -48,13 +48,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 			// send reg confirmation to link (verify.php)
 			$to = $email;
-			$subject = 'Account Verification (tutphp.com)';
+			$subject = 'Account Verification (mMikey\'s Pizza site)';
 			$message_body = 'Hello '.$first_name.', 
 			Thank you for registering! 
 			Please, click to activate your account:
-			http://localhost/tutphp/login/verify.php?email='.$email.'&hash='.$hash;
+			http://localhost/pizza_login/login/verify.php?email='.$email.'&hash='.$hash;
+			$altbodyOptional = "This is the body in plain text for non-HTML mail clients";
 
-			mail($to, $subject, $message_body);
+			sendByPHPMailer($to, 'Some User Name', $subject, $message_body, $altbodyOptional);
+			//mail($to, $subject, $message_body); // doesn't support authentication
 			header("location: profile.php");
 		}
 		else

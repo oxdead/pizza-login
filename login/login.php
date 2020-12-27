@@ -26,8 +26,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	
 			// this is how we will know user logged in
 			$_SESSION['logged_in'] = true;
-	
-			header("location: profile.php");
+			if($_SESSION['active']) { setcookie("mkpzactv", "1", time() + (86400*30), '/'); } // todo: learn why without '/' path cookie gets saved only on current page and is erased after loading index.php page ?
+			
+			header("location: ../index.php");
 		}
 		else
 		{
@@ -36,6 +37,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 	}
 }
+
+
+
+
 ?>
 
 <!DOCTYPE html>

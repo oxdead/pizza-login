@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="center grey-text">
-        Pasteleft 2020 Dope Stuff, Inc.
+        Pasteleft 2020 Stuff, Inc.
     </div>
 </footer>
 

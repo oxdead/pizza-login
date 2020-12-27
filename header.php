@@ -54,7 +54,7 @@
         </div>
     </li>    
     <li><a href="https://github.com/dogfalo/materialize/" target="_blank">Головна</a></li>
-    <li><a href="https://twitter.com/MaterializeCSS" target="_blank">Реєстрація</a></li>
+    <li><a href="<?=$rooturl?>/login/register.php" target="_self">Реєстрація</a></li>
     <li><div class="divider"></div></li>
     <li><a href="http://next.materializecss.com/getting-started.html" target="_blank">Залишити відгук</a></li>
     <li><a href="http://next.materializecss.com/getting-started.html" target="_blank">Про нас</a></li>
