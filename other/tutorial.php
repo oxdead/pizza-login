@@ -115,6 +115,12 @@
     $rv_str = VariableScope($some_string1);
     echo $rv_str.' returned outside func';
 
+    // this func parses link into parts
+    $dbparts = parse_url($dburl);
+    //$dbhost = $dbparts['host'];
+    //$dbuser = $dbparts['user'];
+    //$dbpass = $dbparts['pass'];
+    //$dbname = ltrim($dbparts['path'],'/');
 
     // Classes tutorial #41 + #42
     class User

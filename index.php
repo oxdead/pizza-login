@@ -1,6 +1,7 @@
 <?php 
 session_start();
-require 'db_connect.php'; 
+require_once 'db_connect.php'; 
+require_once 'session_ease.php'; 
     
 
 #todo:
@@ -28,41 +29,34 @@ require 'db_connect.php';
 #when logged in, change name, change ВВІЙТИ button to ВИЙТИ
 # prevent 2nd logging if user alreaady logged in
 #in db_store_orders.php get email and logged_in+ctive state from session, check it and then store email, pizza_id, pizza_sz to orders table
+#on login handle $_POST["mkpzupd"]. get orders from db, add to cookies the ones that do not exist, update/create all other db fields from cookie 
 
 /////////////////////////////////////////////////
-include 'sql_dev_temporary.php'; // for development only
-
-// get json from raw stream, doesn't work?
-// $data = file_get_contents('php://input');
-// echo $data;
-// if($_SERVER['REQUEST_METHOD'] === 'POST')
-// {
-//     $data = json_decode(file_get_contents('php://input'), true);
-//     var_dump($data);
-// }
-
-
+require_once 'sql_dev_temporary.php'; // for development only
 
 //1. query for all pizzas
 $sql = "SELECT id, title, ingredients, img, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
-
 //2. send query and get some results
-$results = mysqli_query($conn, $sql);
-
-
+$results = $conn->query($sql);
 //3. fetch the resulting rows as an associative array
-$pizzas = mysqli_fetch_all($results, MYSQLI_ASSOC);
+$pizzas = $results->fetch_all(MYSQLI_ASSOC);
+
+$s = new SessionEase();
+if($s->valid())
+{
+    $sql = "SELECT pizza_id, pizza_sz, quantity FROM orders WHERE email='{$s->email()}'";
+    $results = $conn->query($sql);
+    $orders = $results->fetch_all(MYSQLI_ASSOC);
+    //var_dump($orders);
+
+}
+
+
+
 
 //4. free from memory and close connection (optional, but it's good practice to do so)
 mysqli_free_result($results);
 mysqli_close($conn);
-
-// $cookie_k0 = 'id';
-// $cookie_v0 = 5;
-// $cookie_k1 = 'sz';
-// $cookie_v1 = 'large';
-// setcookie($cookie_k1, $cookie_v1, time() + (86400*30));
-// setcookie($cookie_k0, $cookie_v0, time() + (86400*30));
 
 ?>
 
@@ -70,10 +64,10 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html>
-<?php include 'head.php'; ?>
+<?php require_once 'head.php'; ?>
 <body onload="load()">
 
-<?php include 'header.php'; ?>
+<?php require_once 'header.php'; ?>
 
 
     <!-- Slideshow container -->
@@ -189,9 +183,9 @@ mysqli_close($conn);
         </div>
 </section>
 
-    <?php include 'footer.php'; ?>
+    <?php require_once 'footer.php'; ?>
 </body>
-<?php include 'script_carousel.php'; ?>
-<?php include 'script.php'; ?>
+<?php require_once 'script_carousel.php'; ?>
+<?php require_once 'script.php'; ?>
 </html>
 

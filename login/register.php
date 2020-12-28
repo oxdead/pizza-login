@@ -98,7 +98,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			<div class="row">
 				<div class="col s6 offset-s3">
-					<label>Адреса Email<span class="req">*</span></label>
+					<label>Адреса email<span class="req">*</span></label>
 					<input type="email" required autocomplete="off" name="email"/>					
 				</div>
 			</div>

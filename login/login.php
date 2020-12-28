@@ -1,6 +1,7 @@
 <?php
 session_start();
-include '../db_connect.php'; 
+require_once __DIR__.'/../db_connect.php'; 
+
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -53,13 +54,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <section class="container">
 
-	<h3 class="center grey-text text-darken-1">Вітаю, з поверненням!</h3>
+	<h3 class="center grey-text text-darken-1">Вітаю! З поверненням!</h3>
 	<br />
 	
 	<form action="login.php" method="post" autocomplete="off">
 		<div class="row">
 			<div class="col s6 offset-s3">
-				<label>Адреса Email<span class="req">*</span></label>
+				<label>Адреса email<span class="req">*</span></label>
 				<input type="email" required autocomplete="off" name="email"/>
 			</div>			
 		</div>
@@ -74,6 +75,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		<div class="row">
 			<button class="btn brand z-depth-0 col s2 offset-s7" name="login">Ввійти</button>
 			<p class="col s6 offset-s7 no-padding"><a class="active" href="forgot.php">Забув пароль?</a></p>
+			<p class="col s6 offset-s7 no-padding"><a class="active" href="register.php">Реєстрація</a></p>
 		</div>
 	</form>
 

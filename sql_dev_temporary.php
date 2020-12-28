@@ -76,7 +76,7 @@ $sql = "CREATE DATABASE IF NOT EXISTS accounts";
         $sql = "UPDATE `pizzas` SET `price_small` = '167.5', `price_medium` = '227.5', `price_large` = '259.5' WHERE `pizzas`.`id` = 8";
         $conn->query($sql);
         
-        $sql = "CREATE TABLE IF NOT EXISTS `accounts`.`orders` ( `order_id` INT NOT NULL AUTO_INCREMENT, `email` VARCHAR(40) NOT NULL, `pizza_id` INT NOT NULL, `pizza_sz` CHAR(1) NOT NULL, `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`order_id`) )";
+        $sql = "CREATE TABLE IF NOT EXISTS `accounts`.`orders` ( `order_id` INT NOT NULL AUTO_INCREMENT, `email` VARCHAR(40) NOT NULL, `pizza_id` INT NOT NULL, `pizza_sz` CHAR(1) NOT NULL, `quantity` INT NOT NULL, `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`order_id`) )";
         $conn->query($sql);
     
     } 

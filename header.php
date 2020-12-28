@@ -1,3 +1,10 @@
+<?php 
+    require_once 'session_ease.php';
+    $shead = new SessionEase();
+    $rooturl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/pizza_login';
+?>
+
+
 
 <div id="nav">
     <div class="navbar-fixed">
@@ -7,7 +14,7 @@
                     <div class="col s12">
                         <ul class="left hide-on-small-and-down">
                             <li >
-                                <a href="<?php echo $rooturl?>/index.php">
+                                <a href="<?=$rooturl?>/index.php">
                                     <img src="<?=$rooturl?>/img/mikey_icon.png" alt="Mikey's Pizza!" width="44px" height="44px" style="vertical-align:middle;"> 
                                     <p class="logolabel grey-text text-lighten-2">MIKEY's PIZZA!</p>
                                 </a>
@@ -15,8 +22,7 @@
                         </ul>
 
                         <ul id="nav-mobile" class="right">
-                            <li class="grey-text hide-on-small-and-down"> Привіт, <?php echo htmlspecialchars($name); ?>!&nbsp&nbsp</li>
-                            <!-- <li class="grey-text hide-on-small-and-down"> <?php echo htmlspecialchars($gender); ?> </li> -->
+                            <li class="grey-text hide-on-small-and-down"> Привіт, <?php echo htmlspecialchars($shead->name()); ?>!&nbsp&nbsp</li>
                             <li> 
                                 <a href="details.php" class="no-padding transparent my-relative">
                                     <img src="<?=$rooturl?>/img/shopping-cart-icon.png" alt="Shopping cart" width="36px" height="36px" style="vertical-align:middle;">
@@ -45,15 +51,15 @@
 <ul id="mobile-menu-open" class="sidenav">
     <li>
         <div class="user-view">
-            <div class="background">
-                <img src="http://placehold.it/640/555">
+            <div class="background grey darken-2">
+
             </div>
-            <a href="#!"><img class="circle" src="http://placehold.it/640/333"></a>
-            <a href="#!"><span class="white-text name"><?=$name;?></span></a>
-            <a href="#!"><span class="white-text email"><?=$user_email;?></span></a>
+            <a href="#!"><img class="circle" src="img/avatar-placeholder.png"></a>
+            <a href="#!"><span class="white-text name"><?php echo htmlspecialchars($shead->fullname()); ?></span></a>
+            <a href="#!"><span class="white-text email"><?php echo htmlspecialchars($shead->email()); ?></span></a>
         </div>
     </li>    
-    <li><a href="https://github.com/dogfalo/materialize/" target="_blank">Головна</a></li>
+    <li><a href="<?=$rooturl?>/index.php" target="_self">Головна</a></li>
     <li><a href="<?=$rooturl?>/login/register.php" target="_self">Реєстрація</a></li>
     <li><div class="divider"></div></li>
     <li><a href="http://next.materializecss.com/getting-started.html" target="_blank">Залишити відгук</a></li>

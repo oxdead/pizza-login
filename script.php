@@ -226,10 +226,25 @@ function load()
 
 
 
-
+function cartGetItemQuantity(pid, psz)
+{
+	var cooStr = getCookie("mikeypizzacart");
+	var coo = cooStr ? JSON.parse(cooStr) : [];
+	if(coo && coo.length > 0)
+	{
+		for (let item of coo) {
+			if(item["id"] == pid.toString() && item["sz"] == psz)
+			{
+				return item["q"];
+			}
+		}
+	}
+	return "0";
+}
 
 function cartAdd(pid, psz)
 {
+	var quantity = 0;
 	var cooStr = getCookie("mikeypizzacart");
 	var coo = cooStr ? JSON.parse(cooStr) : [];
 	if(coo && coo.length > 0)
@@ -257,6 +272,8 @@ function cartAdd(pid, psz)
 		cvalue.push({"id": pid, "sz": psz, "q": "1"});
 		setCookie("mikeypizzacart", JSON.stringify(cvalue), 30); 
 	}
+
+
 }
 
 function cartFeedback(event)
@@ -356,13 +373,13 @@ window.addEventListener("load", () => {
 			
 			event.preventDefault(); // cancel the event (do not go to destination page)
 
-			var pid = event.target.id.replace("addpizza", "");
+			let pid = event.target.id.replace("addpizza", "");
 
-			var psmall = document.querySelector('#isactvsmall'.concat(pid));
-			var pmedium = document.querySelector('#isactvmedium'.concat(pid));
-			var plarge = document.querySelector('#isactvlarge'.concat(pid));
+			let psmall = document.querySelector('#isactvsmall'.concat(pid));
+			let pmedium = document.querySelector('#isactvmedium'.concat(pid));
+			let plarge = document.querySelector('#isactvlarge'.concat(pid));
 
-			var psz = 'm';
+			let psz = 'm';
 			if(psmall && psmall.className.includes(" active")) { psz = 's'; }
 			//else if(pmedium && pmedium.className.includes(" active")) { psz = 'm'; }
 			else if(pmedium && plarge.className.includes(" active")) { psz = 'l'; }
@@ -371,14 +388,14 @@ window.addEventListener("load", () => {
 			cartFeedback(event);
 			cartIconBehaviour();
 
-			var cooStr = getCookie('mkpzactv');
-			console.log(cooStr);
-			console.log(document.cookie);
-			if(cooStr == '1')
+			let q = cartGetItemQuantity(pid, psz);
+			let cooStr = getCookie('mkpzactv');
+			if(cooStr == '1' && q > 0)
 			{
 				sendData({ 
 					id: pid,
 					sz: psz,
+					q: q
 				});
 			}
 
