@@ -29,7 +29,7 @@ require_once 'session_ease.php';
 #when logged in, change name, change ВВІЙТИ button to ВИЙТИ
 # prevent 2nd logging if user already logged in
 #in db_store_orders.php get email and logged_in+ctive state from session, check it and then store email, pizza_id, pizza_sz to orders table
-#decode/encode all mikeypizzacart cookie  in all js funcs
+#fix cookie gets deleted on login
 
 /////////////////////////////////////////////////
 require_once 'sql_dev_temporary.php'; // for development only

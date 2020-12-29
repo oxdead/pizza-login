@@ -48,7 +48,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 			// send reg confirmation to link (verify.php)
 			$to = $email;
-			$subject = 'Account Verification (mMikey\'s Pizza site)';
+			$subject = 'Account Verification (Mikey\'s Pizza site)';
 			$message_body = 'Hello '.$first_name.', 
 			Thank you for registering! 
 			Please, click to activate your account:
