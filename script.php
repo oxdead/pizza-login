@@ -193,7 +193,21 @@ function cartIconBehaviour() {
 	var cartnumtext = document.querySelector('#showcartnumber2');
 	if(!cartnumbg || !cartnumtext) { return; }
 	
+	
 	cooStr = getCookie("mikeypizzacart");
+
+	// encodeURIComponent('шеллы')
+	// var obj, decoded = decodeURIComponent(cooStr);
+	// if(window.JSON && JSON.parse)
+	// {
+	// 	obj = JSON.parse(decoded);
+	// }
+	// else
+	// {
+	// 	eval('obj = ' + decoded);
+	// }
+
+
 	coo = cooStr ? JSON.parse(cooStr) : [];
 	if(coo && coo.length > 0)
 	{
@@ -311,52 +325,9 @@ function cartFeedback(event)
 // });
 
 
-// function sendData(data) 
-// {
-// 	console.log('Sending data');
-
-// 	const xhr = new XMLHttpRequest();
-
-// 	// let urlEncodedData = "";
-// 	// let urlEncodedDataPairs = [];
-// 	// let name;
-
-// 	// // Turn the data object into an array of URL-encoded key/value pairs.
-// 	// for( name in data ) 
-// 	// {
-// 	// 	urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
-// 	// }
-
-// 	// // Combine the pairs into a single string and replace all %-encoded spaces to
-// 	// // the '+' character; matches the behavior of browser form submissions.
-// 	// urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g,'+');
-
-// 	xhr.open('POST', 'index.php', true);
-// 	xhr.setRequestHeader('Content-Type', 'application/json');
-// 	xhr.send(JSON.stringify(data));
-// }
-
-
 function sendData(dataObj)
 {
-	console.log('Sending data');
-
 	var xmlhttp = new XMLHttpRequest();
-	// xmlhttp.onreadystatechange = function() {
-	// 	if (this.readyState == 4 && this.status == 200) {
-	// 		let txt = "";
-	// 		let myObj = JSON.parse(this.responseText);
-	// 		for (let x in myObj) {
-	// 			txt += myObj[x].order_id + "<br>"; 
-	// 			txt += myObj[x].user_id + "<br>"; 
-	// 			txt += myObj[x].pizza_id + "<br>"; 
-	// 			txt += myObj[x].pizza_sz + "<br>"; 
-	// 			txt += myObj[x].created + "<br>"; 
-	// 			txt += "<br>"; 
-	// 		}
-	// 		document.getElementById("demo").innerHTML = txt;
-	// 	}
-	// };
 	var dbParams = JSON.stringify(dataObj);
 	xmlhttp.open("POST", "db_store_orders.php", true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

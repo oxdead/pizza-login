@@ -2,7 +2,7 @@
 header("Content-Type: application/json; charset=UTF-8");
 session_start();
 
-require 'session_ease.php';
+require_once 'session_ease.php';
 require_once 'db_connect.php'; 
 require_once 'vendor/autoload.php';
 $log = new Monolog\Logger('database');
@@ -20,20 +20,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         if(isset($_POST["mkpzadd"]))
         {
             $newItem = json_decode($_POST["mkpzadd"], true);
-            $log->error(json_encode($newItem));
             //mysql_real_escape_string not needed for prepared statements ?
             $stmt = $conn->prepare("SELECT pizza_id, pizza_sz, quantity FROM orders WHERE email='{$s->email()}'");
             $stmt->execute();
             $result = $stmt->get_result();
             $orders_from_db = $result->fetch_all(MYSQLI_ASSOC);
             $isExistsInDB = false;
-            $log->error(json_encode($orders_from_db));
             foreach($orders_from_db as $order)
             {
-                
                 if($order['pizza_id'] == $newItem['id'] && $order['pizza_sz'] == $newItem['sz'])
                 {
-                    $log->error("here");
                     $order['quantity'] = $newItem['q'];
                     unset($stmt);
                     $stmt = $conn->prepare("UPDATE `orders` SET `quantity` = ?, `created` = current_timestamp() WHERE `orders`.`pizza_id` = ? AND `orders`.`pizza_sz` = ?;");

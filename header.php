@@ -54,7 +54,7 @@
             <div class="background grey darken-2">
 
             </div>
-            <a href="#!"><img class="circle" src="img/avatar-placeholder.png"></a>
+            <a href="#!"><img class="circle" src="<?=$rooturl?>/img/avatar-placeholder.png"></a>
             <a href="#!"><span class="white-text name"><?php echo htmlspecialchars($shead->fullname()); ?></span></a>
             <a href="#!"><span class="white-text email"><?php echo htmlspecialchars($shead->email()); ?></span></a>
         </div>

@@ -27,9 +27,9 @@ require_once 'session_ease.php';
 #save data into database as datetime
 #unset and destroy session on log out
 #when logged in, change name, change ВВІЙТИ button to ВИЙТИ
-# prevent 2nd logging if user alreaady logged in
+# prevent 2nd logging if user already logged in
 #in db_store_orders.php get email and logged_in+ctive state from session, check it and then store email, pizza_id, pizza_sz to orders table
-#on login handle $_POST["mkpzupd"]. get orders from db, add to cookies the ones that do not exist, update/create all other db fields from cookie 
+#decode/encode all mikeypizzacart cookie  in all js funcs
 
 /////////////////////////////////////////////////
 require_once 'sql_dev_temporary.php'; // for development only
@@ -50,8 +50,6 @@ if($s->valid())
     //var_dump($orders);
 
 }
-
-
 
 
 //4. free from memory and close connection (optional, but it's good practice to do so)
