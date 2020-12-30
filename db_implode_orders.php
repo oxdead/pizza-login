@@ -10,28 +10,10 @@ $s = new SessionEase();
 
 if (filter_var($s->email(), FILTER_VALIDATE_EMAIL) && $s->valid()) 
 {
-    // delete all from a table
-    $sql = "DELETE FROM `orders`";
-    $conn->prepare($sql)->execute();
-
-    $sql = "INSERT INTO `orders` (`email`, `pizza_id`, `pizza_sz`, `quantity`, `created`) VALUES ('i@i.i', 1, 's', 1, current_timestamp())"; 
-    $conn->prepare($sql)->execute();
-    $sql = "INSERT INTO `orders` (`email`, `pizza_id`, `pizza_sz`, `quantity`, `created`) VALUES ('som0@meta.ua', 2, 's', 1, current_timestamp())"; 
-    $conn->prepare($sql)->execute();
-    $sql = "INSERT INTO `orders` (`email`, `pizza_id`, `pizza_sz`, `quantity`, `created`) VALUES ('som0@meta.ua', 3, 's', 1, current_timestamp())"; 
-    $conn->prepare($sql)->execute();
-    $sql = "INSERT INTO `orders` (`email`, `pizza_id`, `pizza_sz`, `quantity`, `created`) VALUES ('som0@meta.ua', 3, 'm', 1, current_timestamp())"; 
-    $conn->prepare($sql)->execute();
-    $sql = "INSERT INTO `orders` (`email`, `pizza_id`, `pizza_sz`, `quantity`, `created`) VALUES ('som0@meta.ua', 4, 'l', 1, current_timestamp())"; 
-    $conn->prepare($sql)->execute();
-    
-    /////////////////////////////////
-    
     $newItems = (isset($_COOKIE["mikeypizzacart"])) ? json_decode($_COOKIE["mikeypizzacart"], true) : [];
 
     // also if some value is NULL, needs additional treatment (in our case we are good)
     //ELSE `quantity` statement is important, otherwise all other non-matching entries in a table will have quantity set to 0 (default)
-    
     if(isset($newItems) && (count($newItems) > 0))
     {
         // insert distinct elements from cookie and update quantity of existing in db
@@ -60,13 +42,18 @@ if (filter_var($s->email(), FILTER_VALIDATE_EMAIL) && $s->valid())
             }
             $sqlCompSelect.=" ELSE 1 END);";
         }   
+
         $stmt = $conn->prepare($sqlCompSelect);
         $stmt->execute();
         $result = $stmt->get_result();
         $orders_from_db = $result->fetch_all(MYSQLI_ASSOC);
         
-        
-        setcookie("mikeypizzacart", json_encode($orders_from_db), time() + (86400*30), '/');
+        foreach($orders_from_db as $order) // on login combine saved but not finished orders from db with the ones in the cookie
+        {
+            $newItems[] = $order;
+        }
+
+        setcookie("mikeypizzacart", json_encode($newItems), time() + (86400*30), '/');
 
 } 
 else

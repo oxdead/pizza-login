@@ -216,8 +216,6 @@ function cartIconBehaviour() {
 	//MARK_DECODE
 	var coo = decodeCookie(cooStr);
 
-	console.log(coo);
-
 	if(coo && coo.length > 0)
 	{
 		let num_items = 0;
@@ -342,14 +340,24 @@ function cartFeedback(event)
 // });
 
 
-function sendData(dataObj)
+serializeObjToUrlString = function(obj) {
+  var str = [];
+  for (var p in obj)
+    if (obj.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  return str.join("&");
+}
+
+function sendData(msg, dataObj)
 {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("POST", "db_store_orders.php", true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	//xmlhttp.send("mkpzadd=" + (JSON.stringify(dataObj)));
+	//xmlhttp.send("mkpzupd=" + (JSON.stringify(dataObj)));
 	//MARK_DECODE
-	xmlhttp.send("mkpzadd=" + encodeCookie(dataObj));
+
+	xmlhttp.send(msg + "=" + encodeURIComponent(serializeObjToUrlString(dataObj)));
 }
 
 
@@ -383,7 +391,8 @@ window.addEventListener("load", () => {
 			//var coo = decodeCookie(cooStr);
 			if(cooStr == '1' && q > 0)
 			{
-				sendData({ 
+				sendData("mkpzupd",
+				{ 
 					id: pid,
 					sz: psz,
 					q: q
@@ -436,6 +445,30 @@ for (let node of nodeList) {
 					//setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
 					cartClean(); // clean all orders with quantity = 0
 					cartIconBehaviour();
+
+					let q = cartGetItemQuantity(pid, psz);
+					if(q < 0) { q = 0; }
+					let cooStr = getCookie('mkpzactv');
+					//var coo = decodeCookie(cooStr);
+
+					console.log(pid + ":" + psz + ":" + q + ", ")
+					
+					
+					if(cooStr == '1')
+					{
+						sendData("mkpzupd",
+						{ 
+							id: pid,
+							sz: psz,
+							q: q
+						},
+						{ 
+							id: pid,
+							sz: psz,
+							q: q
+						});
+					}
+
 				}
 			}
 		}
@@ -472,6 +505,21 @@ for (let node of nodeList) {
 					//setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
 					cartClean(); // clean all orders with quantity = 0
 					cartIconBehaviour();
+
+					let q = cartGetItemQuantity(pid, psz);
+					let cooStr = getCookie('mkpzactv');
+					//MARK_DECODE
+					//var coo = decodeCookie(cooStr);
+					if(cooStr == '1' && q > 0)
+					{
+						sendData("mkpzupd",
+						{ 
+							id: pid,
+							sz: psz,
+							q: q
+						});
+					}
+
 				}
 			}
 		}
@@ -500,6 +548,12 @@ function expandableBehaviour() {
 // run
 expandableBehaviour(); // details.php
 menuBehaviour(); // header
+
+console.log(document.cookie);
+var cooTest = getCookie('mikeypizzacart');
+//MARK_DECODE
+
+console.log(decodeURIComponent(cooTest));
 
 </script>
 

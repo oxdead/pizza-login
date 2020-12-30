@@ -18,8 +18,13 @@ function console_log($output, $with_script_tags = true)
 }
 
 
-
-
+function logDump($monologger, $someVar)
+{
+    ob_start();
+    var_dump($someVar);
+    $result = ob_get_clean();
+    $monologger->error($result);
+}
 
 
 
