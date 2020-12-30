@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../db_connect.php'; 
+require_once __DIR__.'/../db_connect.php'; 
 
 
 
@@ -18,14 +18,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
         if($conn->query($sql))
         {
-            $_SESSION['message'] = "Your password has been reset successfully!";
+            $_SESSION['message'] = "Ваш пароль було змінено!";
             header("location: success.php");
         }
 
     }
     else 
     {
-        $_SESSION['message'] = "Passwords you have entered do not match, please try again!";
+        $_SESSION['message'] = "Пароль, який Ви завели, не співпадає, будь-ласка спробуйте ще раз!";
         header("location: error.php");
     }
 }

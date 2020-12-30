@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../db_connect.php'; 
+require_once __DIR__.'/../db_connect.php'; 
 
 // make sure email and hash parameters aren't empty
 if(isset($_GET['email']) && !empty($_GET['email']) AND isset($_GET['hash']) && !empty($_GET['hash']))
@@ -12,14 +12,14 @@ if(isset($_GET['email']) && !empty($_GET['email']) AND isset($_GET['hash']) && !
     $result = $conn->query("SELECT * FROM users WHERE email='$email' AND hash='$hash'");
     if($result->num_rows == 0)
     {
-        $_SESSION['message'] = "You have entered invalid URL for password reset!";
+        $_SESSION['message'] = "Ви вказали некоректний URL для зміни паролю";
         header("location: error.php");
     }
 
 }
 else
 {
-    $_SESSION['message'] = "Sorry, verification failed, try again!";
+    $_SESSION['message'] = "Вибачте, верифікація невдала, спробуйте будь-ласка ще раз!";
     header("location: error.php");
 }
 ?>
@@ -27,48 +27,43 @@ else
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <!-- compiled and minimized CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo $rooturl?>/stylesheet_local.css" />
-</head>
+<?php require_once __DIR__.'/../head.php'; ?>
+<body class="grey lighten-4" onload="load()">
+<?php require_once __DIR__.'/../header.php'; ?>
 
-<body>
     <section class="container grey-text">
-        <div class="form">
+        <div id="forgot">
+            <h3 class="center grey-text text-darken-1">Вкажіть новий пароль:</h3>
+            <br />
 
-            <div class="tab-content">
-                <div id="forgot">
-                    <h1 class=center>Choose your new password:</h1>
-                    <form action="reset_password.php" method="post" autocomplete="off">
-                        <div class="field-wrap">
-                            <label>New password<span class="req">*</span></label>
-                            <input type="password" required autocomplete="off" name="passwordnew"/>
-                        </div>		
-                        <div class="field-wrap">
-                            <label>Confirm new password<span class="req">*</span></label>
-                            <input type="password" required autocomplete="off" name="passwordnew_confirm"/>
-                        </div>
+            <form action="reset_password.php" method="post" autocomplete="off">
+                <div class="row">
+                    <div class="col s6 offset-s3">
+                        <label>Новий пароль<span class="req">*</span></label>
+                        <input type="password" required autocomplete="off" name="passwordnew"/>
+                    </div>		
+                </div>		
+                <div class="row">
+                    <div class="col s6 offset-s3">
+                        <label>Confirm new password<span class="req">*</span></label>
+                        <input type="password" required autocomplete="off" name="passwordnew_confirm"/>
+                    </div>
+                </div>
 
-                        <!--
-                        <div style="display:none;">
-                            <input type="email" required autocomplete="off" name="email" value="<?php echo $email?>"/>
-                        </div>		
-                        <div style="display:none;">
-                            <input type="text" required autocomplete="off" name="hash" value="<?php echo $hash?>"/>
-                        </div>
-                        -->
-                        <input type="hidden" name="email" value="<?= $email ?>">    
-                        <input type="hidden" name="hash" value="<?= $hash ?>">
-
+                <!-- hiiden fields -->
+                <input type="hidden" name="email" value="<?= $email ?>">    
+                <input type="hidden" name="hash" value="<?= $hash ?>">
 
                 
-                        <button class="button button-click" name="reset_password">Apply</button>
-                    
-                    </form>
+                <div class="row">
+                    <button class="btn brand z-depth-0 col s2 offset-s7" name="reset_password">Підтвердити</button>
                 </div>
+            
+            </form>
         </div>
     </section>
+
+<?php require_once __DIR__.'/../footer.php'; ?>
 </body>
+<?php require_once __DIR__.'/../script.php'; ?>
 </html>

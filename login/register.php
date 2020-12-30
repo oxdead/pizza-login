@@ -1,15 +1,11 @@
 <?php
 session_start();
-include '../db_connect.php'; 
-
-include 'mail_phpmailer.php';
+require_once __DIR__.'/../db_connect.php'; 
+require_once __DIR__.'/mail_phpmailer.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-
-	/*
-		Registration process, inserts user info into the database and sends account confirmation email message
-	*/
+	//Registration process, inserts user info into the database and sends account confirmation email message
 
 	// set session vars to be used on profile.php
 	$_SESSION['email'] = $_POST['email'];
@@ -37,7 +33,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		// active is 0 by default(no need to include here)
 		$sql = "INSERT INTO users (first_name, last_name, email, password, hash) "
 				. "VALUES ('$first_name', '$last_name', '$email', '$password', '$hash')";
-
 
 		if($conn->query($sql))
 		{
@@ -72,10 +67,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 <!DOCTYPE html>
 <html>
 
-<?php include "../head.php"; ?>
+<?php require_once __DIR__.'/../head.php'; ?>
 <body class="grey lighten-4" onload="load()">
 
-<?php include "../header.php"; ?>
+<?php require_once __DIR__.'/../header.php'; ?>
 
 <section class="container">
 	<div class="form">
@@ -113,18 +108,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			</div>
 
 		</form>
-
-			
-
-
-
 	</div>
-
-
 </section>
 
-<?php include '../footer.php'; ?>
+<?php require_once __DIR__.'/../footer.php'; ?>
 </body>
 
-<?php include '../script.php'; ?>
+<?php require_once __DIR__.'/../script.php'; ?>
 </html>

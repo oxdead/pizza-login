@@ -14,12 +14,12 @@ if(isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['hash']) && !e
 
     if($result->num_rows == 0)
     {
-        $_SESSION['message'] = "Account has already been activated or URL is invalid!";
+        $_SESSION['message'] = "аккаунт вже був активований або не корректний URL!";
         header("location: error.php");
     }
     else
     {
-        $_SESSION['message'] = "Your account has been activated!";
+        $_SESSION['message'] = "Ваш аккаунт активовано!";
 
         // set user status to active (axtive = 1)
         $conn->query("UPDATE users SET active='1' WHERE email='$email'") or die($conn->error);

@@ -10,7 +10,7 @@ session_destroy();
 <body>
     <div class="container">
         <div>
-            <h2 class="center-align "><?='Завершення сесії';?></h2>
+            <h2 class="center-align grey-text">Завершення сесії</h2>
             <p class="center-align">
                 <?php
                     if(isset($_SESSION['message']) && !empty($_SESSION['message']))
@@ -31,8 +31,6 @@ session_destroy();
             <a href="../index.php" class="center-align"><button class="btn brand z-depth-0">На головну</button></a>
         </div>
     </div>
-
-
 </body>
 <?php require_once __DIR__.'/../script.php'; ?>
 </html>

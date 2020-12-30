@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once 'db_connect.php'; 
+    require_once __DIR__.'/db_connect.php'; 
 
     $sql = "SELECT id, title, ingredients, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
     $results = mysqli_query($conn, $sql);
@@ -63,10 +63,10 @@
 <!DOCTYPE html>
 <html>
 
-<?php require_once 'head.php'; ?>
+<?php require_once __DIR__.'/head.php'; ?>
 <body onload="load()" class="grey lighten-4">
 
-<?php require_once 'header.php'; ?>
+<?php require_once __DIR__.'/header.php'; ?>
     <section class="container">
         <h2 class="center grey-text" >Замовлення</h2>
         
@@ -201,7 +201,7 @@
     </div>
 
 
-    <?php require_once 'footer.php'; ?>
+    <?php require_once __DIR__.'/footer.php'; ?>
 </body>
-<?php require_once 'script.php'; ?>
+<?php require_once __DIR__.'/script.php'; ?>
 </html>

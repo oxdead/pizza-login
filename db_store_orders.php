@@ -1,10 +1,10 @@
 <?php
-header("Content-Type: application/json; charset=UTF-8");
+//header("Content-Type: application/json; charset=UTF-8");
 session_start();
 
-require_once 'session_ease.php';
-require_once 'db_connect.php'; 
-require_once 'vendor/autoload.php';
+require_once __DIR__.'/session_ease.php';
+require_once __DIR__.'/db_connect.php'; 
+require_once __DIR__.'/vendor/autoload.php';
 $log = new Monolog\Logger('database');
 $log->pushHandler(new Monolog\Handler\StreamHandler('./logs/database.log', Monolog\Logger::ERROR));
 

@@ -1,7 +1,7 @@
 <?php
 /* Reset your password form, sends reset.php pasword link */
 session_start();
-require '../db_connect.php'; 
+require_once __DIR__.'/../db_connect.php'; 
 
 
 
@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         Hello '.$first_name.',
         You have requested password reset!
         Please click this link to reset password:
-        http://localhost/tutphp/login/reset.php?email='.$email.'&hash='.$hash;
+        http://localhost/pizza_login/login/reset.php?email='.$email.'&hash='.$hash;
         mail($to, $subject, $message_body);
 
         header("location: success.php");
@@ -45,31 +45,30 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <!DOCTYPE html>
 <html>
+<?php require_once __DIR__.'/../head.php'; ?>
+<body class="grey lighten-4" onload="load()">
+<?php require_once __DIR__.'/../header.php'; ?>
 
-<head>
-    <meta charset="UTF-8">
-    <!-- compiled and minimized CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-</head>
+    <section class="container">
 
-<body>
-    <section class="container grey-text">
-        <div class="form">
+        <h3 class="center grey-text text-darken-1">Відновлення паролю.</h3>
+        <br />
 
-            <div class="tab-content">
-                <div id="forgot">
-                    <h1 class=center>Input your email:</h1>
-                    <form action="forgot.php" method="post" autocomplete="off">
-                        <div class="field-wrap">
-                            <label>Email Address<span class="req">*</span></label>
-                            <input type="email" required autocomplete="off" name="email"/>
-                        </div>			
-                
-                        <button class="button button-click" name="forgot">Send</button>
-                    
-                    </form>
-                </div>
-        </div>
+        <form action="forgot.php" method="post" autocomplete="off">
+            <div class="row">
+                <div class="col s6 offset-s3">
+                    <label>Адреса email<span class="req">*</span></label>
+                    <input type="email" required autocomplete="on" name="email"/>
+                </div>			
+            </div>
+            <div class="row">
+                <button class="btn brand z-depth-0 col s2 offset-s7" name="forgot">Надіслати</button>
+            </div>
+        </form>
+
     </section>
+
+<?php require_once __DIR__.'/../footer.php'; ?>
 </body>
+<?php require_once __DIR__.'/../script.php'; ?>
 </html>
