@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/json');
+//header('Content-Type: application/json');
 require_once 'vendor/autoload.php';
 $log = new Monolog\Logger('database');
 $log->pushHandler(new Monolog\Handler\StreamHandler(__DIR__.'/logs/database.log', Monolog\Logger::ERROR));

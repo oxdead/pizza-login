@@ -1,7 +1,12 @@
 <?php 
-    require_once 'session_ease.php';
-    $shead = new SessionEase();
-    $rooturl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/pizza_login';
+require_once 'session_ease.php';
+$shead = new SessionEase();
+$rooturl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/pizza_login';
+
+$btnLogin = [
+    ($shead->valid()) ? "out" : "in",
+    ($shead->valid()) ? "ВИЙТИ" : "ВВІЙТИ"
+];
 ?>
 
 
@@ -24,7 +29,7 @@
                         <ul id="nav-mobile" class="right">
                             <li class="grey-text hide-on-small-and-down"> Привіт, <?php echo htmlspecialchars($shead->name()); ?>!&nbsp&nbsp</li>
                             <li> 
-                                <a href="details.php" class="no-padding transparent my-relative">
+                                <a href="<?=$rooturl?>/details.php" class="no-padding transparent my-relative">
                                     <img src="<?=$rooturl?>/img/shopping-cart-icon.png" alt="Shopping cart" width="36px" height="36px" style="vertical-align:middle;">
                                     <div id="showcartnumber1">
                                         <span id="showcartnumber2"></span>
@@ -32,7 +37,11 @@
                                 </a>
                             </li>
 
-                            <li class="hide-on-small-and-down"> <a href="<?=$rooturl?>/login/login.php" class="btn brand z-depth-0" style="margin-right:0px;">Ввійти </a> </li>
+                            <li class="hide-on-small-and-down"> 
+                                <a href="<?=$rooturl?>/login/log<?=$btnLogin[0]?>.php" class="btn brand z-depth-0" style="margin-right:0px;">
+                                    <?=$btnLogin[1]?>
+                                </a> 
+                            </li>
                             <li> 
                                 <a href="#!" data-target="mobile-menu-open" class="sidenav-trigger show-on-large no-padding transparent">
                                     <img src="<?=$rooturl?>/img/menu-icon.png" alt="Side menu" width="36px" height="36px" style="vertical-align:middle;">

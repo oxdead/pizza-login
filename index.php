@@ -26,10 +26,9 @@ require_once 'session_ease.php';
 #add order_id into database and make it unique primary key
 #save data into database as datetime
 #unset and destroy session on log out
-#when logged in, change name, change ВВІЙТИ button to ВИЙТИ
-# prevent 2nd logging if user already logged in
-#in db_store_orders.php get email and logged_in+ctive state from session, check it and then store email, pizza_id, pizza_sz to orders table
-#fix cookie gets deleted on login
+
+
+
 
 /////////////////////////////////////////////////
 require_once 'sql_dev_temporary.php'; // for development only
@@ -47,10 +46,7 @@ if($s->valid())
     $sql = "SELECT pizza_id, pizza_sz, quantity FROM orders WHERE email='{$s->email()}'";
     $results = $conn->query($sql);
     $orders = $results->fetch_all(MYSQLI_ASSOC);
-    //var_dump($orders);
-
 }
-
 
 //4. free from memory and close connection (optional, but it's good practice to do so)
 mysqli_free_result($results);
@@ -114,9 +110,6 @@ mysqli_close($conn);
 
     <br>
     
-    <!-- delete this -->
-    <p id="demo"></p>
-
 
 <section class="container">
         <div class="row">

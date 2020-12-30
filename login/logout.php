@@ -5,36 +5,34 @@ session_destroy();
 ?>
 
 <html>
-
-<head>
-<title>LogOut</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo $rooturl?>/stylesheet_local.css" />
-</head>
-
+<?php require_once __DIR__.'/../head.php'; ?>
 
 <body>
-<div class="form">
-    <h1><?='Quit.';?></h1>
-    <p>
-        <?php
-        if(isset($_SESSION['message']) && !empty($_SESSION['message']))
-        {
-            // show message if something went wrong and put button in the end 'Home' to return to main login page manually
-            echo $_SESSION['message'];
-        }
-        else
-        {
-            // return to main page if everything is ok
-            header("location: login_index.php");
-        }
+    <div class="container">
+        <div>
+            <h2 class="center-align "><?='Завершення сесії';?></h2>
+            <p class="center-align">
+                <?php
+                    if(isset($_SESSION['message']) && !empty($_SESSION['message']))
+                    {
+                        // show message if something went wrong and put button in the end 'Home' to return to main login page manually
+                        echo $_SESSION['message'];
+                    }
+                    else
+                    {
+                        // return to main page if everything is ok
+                        header("location: login.php");
+                    }
+                ?>
+            </p>
+            <br>
+        </div>
+        <div class="center-align">
+            <a href="../index.php" class="center-align"><button class="btn brand z-depth-0">На головну</button></a>
+        </div>
+    </div>
 
-        ?>
-
-    </p>
-    <a href="../index.php"><button class="button button-block">Home</button></a>
-</div>
 
 </body>
-
+<?php require_once __DIR__.'/../script.php'; ?>
 </html>

@@ -341,31 +341,30 @@ function cartFeedback(event)
 
 
 serializeObjToUrlString = function(obj) {
-  var str = [];
-  for (var p in obj)
-    if (obj.hasOwnProperty(p)) {
-      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-    }
-  return str.join("&");
+	var str = [];
+	for (var p in obj)
+	{
+		if (obj.hasOwnProperty(p)) 
+		{
+			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+		}
+	}
+	return str.join("&");
 }
 
-function sendData(msg, dataObj)
+function cartSendItem(msg, dataObj)
 {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("POST", "db_store_orders.php", true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	//xmlhttp.send("mkpzupd=" + (JSON.stringify(dataObj)));
 	//MARK_DECODE
-
 	xmlhttp.send(msg + "=" + encodeURIComponent(serializeObjToUrlString(dataObj)));
 }
 
 
-
-
 window.addEventListener("load", () => {
 	document.body.addEventListener('click', (event) => {
-
 		if (event.target.id.startsWith("addpizza")) {
 			
 			event.preventDefault(); // cancel the event (do not go to destination page)
@@ -391,7 +390,7 @@ window.addEventListener("load", () => {
 			//var coo = decodeCookie(cooStr);
 			if(cooStr == '1' && q > 0)
 			{
-				sendData("mkpzupd",
+				cartSendItem("mkpzupd",
 				{ 
 					id: pid,
 					sz: psz,
@@ -450,18 +449,10 @@ for (let node of nodeList) {
 					if(q < 0) { q = 0; }
 					let cooStr = getCookie('mkpzactv');
 					//var coo = decodeCookie(cooStr);
-
-					console.log(pid + ":" + psz + ":" + q + ", ")
-					
 					
 					if(cooStr == '1')
 					{
-						sendData("mkpzupd",
-						{ 
-							id: pid,
-							sz: psz,
-							q: q
-						},
+						cartSendItem("mkpzupd",
 						{ 
 							id: pid,
 							sz: psz,
@@ -512,7 +503,7 @@ for (let node of nodeList) {
 					//var coo = decodeCookie(cooStr);
 					if(cooStr == '1' && q > 0)
 					{
-						sendData("mkpzupd",
+						cartSendItem("mkpzupd",
 						{ 
 							id: pid,
 							sz: psz,
@@ -548,12 +539,6 @@ function expandableBehaviour() {
 // run
 expandableBehaviour(); // details.php
 menuBehaviour(); // header
-
-console.log(document.cookie);
-var cooTest = getCookie('mikeypizzacart');
-//MARK_DECODE
-
-console.log(decodeURIComponent(cooTest));
 
 </script>
 
