@@ -20,13 +20,9 @@ require_once 'session_ease.php';
 #link to profile in header dropdown
 #make profile page
 #setup mailgun on server and test forgot password operation
-#Контакти в accordion in sidenav in header
-#details.php: fix total price after login, make it count on page load
 
 
 //require_once 'sql_dev_temporary.php'; // for development only
-
-
 
 
 $sql = "SELECT id, title, ingredients, img, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property

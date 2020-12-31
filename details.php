@@ -186,10 +186,10 @@
 
 
 
-    </div>
+    </section>
 
 
-    <?php require_once __DIR__.'/footer.php'; ?>
+<?php require_once 'footer.php'; ?>
 </body>
-<?php require_once __DIR__.'/script.php'; ?>
+<?php require_once 'script.php'; ?>
 </html>
