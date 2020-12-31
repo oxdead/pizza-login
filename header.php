@@ -71,8 +71,8 @@ $btnLogin = [
     <li><a href="<?=$rooturl?>/index.php" target="_self">Головна</a></li>
     <li><a href="<?=$rooturl?>/login/register.php" target="_self">Реєстрація</a></li>
     <li><div class="divider"></div></li>
-    <li><a href="http://next.materializecss.com/getting-started.html" target="_blank">Залишити відгук</a></li>
-    <li><a href="http://next.materializecss.com/getting-started.html" target="_blank">Про нас</a></li>
+    <li><a href="#" target="_blank">Залишити відгук</a></li>
+    <li><a href="#" target="_blank">Про нас</a></li>
 
     <!-- subheader example -->
     <!-- <li><a class="subheader">Subheader</a></li> -->

@@ -9,18 +9,18 @@ require_once 'session_ease.php';
 #change language of errors in tooltips on input field submit
 #every day run event at 2:00 to clean stale cart items (not purchased in 30 days)
 #add phone field to users table in db
-#add transactions, email, sms
+#add transactions, sms
 #learn how to use sizes and srcset
-#make sure all text inputs wrapped into htmlspecialchars | msqli_escape_string
 #support for small screens
+#make sure all text inputs wrapped into htmlspecialchars | msqli_escape_string
 #profile.php: client's profile logs all orders
 #details.php: replace pizza size with dropdown menu for changing size of pizza
 #details.php: input field for quantity
-#setup mailgun on server and test forgot password operation
 #Menu: Мій Профіль, Залишити відгук, Про нас
 #link to profile in header dropdown
 #make profile page
-#Контакти в accordion in sidenav
+#setup mailgun on server and test forgot password operation
+#Контакти в accordion in sidenav in header
 #details.php: fix total price after login, make it count on page load
 
 
@@ -28,11 +28,9 @@ require_once 'session_ease.php';
 
 
 
-//1. query for all pizzas
+
 $sql = "SELECT id, title, ingredients, img, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
-//2. send query and get some results
 $results = $conn->query($sql);
-//3. fetch the resulting rows as an associative array
 $pizzas = $results->fetch_all(MYSQLI_ASSOC);
 
 $s = new SessionEase();

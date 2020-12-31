@@ -9,6 +9,8 @@
     mysqli_close($conn);
 
 
+
+
     // // after clicking Submit button for deletion of pizza row
     // if(isset($_POST['delete']))
     // {
@@ -85,7 +87,7 @@
                         {
                             foreach($pizzas as $pizza)
                             {
-                                if($pizza['id'] == $order['id'])
+                                if($order['id'] == $pizza['id'])
                                 {
                                     $orderSuffix = $order['id'].'-'.$order['sz'];
             ?>
@@ -148,36 +150,22 @@
                                 if(isset($order)) { unset($order); }
                                 foreach($orders as $order)
                                 {
-                                    if($order['sz'] === 's') 
-                                    { 
-                                        if(isset($pizza)) { unset($pizza); }
-                                        foreach($pizzas as $pizza)
+                                    if(isset($pizzas)) { unset($pizza); }
+                                    foreach($pizzas as $pizza)
+                                    {
+                                        if($order['id'] == $pizza['id'])
                                         {
-                                            if($pizza['id'] == $order['id'])
-                                            {
-                                                $total_price += round($pizza['price_small'], 2); 
+                                            if($order['sz'] === 's') 
+                                            { 
+                                                $total_price += round($pizza['price_small']*$order['q'], 2); 
                                             }
-                                        }
-                                    }
-                                    else if($order['sz'] === 'm') 
-                                    { 
-                                        if(isset($pizza)) { unset($pizza); }
-                                        foreach($pizzas as $pizza)
-                                        {
-                                            if($pizza['id'] == $order['id'])
-                                            {
-                                                $total_price += round($pizza['price_medium'], 2); 
+                                            else if($order['sz'] === 'm') 
+                                            { 
+                                                $total_price += round($pizza['price_medium']*$order['q'], 2); 
                                             }
-                                        }
-                                    }
-                                    else if($order['sz'] === 'l') 
-                                    { 
-                                        if(isset($pizza)) { unset($pizza); }
-                                        foreach($pizzas as $pizza)
-                                        {
-                                            if($pizza['id'] == $order['id'])
-                                            {
-                                                $total_price += round($pizza['price_large'], 2); 
+                                            else if($order['sz'] === 'l') 
+                                            { 
+                                                $total_price += round($pizza['price_large']*$order['q'], 2); 
                                             }
                                         }
                                     }

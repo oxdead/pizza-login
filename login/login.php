@@ -28,12 +28,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			// this is how we will know user logged in
 			$_SESSION['logged_in'] = true;
 			if($_SESSION['active']) { setcookie("mkpzactv", "1", time() + (86400*30), '/'); } // todo: learn why without '/' path cookie gets saved only on current page and is erased after loading index.php page ?
-			// setcookie("logemail", "som0@meta.ua", time() + (86400*30), '/');
-			// setcookie("logpass", "1111", time() + (86400*30), '/'); // for testing, delete it after
-			
 
-			require_once __DIR__.'/../db_implode_orders.php';
-
+require_once __DIR__.'/../db_implode_orders.php';
 
 			header("location: ../index.php");
 		}
@@ -66,24 +62,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		<div class="row">
 			<div class="col s6 offset-s3">
 				<label>Адреса email<span class="req">*</span></label>
-				<input type="email" required autocomplete="on" name="email" value="<?php
-					if(isset($_COOKIE['logemail'])) /* just for testing, delete after */
-					{
-						//echo $_COOKIE['logemail']; 
-					}
-				?>"/>
+				<input type="email" required autocomplete="on" name="email"/>
 			</div>			
 		</div>
 
 		<div class="row">
 			<div class="col s6 offset-s3">
 				<label>Пароль<span class="req">*</span></label>
-				<input type="password" required autocomplete="off" name="password" value="<?php
-					if(isset($_COOKIE['logpass'])) /* just for testing, delete after */
-					{
-						//echo $_COOKIE['logpass']; 
-					}
-				?>"/>
+				<input type="password" required autocomplete="off" name="password"/>
 			</div>
 		</div>
 	
@@ -97,11 +83,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 </section>
 
 
-
-
 <?php require_once __DIR__.'/../footer.php'; ?>
 </body>
 <?php require_once __DIR__.'/../script.php'; ?>
-
-
 </html>

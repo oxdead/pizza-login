@@ -8,5 +8,4 @@ class SessionEase {
     public function valid() { return (isset($_SESSION['active']) && isset($_SESSION['logged_in']) && $_SESSION['active'] == 1 && $_SESSION['logged_in']); }
 };
 
-
 ?>
