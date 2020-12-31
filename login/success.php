@@ -18,7 +18,7 @@ session_start();
                     else
                     {
                         // return to main page if everything is ok
-                        //header("location: login.php");
+                        header("location: login.php");
                     }
                 ?>
             </p>

@@ -55,7 +55,7 @@ require_once __DIR__.'/../db_implode_orders.php';
 
 <section class="container">
 
-	<h3 class="center grey-text text-darken-1">Вітаю! З поверненням!</h3>
+	<h3 class="center grey-text text-darken-1">Дякуємо за візит!</h3>
 	<br />
 	
 	<form action="login.php" method="post" autocomplete="off">
@@ -75,7 +75,7 @@ require_once __DIR__.'/../db_implode_orders.php';
 	
 		<div class="row">
 			<button class="btn brand z-depth-0 col s2 offset-s7" name="login">Ввійти</button>
-			<p class="col s6 offset-s7 no-padding"><a class="active" href="forgot.php">Забув пароль?</a></p>
+			<p class="col s6 offset-s7 no-padding"><a class="active" href="forgot.php">Не пам'ятаєш пароль?</a></p>
 			<p class="col s6 offset-s7 no-padding"><a class="active" href="register.php">Реєстрація</a></p>
 		</div>
 	</form>

@@ -70,28 +70,29 @@ $btnLogin = [
     </li>    
     <li><a href="<?=$rooturl?>/index.php" target="_self">Головна</a></li>
     <li><a href="<?=$rooturl?>/login/register.php" target="_self">Реєстрація</a></li>
+        <!-- subheader example -->
+    <li><a class="subheader">Мій профіль</a></li>
+    <!-- divider example -->
     <li><div class="divider"></div></li>
-    <li><a href="#" target="_blank">Залишити відгук</a></li>
-    <li><a href="#" target="_blank">Про нас</a></li>
+    <li><a href="dummypage.php" target="_blank">Залишити відгук</a></li>
+    <li><a href="dummypage.php" target="_blank">Про нас</a></li>
 
-    <!-- subheader example -->
-    <!-- <li><a class="subheader">Subheader</a></li> -->
+
 
     <!-- dropdown submenus: accordion example -->
-    <!-- <li class="no-padding">
+    <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
             <li>
-                <a class="collapsible-header waves-effect">Dropdown<i class="material-icons">folder</i></a>
+                <a class="collapsible-header waves-effect" style="padding-left:32px;">Контакти</a>
                 <div class="collapsible-body">
                     <ul>
-                        <li><a class="waves-effect" href="#!">First</a></li>
-                        <li><a class="waves-effect" href="#!">Second</a></li>
-                        <li><a class="waves-effect" href="#!">Third</a></li>
-                        <li><a class="waves-effect" href="#!">Fourth</a></li>
+                        <li><a class="waves-effect" style="padding-left:50px;font-style: italic;" href="#!">info@mikespizza.ua</a></li>
+                        <li><a class="waves-effect" style="padding-left:50px;font-style: italic;" href="#!">Тел. +380000000000</a></li>
+                        <li><a class="waves-effect" style="padding-left:50px;font-style: italic;" href="#!">Адреса: Nostromo, LV-426</a></li>
                     </ul>
                 </div>
             </li>
         </ul>
-    </li> -->
+    </li>
 
 </ul>
