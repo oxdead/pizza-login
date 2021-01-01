@@ -27,14 +27,25 @@ require_once 'session_ease.php';
 
 $sql = "SELECT id, title, ingredients, img, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
 $results = $conn->query($sql);
-$pizzas = $results->fetch_all(MYSQLI_ASSOC);
+//$pizzas = $results->fetch_all(MYSQLI_ASSOC);
+$pizzas = [];
+while($row = mysqli_fetch_array($results,MYSQLI_ASSOC))
+{
+    $pizzas[] = $row;
+}
+
 
 $s = new SessionEase();
 if($s->valid())
 {
     $sql = "SELECT pizza_id, pizza_sz, quantity FROM orders WHERE email='{$s->email()}'";
     $results = $conn->query($sql);
-    $orders = $results->fetch_all(MYSQLI_ASSOC);
+    //$orders = $results->fetch_all(MYSQLI_ASSOC);
+    $orders = [];
+    while($row = mysqli_fetch_array($results, MYSQLI_ASSOC))
+    {
+        $orders[] = $row;
+    }
 }
 
 //4. free from memory and close connection (optional, but it's good practice to do so)

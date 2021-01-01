@@ -45,7 +45,6 @@ require_once __DIR__.'/../db_implode_orders.php';
 
 
 ?>
-
 <!DOCTYPE html>
 <html>
 

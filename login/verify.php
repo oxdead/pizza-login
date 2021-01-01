@@ -29,8 +29,5 @@ if(isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['hash']) && !e
         header("location: success.php");
 
     }
-
-
 }
-
 ?>

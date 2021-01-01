@@ -26,7 +26,8 @@ if (filter_var($s->email(), FILTER_VALIDATE_EMAIL) && $s->valid())
         $sqlCompInsertUpdate = rtrim ($sqlCompInsertUpdate , ",");
 
         $sqlCompInsertUpdate.=" ON DUPLICATE KEY UPDATE `quantity`=VALUES(`quantity`), `created`=VALUES(`created`);";
-        $conn->prepare($sqlCompInsertUpdate)->execute();
+        //$conn->prepare($sqlCompInsertUpdate)->execute();
+        $conn->query($sqlCompInsertUpdate); // fix for awardspace.com free plan
 
     }
    
@@ -43,10 +44,14 @@ if (filter_var($s->email(), FILTER_VALIDATE_EMAIL) && $s->valid())
             $sqlCompSelect.=" ELSE 1 END);";
         }   
 
-        $stmt = $conn->prepare($sqlCompSelect);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $orders_from_db = $result->fetch_all(MYSQLI_ASSOC);
+        //$stmt = $conn->prepare($sqlCompSelect);
+        //$stmt->execute();
+        //$result = $stmt->get_result();
+        //$orders_from_db = $result->fetch_all(MYSQLI_ASSOC);
+
+        // fix for awardspace.com free plan
+        $result = $conn->query($sqlCompSelect); 
+        $orders_from_db = fetchDB($result);
         
         foreach($orders_from_db as $order) // on login combine saved but not finished orders from db with the ones in the cookie
         {
@@ -60,9 +65,5 @@ else
 {
     $log->error("$s->email() is not a valid email address or user has not activated account");
 }
-    
-
-
-
 
 ?>

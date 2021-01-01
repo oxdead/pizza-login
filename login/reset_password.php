@@ -2,8 +2,6 @@
 session_start();
 require_once __DIR__.'/../db_connect.php'; 
 
-
-
 // Check if form submitted with "POST"
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {

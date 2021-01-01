@@ -1,0 +1,21 @@
+host existing domain
+create ftp account
+paste files via filezilla to http/www/domain.pp.ua folder
+
+create db and import settings, probably change engine and collation
+
+//add after creating connection for cyrillic letters
+mysqli_query($conn,"SET NAMES UTF8");
+
+delete in header.php and script.php pizza_login from the end of $rooturl
+
+//replace all:
+$pizzas = $results->fetch_all(MYSQLI_ASSOC);
+with
+$pizzas = [];
+while($row = mysqli_fetch_array($results, MYSQLI_ASSOC))
+{
+    $pizzas[] = $row;
+}
+
+
