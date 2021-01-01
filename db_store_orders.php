@@ -36,6 +36,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             $result = $conn->query($sql); 
             $orders_from_db = fetchDB($result);
 
+
+
             $isExistsInDB = false;
             foreach($orders_from_db as $order)
             {
@@ -44,7 +46,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
                 {
                     if(isset($stmt)) { unset($stmt); }
 
-                    
+                    echo '<pre>';
+                    var_dump($order);
+                    echo PHP_EOL;
+                    echo ($newItem['q']);
+                    echo PHP_EOL;
+                    echo "DELETE FROM `orders` WHERE `pizza_id` = {$order['pizza_id']} AND `pizza_sz` = '{$order['pizza_sz']}';";
+                    echo '</pre>';
+
+
                     if($newItem['q'] < 1) // delete row, if order has no items, needed in details.php on changing quantity
                     {
                         // $stmt = $conn->prepare("DELETE FROM `orders` WHERE `pizza_id` = ? AND `pizza_sz` = ?;");
@@ -52,7 +62,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
                         // $stmt->execute();
 
                         // fix for awardspace.com free plan
-                        $result = $conn->query("DELETE FROM `orders` WHERE `pizza_id` = {$order['pizza_id']} AND `pizza_sz` = {$order['pizza_sz']};"); 
+                        $result = $conn->query("DELETE FROM `orders` WHERE `pizza_id` = {$order['pizza_id']} AND `pizza_sz` = '{$order['pizza_sz']}';"); 
                     }
                     else
                     {
@@ -62,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
                         //$stmt->execute();
                         
                         // fix for awardspace.com free plan
-                        $result = $conn->query("UPDATE `orders` SET `quantity` = {$order['quantity']}, `created` = current_timestamp() WHERE `orders`.`pizza_id` = {$order['pizza_id']} AND `orders`.`pizza_sz` = {$order['pizza_sz']};"); 
+                        $result = $conn->query("UPDATE `orders` SET `quantity` = {$order['quantity']}, `created` = current_timestamp() WHERE `orders`.`pizza_id` = {$order['pizza_id']} AND `orders`.`pizza_sz` = '{$order['pizza_sz']}';"); 
                     }
                     
                     $isExists = true;
@@ -77,7 +87,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
                 //$stmt->bind_param("sisi", $s->email(), $newItem['id'], $newItem['sz'], $newItem['q']);
                 //$stmt->execute();
 
-                $result = $conn->query("INSERT INTO `orders` (`order_id`, `email`, `pizza_id`, `pizza_sz`, `quantity`, `created`) VALUES (NULL, {$s->email()}, {$newItem['id']}, {$newItem['sz']}, {$newItem['q']}, current_timestamp());");
+                $result = $conn->query("INSERT INTO `orders` (`order_id`, `email`, `pizza_id`, `pizza_sz`, `quantity`, `created`) VALUES (NULL, {$s->email()}, {$newItem['id']}, '{$newItem['sz']}', {$newItem['q']}, current_timestamp());");
             }
         }
         else
