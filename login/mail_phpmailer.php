@@ -1,51 +1,67 @@
 <?php
 
+namespace Lyo;
+
 require_once __DIR__.'/../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require_once __DIR__.'/../vendor/phpmailer/phpmailer/src/SMTP.php';
 
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-
-//Load Composer's autoloader
 require_once __DIR__.'/../vendor/autoload.php';
 
-function sendByPHPMailer($to, $to_name, $subject, $body, $altbody)
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+class PHPMailerHandler
 {
-	//Instantiation and passing `true` enables exceptions
-	$mail = new PHPMailer(true);
+    private $mail = null;
 
-    //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-    $mail->isSMTP();                                            // Send using SMTP
-
-    $mail->Host = 'smtp.mailtrap.io';   // Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = "8ad52069d55744";                     // SMTP username
-    $mail->Password   = "f3ee68e4b9db6d";                               // SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-    $mail->Port       = 2525;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-
-    //Recipients
-    $mail->setFrom('confirmation@gmail.com', 'Mailer');
-    $mail->addAddress($to, $to_name);     // Add a recipient
-
-    // Content
-    $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = $subject;
-    $mail->Body    = $body;
-    $mail->AltBody = $altbody;
-
-    //send the message, check for errors
-    if (!$mail->send()) 
+    public function __construct($host, $user, $pass, $port = 25, $debug = false)
     {
-        echo 'MikeysPizza: Error sending mail: '. $mail->ErrorInfo;
-    } 
-    else 
-    {
-        echo 'Message sent!';
+        $this->mail = new PHPMailer(true);
+
+        $this->mail->SMTPDebug = ($debug ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF);
+        $this->mail->isSMTP();
+        
+        $this->mail->Host = $host;
+        $this->mail->SMTPAuth = true;
+        $this->mail->Username = $user;
+        $this->mail->Password = $pass;
+        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $this->mail->Port = $port;
+
+        $this->mail->setFrom($user, 'Oleksiy'); // $user here as email of sender
+        $this->mail->isHTML(true);
     }
-}
 
+    public function __destruct() 
+    {
+        if(isset($mail)) { unset($mail); }
+    }
+
+    public function setFrom($email, $name)
+    {
+        $this->mail->setFrom($email, $name);
+    }
+
+    public function send($toMail, $toName, $subject, $body, $altbody)
+    {
+        $this->mail->addAddress($toMail, $toName);
+        //$mail->addReplyTo($toMail, $toName);
+
+        $this->mail->Subject = $subject;
+        $this->mail->Body    = $body;
+        $this->mail->AltBody = $altbody;
+
+        try 
+        {
+            $this->mail->send();
+        } 
+        catch (Exception $e) 
+        {
+            echo "Your message could not be sent! PHPMailer Error: {$this->mail->ErrorInfo}";
+        }
+    }
+
+
+};
 ?>

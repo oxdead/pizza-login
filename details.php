@@ -4,7 +4,7 @@
 
     $sql = "SELECT id, title, ingredients, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
     $results = mysqli_query($conn, $sql);
-    $pizzas = mysqli_fetch_all($results, MYSQLI_ASSOC);
+    $pizzas = fetchDB($results);
     mysqli_free_result($results);
     mysqli_close($conn);
 

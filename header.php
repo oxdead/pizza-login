@@ -1,7 +1,8 @@
 <?php 
+require_once 'rooturl.php';
 require_once 'session_ease.php';
 $shead = new SessionEase();
-$rooturl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/pizza_login';
+
 
 $btnLogin = [
     ($shead->valid()) ? "out" : "in",

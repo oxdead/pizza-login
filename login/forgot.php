@@ -2,6 +2,8 @@
 /* Reset your password form, sends reset.php pasword link */
 session_start();
 require_once __DIR__.'/../db_connect.php'; 
+require_once __DIR__.'/../rooturl.php';
+require_once __DIR__.'/mail_phpmailer.php';
 
 // Check if form submitted with "POST"
 if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -11,8 +13,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
     if($result->num_rows == 0) // user doesn't exist
     {
-        $_SESSION['message'] = "User with that email doesn't exist!";
-        header("location: error.php");
+        $_SESSION['message'] = "Користувач з таким email не існує!";
+        //header("location: error.php");
+        headTo($rooturl.'/login/error.php');
     }
     else // user exists num_rows != 0
     {
@@ -22,20 +25,26 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         $first_name =  $user['first_name'];
 
         // session message to display on success.php
-        $_SESSION['message'] = "<p>Please check your email <span>$email</span>"
-        ." for confirmation link to complete your password reset!</p>";
+        $_SESSION['message'] = "<p>Будь-ласка перевірте свою пошту <span>$email</span>"
+        ." для завершення зміни паролю!</p>";
 
         // send reg confirmation link (reset.php)
-        $to = $email;
-        $subject = 'Password Reset Link (clevertechie.com)';
-        $message_body = '
-        Hello '.$first_name.',
-        You have requested password reset!
-        Please click this link to reset password:
-        http://localhost/pizza_login/login/reset.php?email='.$email.'&hash='.$hash;
-        mail($to, $subject, $message_body);
+        $mail = new Lyo\PHPMailerHandler('free.mboxhosting.com', 'support@mikespizza.pp.ua', '45rtfgvbfgrt45');
+        $mail->send(
+        $email, 
+        $first_name, 
+        'Password Reset (mikespizza.pp.ua)',
+        
+        'Привіт '.$first_name.',
+        Якщо Ви запросили зміну паролю, пройдіть будь-ласка по данному посиланню: 
+        '.$rooturl.'/login/reset.php?email='.$email.'&hash='.$hash,
 
-        header("location: success.php");
+        '');
+
+
+
+        //header("location: success.php");
+        headTo($rooturl.'/login/success.php');
 
     }
 }

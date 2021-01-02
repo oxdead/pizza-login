@@ -10,7 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	
 	if($result->num_rows == 0)
 	{
-		$_SESSION['message'] = "User with that email doesn't exist!";
+		$_SESSION['message'] = "Користувач з таким e-mail не існує!";
 		header("location: error.php");
 	}
 	else
@@ -35,7 +35,7 @@ require_once __DIR__.'/../db_implode_orders.php';
 		}
 		else
 		{
-			$_SESSION['message'] = "You have entered wrong password, try again!";
+			$_SESSION['message'] = "Некорректний пароль, будь-ласка спробуй ще раз!";
 			header("location: error.php");
 		}
 	}

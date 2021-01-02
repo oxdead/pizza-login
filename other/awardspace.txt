@@ -1,17 +1,16 @@
 host existing domain
 create ftp account
+create db and import settings, change engine and collation
 paste files via filezilla to http/www/domain.pp.ua folder
-
-create db and import settings, probably change engine and collation
 
 //add after creating connection for cyrillic letters
 mysqli_query($conn,"SET NAMES UTF8");
 
-delete in header.php and script.php pizza_login from the end of $rooturl
+delete in rooturl.php 'pizza_login' from the end of $rooturl
 
-//replace all:
+//awardspace doesn't have mysqlnd Native Driver installed for free plan, so replace all such lines:
 $pizzas = $results->fetch_all(MYSQLI_ASSOC);
-with
+//with this:
 $pizzas = [];
 while($row = mysqli_fetch_array($results, MYSQLI_ASSOC))
 {

@@ -2,6 +2,7 @@
 // verify registered user email, the link to this page is included in the register.php email message
 session_start();
 require_once __DIR__.'/../db_connect.php';
+require_once __DIR__.'/../rooturl.php';
 
 // make sure email and hash variables aren't empty
 if(isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['hash']) && !empty($_GET['hash']))
@@ -15,7 +16,8 @@ if(isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['hash']) && !e
     if($result->num_rows == 0)
     {
         $_SESSION['message'] = "аккаунт вже був активований або не корректний URL!";
-        header("location: error.php");
+        //header("location: error.php");
+        headTo($rooturl.'/login/error.php');
     }
     else
     {
@@ -26,7 +28,8 @@ if(isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['hash']) && !e
         $_SESSION['active'] = 1;
         if($_SESSION['active'] && $_SESSION['logged_in']) { setcookie('mkpzactv', '1', 0); }
 
-        header("location: success.php");
+        //header("location: success.php");
+        headTo($rooturl.'/login/success.php');
 
     }
 }

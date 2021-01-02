@@ -1,6 +1,4 @@
-<?php 
-$rooturl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/pizza_login';
-?>
+<?php require_once 'rooturl.php'; ?>
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.gstatic.com">

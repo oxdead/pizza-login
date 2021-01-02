@@ -1,7 +1,11 @@
 <?php
 session_start();
 require_once __DIR__.'/../db_connect.php'; 
+require_once __DIR__.'/../rooturl.php';
 require_once __DIR__.'/mail_phpmailer.php';
+
+
+
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -25,8 +29,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	// we know user email exists if the rows returned are more than 0
 	if($result->num_rows > 0)
 	{
-		$_SESSION['message'] = 'User with this email exists!';
-		header("location: error.php");
+		$_SESSION['message'] = 'Користувач з таким іменем існує!';
+		//header("location: error.php");
+		//headTo($rooturl.'/login/error.php');
+		headTo($rooturl.'/login/error.php');
 	}
 	else // email doesn't exist in database, proceed..
 	{
@@ -38,26 +44,35 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		{
 			$_SESSION['active'] = 0;
 			$_SESSION['logged_in'] = true;
-			$_SESSION['message'] = "Confirmation email was sent to $email, please verify!";
+			$_SESSION['message'] = "Лист з підтвердження вислано на $email, будь-ласка підтвердіть для активації аккаунту!";
 
 
 			// send reg confirmation to link (verify.php)
-			$to = $email;
-			$subject = 'Account Verification (Mikey\'s Pizza site)';
-			$message_body = 'Hello '.$first_name.', 
-			Thank you for registering! 
-			Please, click to activate your account:
-			http://localhost/pizza_login/login/verify.php?email='.$email.'&hash='.$hash;
-			$altbodyOptional = "This is the body in plain text for non-HTML mail clients";
+			$mail = new Lyo\PHPMailerHandler('free.mboxhosting.com', 'support@mikespizza.pp.ua', '45rtfgvbfgrt45');
+			$mail->send(
+			$email, 
+			$first_name, 
+			'Account Verification (Mikey\'s Pizza)', 
 
-			sendByPHPMailer($to, 'Some User Name', $subject, $message_body, $altbodyOptional);
-			//mail($to, $subject, $message_body); // doesn't support authentication
-			header("location: profile.php");
+			'Привіт '.$first_name.', 
+			Дякуємо за реєстрацію!
+			Будь-ласка натисніть на посилання для активації вашого аккаунту: 
+			'.$rooturl.'/login/verify.php?email='.$email.'&hash='.$hash, 
+
+			'');
+			
+			
+			
+			//header('Location: login.php');
+			headTo($rooturl.'/index.php');
+
+
 		}
 		else
 		{
-			$_SESSION['message'] = 'Registration failed!';
-			header("location: error.php");
+			$_SESSION['message'] = 'Реєстрація не вдалась, вибачте!';
+			//header('Location: error.php');
+			headTo($rooturl.'/login/error.php');
 		}
 	}
 
