@@ -5,8 +5,6 @@ require_once __DIR__.'/../rooturl.php';
 require_once __DIR__.'/mail_phpmailer.php';
 
 
-
-
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	//Registration process, inserts user info into the database and sends account confirmation email message

@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once __DIR__.'/../db_connect.php'; 
+require_once __DIR__.'/../db_connect.php';
+require_once __DIR__.'/../rooturl.php';
 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -11,7 +12,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	if($result->num_rows == 0)
 	{
 		$_SESSION['message'] = "Користувач з таким e-mail не існує!";
-		header("location: error.php");
+		//header("location: error.php");
+		headTo($rooturl.'/login/error.php');
 	}
 	else
 	{
@@ -31,12 +33,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 require_once __DIR__.'/../db_implode_orders.php';
 
-			header("location: ../index.php");
+			//header("location: ../index.php");
+			headTo($rooturl.'/index.php');
 		}
 		else
 		{
 			$_SESSION['message'] = "Некорректний пароль, будь-ласка спробуй ще раз!";
-			header("location: error.php");
+			//header("location: error.php");
+			headTo($rooturl.'/login/error.php');
 		}
 	}
 }

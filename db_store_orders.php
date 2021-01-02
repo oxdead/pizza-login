@@ -9,11 +9,8 @@ $log = new Monolog\Logger('database');
 $log->pushHandler(new Monolog\Handler\StreamHandler('./logs/database.log', Monolog\Logger::ERROR));
 
 
-
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    $s = new SessionEase();
-
     // check is user is valid in session
     if (filter_var($s->email(), FILTER_VALIDATE_EMAIL)) 
     {

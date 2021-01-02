@@ -5,7 +5,6 @@ $log = new Monolog\Logger('database');
 $log->pushHandler(new Monolog\Handler\StreamHandler(__DIR__.'/logs/database.log', Monolog\Logger::ERROR));
 
 require_once __DIR__.'/session_ease.php';
-$s = new SessionEase();
 
 
 if (filter_var($s->email(), FILTER_VALIDATE_EMAIL) && $s->valid()) 

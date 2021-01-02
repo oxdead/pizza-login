@@ -35,7 +35,7 @@ while($row = mysqli_fetch_array($results,MYSQLI_ASSOC))
 }
 
 
-$s = new SessionEase();
+
 if($s->valid())
 {
     $sql = "SELECT pizza_id, pizza_sz, quantity FROM orders WHERE email='{$s->email()}'";

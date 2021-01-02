@@ -1,16 +1,12 @@
 <?php 
 require_once 'rooturl.php';
 require_once 'session_ease.php';
-$shead = new SessionEase();
-
 
 $btnLogin = [
-    ($shead->valid()) ? "out" : "in",
-    ($shead->valid()) ? "ВИЙТИ" : "ВВІЙТИ"
+    ($s->loggedIn()) ? "out" : "in",
+    ($s->loggedIn()) ? "ВИЙТИ" : "ВВІЙТИ"
 ];
 ?>
-
-
 
 <div id="nav">
     <div class="navbar-fixed">
@@ -28,7 +24,7 @@ $btnLogin = [
                         </ul>
 
                         <ul id="nav-mobile" class="right">
-                            <li class="grey-text hide-on-small-and-down"> Привіт, <?php echo htmlspecialchars($shead->name()); ?>!&nbsp&nbsp</li>
+                            <li class="grey-text hide-on-small-and-down"> Привіт, <?php echo htmlspecialchars($s->name()); ?>!&nbsp&nbsp</li>
                             <li> 
                                 <a href="<?=$rooturl?>/details.php" class="no-padding transparent my-relative">
                                     <img src="<?=$rooturl?>/img/shopping-cart-icon.png" alt="Shopping cart" width="36px" height="36px" style="vertical-align:middle;">
@@ -65,8 +61,8 @@ $btnLogin = [
 
             </div>
             <a href="#!"><img class="circle" src="<?=$rooturl?>/img/avatar-placeholder.png"></a>
-            <a href="#!"><span class="white-text name"><?php echo htmlspecialchars($shead->fullname()); ?></span></a>
-            <a href="#!"><span class="white-text email"><?php echo htmlspecialchars($shead->email()); ?></span></a>
+            <a href="#!"><span class="white-text name"><?php echo htmlspecialchars($s->fullname()); ?></span></a>
+            <a href="#!"><span class="white-text email"><?php echo htmlspecialchars($s->email()); ?></span></a>
         </div>
     </li>    
     <li><a href="<?=$rooturl?>/index.php" target="_self">Головна</a></li>
