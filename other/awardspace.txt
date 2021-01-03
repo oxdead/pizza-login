@@ -1,3 +1,15 @@
+//to make server root to be localhost on local machine, instead of localhost/projname
+//($rooturl will be the same on local machine and on web server)
+//modify in apache httpd.conf file:
+DocumentRoot "C:/xampp/htdocs"
+<Directory "C:/xampp/htdocs">
+//to
+DocumentRoot "C:/xampp/htdocs/server_root_symlink"
+<Directory "C:/xampp/htdocs/server_root_symlink">
+//then create symbolic link in cmd with admin rights:
+mklink /D "C:\xampp\htdocs\server_root_symlink" "C:\xampp\htdocs\projname"
+
+
 host existing domain
 create ftp account
 create db and import settings, change engine and collation

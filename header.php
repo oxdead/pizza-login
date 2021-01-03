@@ -15,7 +15,7 @@ $btnLogin = [
                 <div class="row">
                     <div class="col s12">
                         <ul class="left hide-on-small-and-down">
-                            <li >
+                            <li>
                                 <a href="<?=$rooturl?>/index.php">
                                     <img src="<?=$rooturl?>/img/mikey_icon.png" alt="Mikey's Pizza!" width="44px" height="44px" style="vertical-align:middle;"> 
                                     <p class="logolabel grey-text text-lighten-2">MIKEY's PIZZA!</p>

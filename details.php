@@ -2,63 +2,13 @@
     session_start();
     require_once __DIR__.'/db_connect.php'; 
 
-    $sql = "SELECT id, title, ingredients, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
+    $sql = "SELECT id, title, ingredients, price_small AS s, price_medium AS m, price_large AS l FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
     $results = mysqli_query($conn, $sql);
     $pizzas = fetchDB($results);
     mysqli_free_result($results);
     mysqli_close($conn);
 
-
-
-
-    // // after clicking Submit button for deletion of pizza row
-    // if(isset($_POST['delete']))
-    // {
-    //     $id_to_delete = mysqli_real_escape_string($conn, $_POST['id_to_delete']);
-
-    //     $sql = "DELETE FROM pizzas WHERE id = $id_to_delete"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
-
-    //     if(mysqli_query($conn, $sql)) // success
-    //     {
-    //         header('Location: index.php');
-    //     }
-    //     else // failed
-    //     {
-    //         echo 'query error'.mysqli_error($conn);
-    //     }
-    
-    //     //3. fetch the resulting rows as an associative array
-    //     //$pizzas = mysqli_fetch_all($results, MYSQLI_ASSOC);
-    
-    //     mysqli_close($conn);
-    // }
-
-
-
-    // // check GET request id parameter
-    // if(isset($_GET['id']))
-    // {
-
-    //     $id = mysqli_real_escape_string($conn, $_GET['id']); // escaping any sensitive char sequence, that user may put in location bar himself
-
-    //     // make sql sequence
-    //     $sql = "SELECT * FROM pizzas WHERE id=$id";
-        
-    //     // get the query results
-    //     $results = mysqli_query($conn, $sql);
-
-    //     // fetch the result in array format
-    //     $pizza_row = mysqli_fetch_assoc($results);
-
-    //     // free from memory and close connection (optional, but it's good practice to do so)
-    //     mysqli_free_result($results);
-    //     mysqli_close($conn);
-
-        
-
-    // }
-
-
+    $sizes = ["s" => "Мала", "m" => "Середня", "l" => "Велика"];
 ?>
 
 
@@ -99,16 +49,15 @@
                                                 </div>
                                                 <div class="col s2">
                                                     <?php
-                                                        if($order['sz'] === 's') { echo "Мала"; }
-                                                        else if($order['sz'] === 'm') { echo "Середня"; }
-                                                        else if($order['sz'] === 'l') { echo "Велика"; }
+                                                        if(isset($sizes[$order['sz']])) { echo $sizes[$order['sz']]; }
                                                     ?>
                                                 </div>
                                                 <div id="order-price<?=$orderSuffix;?>"class="col s2 price-tag">
                                                     <?php
-                                                        if($order['sz'] === 's') { echo number_format((float)($pizza['price_small']*$order['q']), 2, '.', ''); }
-                                                        else if($order['sz'] === 'm') { echo number_format((float)($pizza['price_medium']*$order['q']), 2, '.', ''); }
-                                                        else if($order['sz'] === 'l') { echo number_format((float)($pizza['price_large']*$order['q']), 2, '.', ''); }
+                                                        if(isset($pizza[$order['sz']]))
+                                                        {
+                                                            echo number_format((float)($pizza[$order['sz']]*$order['q']), 2, '.', '');
+                                                        }
                                                     ?>
                                                 </div>
                                                 <div class="col s1">
@@ -145,27 +94,20 @@
                     <p id="order-total-price" class="col s2 push-s4 price-tag">
                         <?php
                             $total_price = 0.0;
+
                             if(isset($orders))
                             {
                                 if(isset($order)) { unset($order); }
                                 foreach($orders as $order)
                                 {
-                                    if(isset($pizzas)) { unset($pizza); }
+                                    if(isset($pizza)) { unset($pizza); }
                                     foreach($pizzas as $pizza)
                                     {
                                         if($order['id'] == $pizza['id'])
                                         {
-                                            if($order['sz'] === 's') 
-                                            { 
-                                                $total_price += round($pizza['price_small']*$order['q'], 2); 
-                                            }
-                                            else if($order['sz'] === 'm') 
-                                            { 
-                                                $total_price += round($pizza['price_medium']*$order['q'], 2); 
-                                            }
-                                            else if($order['sz'] === 'l') 
-                                            { 
-                                                $total_price += round($pizza['price_large']*$order['q'], 2); 
+                                            if(isset($pizza[$order['sz']]))
+                                            {
+                                                $total_price += round($pizza[$order['sz']]*$order['q'], 2); 
                                             }
                                         }
                                     }
@@ -179,13 +121,7 @@
 
                 </div>
             </li>
-
-
         </ul>    
-        
-
-
-
     </section>
 
 
