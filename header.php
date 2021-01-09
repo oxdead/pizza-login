@@ -1,5 +1,4 @@
 <?php 
-require_once 'rooturl.php';
 require_once 'session_ease.php';
 
 $btnLogin = [

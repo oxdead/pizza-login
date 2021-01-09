@@ -57,7 +57,7 @@ mysqli_close($conn);
 
 
 <!DOCTYPE html>
-<html>
+<html lang="uk">
 <?php require_once 'head.php'; ?>
 <body onload="load()">
 <?php require_once 'header.php'; ?>

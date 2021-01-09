@@ -14,11 +14,10 @@
 
 <!DOCTYPE html>
 <html>
-
 <?php require_once __DIR__.'/head.php'; ?>
 <body onload="load()" class="grey lighten-4">
-
 <?php require_once __DIR__.'/header.php'; ?>
+
     <section class="container">
         <h2 class="center grey-text" >Замовлення</h2>
         
@@ -94,7 +93,6 @@
                     <p id="order-total-price" class="col s2 push-s4 price-tag">
                         <?php
                             $total_price = 0.0;
-
                             if(isset($orders))
                             {
                                 if(isset($order)) { unset($order); }

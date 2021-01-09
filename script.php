@@ -1,27 +1,3 @@
-<?php require_once 'rooturl.php'; ?>
-
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
-<!-- <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">  -->
-
-<!-- Materialize -->
-<!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-<!-- jquery -->
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> -->
-
-<!-- Local stylesheets -->
-<!-- <link rel="stylesheet" href="<?=$rooturl?>/stylesheet_login.css" /> -->
-<link rel="stylesheet" href="<?=$rooturl?>/stylesheet.css" />
-
-
-
-
 <script type="text/javascript">
 
 
@@ -161,8 +137,6 @@ function footerBehaviour()
 function cartClean()
 {
 	var cooStr = getCookie("mikeypizzacart");
-	//var coo = cooStr ? JSON.parse(cooStr) : [];
-	//MARK_DECODE
 	var coo = decodeCookie(cooStr);
 
 	if(coo && coo.length > 0)
@@ -180,9 +154,7 @@ function cartClean()
 
 		if(coo.length !== init_len)
 		{
-			//MARK_DECODE
 			setCookie("mikeypizzacart", encodeCookie(coo), 30); 
-			//setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
 			return true;
 		}
 	}
@@ -208,10 +180,7 @@ function cartIconBehaviour() {
 	var cartnumtext = document.querySelector('#showcartnumber2');
 	if(!cartnumbg || !cartnumtext) { return; }
 	
-	
 	cooStr = getCookie("mikeypizzacart");
-	//coo = cooStr ? JSON.parse(cooStr) : [];
-	//MARK_DECODE
 	var coo = decodeCookie(cooStr);
 
 	if(coo && coo.length > 0)
@@ -248,8 +217,6 @@ function load()
 function cartGetItemQuantity(pid, psz)
 {
 	var cooStr = getCookie("mikeypizzacart");
-	//var coo = cooStr ? JSON.parse(cooStr) : [];
-	//MARK_DECODE
 	var coo = decodeCookie(cooStr);
 	if(coo && coo.length > 0)
 	{
@@ -267,8 +234,6 @@ function cartAdd(pid, psz)
 {
 	var quantity = 0;
 	var cooStr = getCookie("mikeypizzacart");
-	//var coo = cooStr ? JSON.parse(cooStr) : [];
-	//MARK_DECODE
 	var coo = decodeCookie(cooStr);
 	if(coo && coo.length > 0)
 	{
@@ -287,17 +252,13 @@ function cartAdd(pid, psz)
 			coo.push({"id": pid, "sz": psz, "q": "1"});
 		}
 
-		//MARK_DECODE
 		setCookie("mikeypizzacart", encodeCookie(coo), 30); 
-		//setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
 	}
 	else // create cookie
 	{
 		let cvalue = [];
 		cvalue.push({"id": pid, "sz": psz, "q": "1"});
-		//MARK_DECODE
 		setCookie("mikeypizzacart", encodeCookie(cvalue), 30); 
-		//setCookie("mikeypizzacart", JSON.stringify(cvalue), 30); 
 	}
 
 
@@ -355,8 +316,6 @@ function cartSendItem(msg, dataObj)
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("POST", "db_store_orders.php", true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	//xmlhttp.send("mkpzupd=" + (JSON.stringify(dataObj)));
-	//MARK_DECODE
 	xmlhttp.send(msg + "=" + encodeURIComponent(serializeObjToUrlString(dataObj)));
 }
 
@@ -384,8 +343,6 @@ window.addEventListener("load", () => {
 
 			let q = cartGetItemQuantity(pid, psz);
 			let cooStr = getCookie('mkpzactv');
-			//MARK_DECODE
-			//var coo = decodeCookie(cooStr);
 			if(cooStr == '1' && q > 0)
 			{
 				cartSendItem("mkpzupd",
@@ -412,8 +369,6 @@ for (let node of nodeList) {
 			var pid = event.target.id.match(/[0-9]+/);
 			var psz = event.target.id.match(/s?m?l?$/);
 			var cooStr = getCookie('mikeypizzacart');
-			//var coo = cooStr ? JSON.parse(cooStr) : [];
-			//MARK_DECODE
 			var coo = decodeCookie(cooStr);
 			for(let [i, order] of coo.entries())
 			{
@@ -434,20 +389,15 @@ for (let node of nodeList) {
 					{
 						coo.splice(i, 1);
 						let li_elm = document.body.querySelector("#li" + pid + "-" + psz);
-						//console.log(li_elm.children[0].children[0].children[4].innerHTML);
 						li_elm.remove();
 					}
-					//MARK_DECODE
 					setCookie("mikeypizzacart", encodeCookie(coo), 30); 
-					//setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
 					cartClean(); // clean all orders with quantity = 0
 					cartIconBehaviour();
 
 					let q = cartGetItemQuantity(pid, psz);
 					if(q < 0) { q = 0; }
 					let cooStr = getCookie('mkpzactv');
-					//var coo = decodeCookie(cooStr);
-					
 					if(cooStr == '1')
 					{
 						cartSendItem("mkpzupd",
@@ -463,15 +413,13 @@ for (let node of nodeList) {
 		}
 		else if(event.target.id.startsWith("order-q-input"))
 		{
-			//console.log("INPUT TODO");
+			//INPUT TODO
 		}
 		else if(event.target.id.startsWith("order-q-plus"))
 		{
 			var pid = event.target.id.match(/[0-9]+/);
 			var psz = event.target.id.match(/s?m?l?$/);
 			var cooStr = getCookie('mikeypizzacart');
-			//var coo = cooStr ? JSON.parse(cooStr) : [];
-			//MARK_DECODE
 			var coo = decodeCookie(cooStr);
 			for(let order of coo)
 			{
@@ -489,16 +437,12 @@ for (let node of nodeList) {
 						input_elm.innerHTML = order['q'];
 					}
 
-					//MARK_DECODE
 					setCookie("mikeypizzacart", encodeCookie(coo), 30); 
-					//setCookie("mikeypizzacart", JSON.stringify(coo), 30); 
 					cartClean(); // clean all orders with quantity = 0
 					cartIconBehaviour();
 
 					let q = cartGetItemQuantity(pid, psz);
 					let cooStr = getCookie('mkpzactv');
-					//MARK_DECODE
-					//var coo = decodeCookie(cooStr);
 					if(cooStr == '1' && q > 0)
 					{
 						cartSendItem("mkpzupd",
