@@ -88,5 +88,4 @@ require_once __DIR__.'/../db_implode_orders.php';
 
 <?php require_once __DIR__.'/../footer.php'; ?>
 </body>
-<?php require_once __DIR__.'/../script.php'; ?>
 </html>

@@ -65,6 +65,7 @@ $btnLogin = [
         </div>
     </li>    
     <li><a href="<?=$rooturl?>/index.php" target="_self">Головна</a></li>
+    <li><a href="<?=$rooturl?>/login/login.php" target="_self">Ввійти</a></li>
     <li><a href="<?=$rooturl?>/login/register.php" target="_self">Реєстрація</a></li>
         <!-- subheader example -->
     <li><a class="subheader">Мій профіль</a></li>

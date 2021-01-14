@@ -1,8 +1,7 @@
-<link rel="stylesheet" href="stylesheet_carousel.css" />
 
 
-<!-- auto carousel  -->
-<script>
+
+//auto carousel
 
 var slideId = 0;
 var currentTimerId = 0;
@@ -77,7 +76,4 @@ function nextSlide()
 
 // push our carousel
 showSlides();
-
-
-</script>
 

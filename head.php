@@ -1,6 +1,5 @@
-
 <?php
-require_once 'rooturl.php';
+require_once __DIR__.'/rooturl.php';
 $pageurl = $rooturl.$_SERVER['REQUEST_URI'];
 ?>
 <head>
@@ -12,7 +11,7 @@ $pageurl = $rooturl.$_SERVER['REQUEST_URI'];
 <title>Mikey's Pizza! - Most delicious Pizza!</title>
 <meta name="keywords" content="Mikes&#39;s Pizza pizza">
 <meta name="description" content="Mike&#39;s Pizza in Kyiv ✔ Pizzeria №1 in Ukraine ✔ Pizza Tracker ✔ Pizza Marker ✔ 70% off every Tuesday ☎ (068) 000-00-00">
-
+<meta name="author" content="Oleksiy">
 <!-- <link rel="manifest" href="link_pwa.json"> -->
 
 <link rel="shortcut icon" type="image/png" href="img/favicon.png">
@@ -41,7 +40,19 @@ $pageurl = $rooturl.$_SERVER['REQUEST_URI'];
 
 <!-- <link rel="preconnect" href="http://static.mikespizza.pp.ua"> -->
 
-<link rel="prerender" href="<?=$rooturl?>/details.php">
+<script defer type="text/javascript" src="<?=$rooturl?>/script.js"></script>
+
+<?php
+if($_SERVER['PHP_SELF'] === '/index.php') 
+{
+?>
+    <link rel="prerender" href="<?=$rooturl?>/details.php">
+    <link rel="stylesheet" type="text/css" href="stylesheet_carousel.css" />
+    <script defer type="text/javascript" src="<?=$rooturl?>/script_carousel.js"></script>
+<?php
+}
+?>
+
 
 <!--
 <meta property="og:title" content="Mikes’s Pizza - pizzeria №1 in Kiev" />

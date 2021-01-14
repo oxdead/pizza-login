@@ -36,5 +36,3 @@
         Pasteleft 2020 Stuff, Inc.
     </div>
 </footer>
-
-

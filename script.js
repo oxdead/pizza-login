@@ -1,6 +1,3 @@
-<script type="text/javascript">
-
-
 // // hack to reload entire stylesheet, tries to trick caching, can be visual artefacts, no need to use
 // refreshCSS = () => { 
 //             let links = document.getElementsByTagName('link'); 
@@ -482,5 +479,5 @@ function expandableBehaviour() {
 expandableBehaviour(); // details.php
 menuBehaviour(); // header
 
-</script>
+
 

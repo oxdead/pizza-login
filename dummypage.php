@@ -16,5 +16,4 @@ session_start();
         </div>
     </div>
 </body>
-<?php require_once __DIR__.'/script.php'; ?>
 </html>

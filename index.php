@@ -11,7 +11,8 @@ require_once 'session_ease.php';
 #add phone field to users table in db
 #add transactions, sms
 #learn how to use sizes and srcset
-#support for small screens
+#support for small screens for footer using Materialize (flex, grid)
+#support for small screens for other pages except index.php
 #make sure all text inputs wrapped into htmlspecialchars | msqli_escape_string
 #profile.php: client's profile logs all orders
 #details.php: replace pizza size with dropdown menu for changing size of pizza
@@ -19,8 +20,6 @@ require_once 'session_ease.php';
 #Menu: Мій Профіль, Залишити відгук, Про нас
 #link to profile in header dropdown
 #make profile page
-#setup mailgun on server and test forgot password operation
-
 
 //require_once 'sql_dev_temporary.php'; // for development only
 
@@ -115,7 +114,7 @@ mysqli_close($conn);
             foreach($pizzas as $pizza) { 
                 $pizza_id = htmlspecialchars($pizza['id']);
             ?>
-                <div class="col s6 md3">
+                <div class="col s12 m6 xl4 md3">
                     <div class="card z-depth-1 hoverable">
 
                         <!-- make another picture for mobile -->
@@ -172,7 +171,4 @@ mysqli_close($conn);
 
 <?php require_once 'footer.php'; ?>
 </body>
-<?php require_once 'script_carousel.php'; ?>
-<?php require_once 'script.php'; ?>
 </html>
-
