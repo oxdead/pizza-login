@@ -1,10 +1,10 @@
 <?php
 //header('Content-Type: application/json');
-require_once 'vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 $log = new Monolog\Logger('database');
-$log->pushHandler(new Monolog\Handler\StreamHandler(__DIR__.'/logs/database.log', Monolog\Logger::ERROR));
+$log->pushHandler(new Monolog\Handler\StreamHandler(__DIR__.'/../logs/database.log', Monolog\Logger::ERROR));
 
-require_once __DIR__.'/session_ease.php';
+require_once __DIR__.'/../site/session_ease.php';
 
 
 if (filter_var($s->email(), FILTER_VALIDATE_EMAIL) && $s->valid()) 
@@ -20,7 +20,11 @@ if (filter_var($s->email(), FILTER_VALIDATE_EMAIL) && $s->valid())
         $sqlCompInsertUpdate = "INSERT INTO `orders` (`email`, `pizza_id`, `pizza_sz`, `quantity`, `created`) VALUES "; 
         foreach($newItems as $item)
         {
-            $sqlCompInsertUpdate.="('{$s->email()}', {$item['id']}, '{$item['sz']}', {$item['q']}, current_timestamp()),";
+            $itemId = $conn->escape_string($item['id']);
+            $itemSz = $conn->escape_string($item['sz']);
+            $itemQ = $conn->escape_string($item['q']);
+
+            $sqlCompInsertUpdate.="('{$s->email()}', {$itemId}, '{$itemSz}', {$itemQ}, current_timestamp()),";
         }
         $sqlCompInsertUpdate = rtrim ($sqlCompInsertUpdate , ",");
 
@@ -38,7 +42,9 @@ if (filter_var($s->email(), FILTER_VALIDATE_EMAIL) && $s->valid())
             $sqlCompSelect.=" AND (1 = CASE";
             foreach($newItems as $item)
             {
-                $sqlCompSelect.=" WHEN (`pizza_id` = {$item['id']}) AND (`pizza_sz` = '{$item['sz']}') THEN 0";
+                $itemId = $conn->escape_string($item['id']);
+                $itemSz = $conn->escape_string($item['sz']);
+                $sqlCompSelect.=" WHEN (`pizza_id` = {$itemId}) AND (`pizza_sz` = '{$itemSz}') THEN 0";
             }
             $sqlCompSelect.=" ELSE 1 END);";
         }   

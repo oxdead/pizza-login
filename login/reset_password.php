@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__.'/../db_connect.php'; 
+require_once __DIR__.'/../db/connect.php'; 
 
 // Check if form submitted with "POST"
 if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -17,14 +17,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         if($conn->query($sql))
         {
             $_SESSION['message'] = "Ваш пароль було змінено!";
-            header("location: success.php");
+            header("Location: success.php");
         }
 
     }
     else 
     {
-        $_SESSION['message'] = "Пароль, який Ви завели, не співпадає, будь-ласка спробуйте ще раз!";
-        header("location: error.php");
+        $_SESSION['message'] = "Пароль не співпадає, будь-ласка спробуйте ще раз!";
+        header("Location: error.php");
     }
 }
 ?>

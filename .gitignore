@@ -1,4 +1,2 @@
-.vscode/
-#other/
-#git_options.txt
-login/mail_phpmailer.php
+.vscode
+.secret.php

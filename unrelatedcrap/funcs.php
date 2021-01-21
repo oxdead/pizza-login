@@ -27,6 +27,12 @@ function logDump($monologger, $someVar)
 }
 
 
+function getCurTime()
+{
+    return date('Y-m-d H:i:s.') . gettimeofday()['usec'];
+}
+
+
 
 
 

@@ -6,17 +6,17 @@ $tmpmsg='';
 if(isset($_SESSION['message']) && !empty($_SESSION['message']))
 {
     // show message if something went wrong and put button in the end 'Home' to return to main login page manually
-    $tmpmsg = $_SESSION['message'];
+    $tmpmsg = htmlspecialchars($_SESSION['message']);
 }
 else
 {
     // return to main page if everything is ok
-    header("location: login.php");
+    header("Location: login.php");
 }
 ?>
 <!DOCTYPE html>
 <html>
-<?php require_once __DIR__.'/../head.php'; ?>
+<?php require_once __DIR__.'/../site/head.php'; ?>
 <body>
     <div class="container">
         <div>

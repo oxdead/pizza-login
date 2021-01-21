@@ -1,11 +1,12 @@
 <?php 
 session_start();
-require_once 'db_connect.php'; 
-require_once 'session_ease.php'; 
-    
+require_once __DIR__.'/db/connect.php'; 
+require_once __DIR__.'/site/session_ease.php'; 
+   
 
 #todo:
-#meta
+#meta facebook-og, twittercards
+#learn and apply caching
 #change language of errors in tooltips on input field submit
 #every day run event at 2:00 to clean stale cart items (not purchased in 30 days)
 #add phone field to users table in db
@@ -20,13 +21,18 @@ require_once 'session_ease.php';
 #Menu: Мій Профіль, Залишити відгук, Про нас
 #link to profile in header dropdown
 #make profile page
-
-//require_once 'sql_dev_temporary.php'; // for development only
+#build site-tree
+#details.php: move all logic to top part, php runs on server before js gets cookie on client side anyway
+#index.php: (create database table for slideshow and put data related to slides into it, create php function to parse slides)
+#index.php: (put ul/li cards logic on top and create functions to do all the stuff)
+#script.js: group all load funcs into one DOMContentLoaded listener in the end of script
+#script.js: replace getElementsByTagName with querySelector
+#details.php: htmlspecialchars
 
 
 $sql = "SELECT id, title, ingredients, img, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
 $results = $conn->query($sql);
-//$pizzas = $results->fetch_all(MYSQLI_ASSOC);
+//$pizzas = $results->fetch_all(MYSQLI_ASSOC); // doesn't work on free tier plan at awardspace.com, no mysqlnd installed 
 $pizzas = [];
 while($row = mysqli_fetch_array($results,MYSQLI_ASSOC))
 {
@@ -37,7 +43,8 @@ while($row = mysqli_fetch_array($results,MYSQLI_ASSOC))
 
 if($s->valid())
 {
-    $sql = "SELECT pizza_id, pizza_sz, quantity FROM orders WHERE email='{$s->email()}'";
+    $sEmail = $conn->escape_string($s->email());
+    $sql = "SELECT pizza_id, pizza_sz, quantity FROM orders WHERE email='{$sEmail}'";
     $results = $conn->query($sql);
     //$orders = $results->fetch_all(MYSQLI_ASSOC);
     $orders = [];
@@ -56,10 +63,10 @@ mysqli_close($conn);
 
 
 <!DOCTYPE html>
-<html lang="uk">
-<?php require_once 'head.php'; ?>
+<html lang="en">
+<?php require_once __DIR__.'/site/head.php'; ?>
 <body onload="load()">
-<?php require_once 'header.php'; ?>
+<?php require_once __DIR__.'/site/header.php'; ?>
 
 
 <!-- Slideshow container -->
@@ -71,7 +78,6 @@ mysqli_close($conn);
         <img src="img/mikey_main.jpg" class="crsl-img">
         <div class="captiontext">Піца від Mikey! :)</div>
     </div>
-
 
     <div class="my-slides fade">
         <!-- <div class="numbertext">2 / 4</div> -->
@@ -130,6 +136,7 @@ mysqli_close($conn);
 
                             <ul>
                                 <?php 
+                                    // move this to top and create function 
                                     $ingrs_exploded = explode(',', $pizza['ingredients']);
                                     foreach($ingrs_exploded as $ingredient)
                                     {
@@ -169,6 +176,6 @@ mysqli_close($conn);
         </div>
 </section>
 
-<?php require_once 'footer.php'; ?>
+<?php require_once __DIR__.'/site/footer.php'; ?>
 </body>
 </html>

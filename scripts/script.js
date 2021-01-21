@@ -138,8 +138,8 @@ function cartClean()
 
 	if(coo && coo.length > 0)
 	{
-		var init_len = coo.length
-		var i = init_len;
+		let init_len = coo.length
+		let i = init_len;
 
 		while (i-- && i >= 0) 
 		{
@@ -208,7 +208,6 @@ function load()
 	footerBehaviour();
 	cartIconBehaviour();
 }
-
 
 
 function cartGetItemQuantity(pid, psz)
@@ -358,8 +357,10 @@ window.addEventListener("load", () => {
 
 // event bubbling way of creating callbacks
 var nodeList = document.querySelectorAll(".prevent-collapse");
-for (let node of nodeList) {
-	node.addEventListener("click", (event) => {
+for (let node of nodeList) 
+{
+	node.addEventListener("click", (event) => 
+	{
 		event.stopPropagation(); // prevent sending event to parent element "collapsible" (do not collapse/expand)
 		if(event.target.id.startsWith("order-q-minus"))
 		{
@@ -467,7 +468,7 @@ for (let node of nodeList) {
 /////////////////////////////////////////////////
 // details.php
 function expandableBehaviour() {
-	document.addEventListener('DOMContentLoaded', function() {
+	window.document.addEventListener('DOMContentLoaded', function() {
 		var elems = document.querySelectorAll('.collapsible');
 		var instances = M.Collapsible.init(elems, {"accordion" : false});
 	});

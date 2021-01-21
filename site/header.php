@@ -1,5 +1,5 @@
 <?php 
-require_once 'session_ease.php';
+require_once __DIR__.'/session_ease.php';
 
 $btnLogin = [
     ($s->loggedIn()) ? "out" : "in",
@@ -25,7 +25,7 @@ $btnLogin = [
                         <ul id="nav-mobile" class="right">
                             <li class="grey-text hide-on-small-and-down"> Привіт, <?php echo htmlspecialchars($s->name()); ?>!&nbsp&nbsp</li>
                             <li> 
-                                <a href="<?=$rooturl?>/details.php" class="no-padding transparent my-relative">
+                                <a href="<?=$rooturl?>/site/details.php" class="no-padding transparent my-relative">
                                     <img src="<?=$rooturl?>/img/shopping-cart-icon.png" alt="Shopping cart" width="36px" height="36px" style="vertical-align:middle;">
                                     <div id="showcartnumber1">
                                         <span id="showcartnumber2"></span>
@@ -71,8 +71,8 @@ $btnLogin = [
     <li><a class="subheader">Мій профіль</a></li>
     <!-- divider example -->
     <li><div class="divider"></div></li>
-    <li><a href="dummypage.php" target="_blank">Залишити відгук</a></li>
-    <li><a href="dummypage.php" target="_blank">Про нас</a></li>
+    <li><a href="<?=$rooturl?>/site/dummypage.php" target="_blank">Залишити відгук</a></li>
+    <li><a href="<?=$rooturl?>/site/dummypage.php" target="_blank">Про нас</a></li>
 
 
 

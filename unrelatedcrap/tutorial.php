@@ -35,7 +35,7 @@
 
     // strings tutorial #5:
     $string1 = 'My email is ';
-    $string2 = 'i@i.i';
+    $string2 = 'email@email.email';
 
     $stringConcatenation = $string1.$string2;
     $stringInputVarInStringUsingDoublequotes = "My email is $string2"; // output: "my email is i@i.i"
@@ -54,7 +54,7 @@
     //arrays tutorial #7:
     $IndexedArray = ['shaun', 'crystal', 'ryu']; 
     $IndexedArray_AlternativeCreationWay = array('sonya', 'pifagor', 'liu'); 
-    $IndexedArray[] = 'Lyoha'; // Add new value to end
+    $IndexedArray[] = 'some value'; // Add new value to end
     array_push($IndexedArray, 'Seventhy'); // alternative way to add new element 
     $IndexedArray_ElementCount = count($IndexedArray);
     $IndexedArray_MergedFromOthers = array_merge($IndexedArray, $IndexedArray_AlternativeCreationWay);

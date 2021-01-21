@@ -14,10 +14,10 @@ $pageurl = $rooturl.$_SERVER['REQUEST_URI'];
 <meta name="author" content="Oleksiy">
 <!-- <link rel="manifest" href="link_pwa.json"> -->
 
-<link rel="shortcut icon" type="image/png" href="img/favicon.png">
+<link rel="shortcut icon" type="image/png" href="<?=$rooturl?>/img/favicon.png">
 
 
-<link rel="canonical" href="<?=$pageurl?>" />
+<link rel="canonical" href="<?=$pageurl?>"/>
 
 <!-- <meta name="msapplication-TileColor" content="#2b5797"> -->
 <!-- <meta name="theme-color" content="#ffffff"> -->
@@ -36,19 +36,19 @@ $pageurl = $rooturl.$_SERVER['REQUEST_URI'];
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 <!-- Local stylesheets -->
-<link rel="stylesheet" href="<?=$rooturl?>/stylesheet.css" />
+<link rel="stylesheet" href="<?=$rooturl?>/css/stylesheet.css" />
 
 <!-- <link rel="preconnect" href="http://static.mikespizza.pp.ua"> -->
 
-<script defer type="text/javascript" src="<?=$rooturl?>/script.js"></script>
+<script defer type="text/javascript" src="<?=$rooturl?>/scripts/script.js"></script>
 
 <?php
 if($_SERVER['PHP_SELF'] === '/index.php') 
 {
 ?>
-    <link rel="prerender" href="<?=$rooturl?>/details.php">
-    <link rel="stylesheet" type="text/css" href="stylesheet_carousel.css" />
-    <script defer type="text/javascript" src="<?=$rooturl?>/script_carousel.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?=$rooturl?>/css/carousel.css" />
+    <script defer type="text/javascript" src="<?=$rooturl?>/scripts/carousel.js"></script>
+    <link rel="prerender" href="<?=$rooturl?>/site/details.php">
 <?php
 }
 ?>

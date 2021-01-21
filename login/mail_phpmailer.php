@@ -15,7 +15,7 @@ class PHPMailerHandler
 {
     private $mail = null;
 
-    public function __construct($host, $user, $pass, $port = 25, $debug = false)
+    public function __construct($host, $user, $pass, $port = 25, $adminName = 'admin', $debug = false)
     {
         $this->mail = new PHPMailer(true);
 
@@ -29,7 +29,7 @@ class PHPMailerHandler
         $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $this->mail->Port = $port;
 
-        $this->mail->setFrom($user, 'Oleksiy'); // $user here as email of sender
+        $this->mail->setFrom($user, $adminName); // $user here as email of sender
         $this->mail->isHTML(true);
     }
 

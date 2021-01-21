@@ -1,8 +1,8 @@
 <?php
 /* Reset your password form, sends reset.php pasword link */
 session_start();
-require_once __DIR__.'/../db_connect.php'; 
-require_once __DIR__.'/../rooturl.php';
+require_once __DIR__.'/../db/connect.php'; 
+require_once __DIR__.'/../site/rooturl.php';
 require_once __DIR__.'/mail_phpmailer.php';
 
 // Check if form submitted with "POST"
@@ -20,8 +20,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     else // user exists num_rows != 0
     {
         $user = $result->fetch_assoc(); // $user becomes array with user data
-        $email = $user ['email'];
-        $hash = $user ['hash'];
+        $email = $user['email'];
+        $hash = $user['hash'];
         $first_name =  $user['first_name'];
 
         // session message to display on success.php
@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         ." для завершення зміни паролю!</p>";
 
         // send reg confirmation link (reset.php)
-        $mail = new Lyo\PHPMailerHandler('free.mboxhosting.com', 'support@mikespizza.pp.ua', '45rtfgvbfgrt45');
+        $mail = new Lyo\PHPMailerHandler(MAIL_HOST, MAIL_USER, MAIL_PASS);
         $mail->send(
         $email, 
         $first_name, 
@@ -52,9 +52,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <!DOCTYPE html>
 <html>
-<?php require_once __DIR__.'/../head.php'; ?>
+<?php require_once __DIR__.'/../site/head.php'; ?>
 <body class="grey lighten-4" onload="load()">
-<?php require_once __DIR__.'/../header.php'; ?>
+<?php require_once __DIR__.'/../site/header.php'; ?>
 
     <section class="container">
 
@@ -75,6 +75,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
     </section>
 
-<?php require_once __DIR__.'/../footer.php'; ?>
+<?php require_once __DIR__.'/../site/footer.php'; ?>
 </body>
 </html>

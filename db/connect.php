@@ -1,11 +1,8 @@
 <?php
-    $dbhost = '127.0.0.1';
-    $dbuser = 'oxdead';
-    $dbpass = '1111';
-    $dbname = '3664109_mkpz';
+    require_once __DIR__.'/../.secret.php';
 
-    $conn = mysqli_connect($dbhost, $dbuser, $dbpass) or die("Unable to connect to host: '$dbhost'");
-    mysqli_select_db($conn, $dbname) or die("Could not open the database '$dbname'");
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS) or die("Unable to connect to host: '".DB_HOST."'");
+    mysqli_select_db($conn, DB_DB) or die("Could not open the database '".DB_DB."'");
     
     if(!$conn) {  echo 'Connection error: '.mysqli_connect_error(); }
     mysqli_query($conn,"SET NAMES UTF8");

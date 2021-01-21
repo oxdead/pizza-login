@@ -1,8 +1,8 @@
 <?php
 // verify registered user email, the link to this page is included in the register.php email message
 session_start();
-require_once __DIR__.'/../db_connect.php';
-require_once __DIR__.'/../rooturl.php';
+require_once __DIR__.'/../db/connect.php';
+require_once __DIR__.'/../site/rooturl.php';
 
 // make sure email and hash variables aren't empty
 if(isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['hash']) && !empty($_GET['hash']))

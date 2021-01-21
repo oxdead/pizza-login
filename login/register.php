@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__.'/../db_connect.php'; 
-require_once __DIR__.'/../rooturl.php';
+require_once __DIR__.'/../db/connect.php'; 
+require_once __DIR__.'/../site/rooturl.php';
 require_once __DIR__.'/mail_phpmailer.php';
 
 
@@ -46,7 +46,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
 			// send reg confirmation to link (verify.php)
-			$mail = new Lyo\PHPMailerHandler('free.mboxhosting.com', 'support@mikespizza.pp.ua', '45rtfgvbfgrt45');
+			$mail = new Lyo\PHPMailerHandler(MAIL_HOST, MAIL_USER, MAIL_PASS);
 			$mail->send(
 			$email, 
 			$first_name, 
@@ -59,12 +59,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 			'');
 			
-			
-			
 			//header('Location: login.php');
 			headTo($rooturl.'/index.php');
-
-
 		}
 		else
 		{
@@ -80,10 +76,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 <!DOCTYPE html>
 <html>
 
-<?php require_once __DIR__.'/../head.php'; ?>
+<?php require_once __DIR__.'/../site/head.php'; ?>
 <body class="grey lighten-4" onload="load()">
 
-<?php require_once __DIR__.'/../header.php'; ?>
+<?php require_once __DIR__.'/../site/header.php'; ?>
 
 <section class="container">
 	<div class="form">
@@ -124,6 +120,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	</div>
 </section>
 
-<?php require_once __DIR__.'/../footer.php'; ?>
+<?php require_once __DIR__.'/../site/footer.php'; ?>
 </body>
 </html>

@@ -10,14 +10,14 @@ if(isset($_SESSION['message']) && !empty($_SESSION['message']))
 else
 {
     // return to main page if everything is ok
-    header("location: login.php");
+    header("Location: login.php");
 }
 ?>
 <!DOCTYPE html>
 <html>
-<?php require_once __DIR__.'/../head.php'; ?>
+<?php require_once __DIR__.'/../site/head.php'; ?>
 <body>
-<?php require_once __DIR__.'/../header.php'; ?>
+<?php require_once __DIR__.'/../site/header.php'; ?>
     <div class="container">
         <div>
             <h2 class="center-align grey-text">Виникла помилка, Вибачте будь-ласка.</h2>

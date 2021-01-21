@@ -12,7 +12,7 @@ session_start();
             <br>
         </div>
         <div class="center-align">
-            <a href="index.php" class="center-align"><button class="btn brand z-depth-0">Повернутись на головну</button></a>
+            <a href="../index.php" class="center-align"><button class="btn brand z-depth-0">Повернутись на головну</button></a>
         </div>
     </div>
 </body>

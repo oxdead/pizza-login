@@ -2,11 +2,11 @@
 //header("Content-Type: application/json; charset=UTF-8");
 session_start();
 
-require_once __DIR__.'/session_ease.php';
-require_once __DIR__.'/db_connect.php'; 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/../site/session_ease.php';
+require_once __DIR__.'/connect.php'; 
+require_once __DIR__.'/../vendor/autoload.php';
 $log = new Monolog\Logger('database');
-$log->pushHandler(new Monolog\Handler\StreamHandler('./logs/database.log', Monolog\Logger::ERROR));
+$log->pushHandler(new Monolog\Handler\StreamHandler(__DIR__.'/../logs/database.log', Monolog\Logger::ERROR));
 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -38,21 +38,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             $isExistsInDB = false;
             foreach($orders_from_db as $order)
             {
-                //$log->error($newItem['id'].":".$newItem['sz'].":".$newItem['q'].", ");
                 if($order['pizza_id'] == $newItem['id'] && $order['pizza_sz'] == $newItem['sz'])
                 {
-                    if(isset($stmt)) { unset($stmt); }
+                    //if(isset($stmt)) { unset($stmt); }
+                    $newItemQ = $conn->escape_string($newItem['q']);
 
-                    echo '<pre>';
-                    var_dump($order);
-                    echo PHP_EOL;
-                    echo ($newItem['q']);
-                    echo PHP_EOL;
-                    echo "DELETE FROM `orders` WHERE `pizza_id` = {$order['pizza_id']} AND `pizza_sz` = '{$order['pizza_sz']}';";
-                    echo '</pre>';
-
-
-                    if($newItem['q'] < 1) // delete row, if order has no items, needed in details.php on changing quantity
+                    if($newItemQ < 1) // delete row, if order has no items, needed in details.php on changing quantity
                     {
                         // $stmt = $conn->prepare("DELETE FROM `orders` WHERE `pizza_id` = ? AND `pizza_sz` = ?;");
                         // $stmt->bind_param("is", $order['pizza_id'], $order['pizza_sz']);
@@ -63,7 +54,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
                     }
                     else
                     {
-                        $order['quantity'] = $newItem['q'];
+                        $order['quantity'] = $newItemQ;
                         //$stmt = $conn->prepare("UPDATE `orders` SET `quantity` = ?, `created` = current_timestamp() WHERE `orders`.`pizza_id` = ? AND `orders`.`pizza_sz` = ?;");
                         //$stmt->bind_param("iis", $order['quantity'], $order['pizza_id'], $order['pizza_sz']);
                         //$stmt->execute();
@@ -84,7 +75,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
                 //$stmt->bind_param("sisi", $s->email(), $newItem['id'], $newItem['sz'], $newItem['q']);
                 //$stmt->execute();
 
-                $result = $conn->query("INSERT INTO `orders` (`order_id`, `email`, `pizza_id`, `pizza_sz`, `quantity`, `created`) VALUES (NULL, {$s->email()}, {$newItem['id']}, '{$newItem['sz']}', {$newItem['q']}, current_timestamp());");
+                $newItemId = $conn->escape_string($newItem['id']);
+                $newItemSz = $conn->escape_string($newItem['sz']);
+                $newItemQ = $conn->escape_string($newItem['q']);
+
+                $result = $conn->query("INSERT INTO `orders` (`order_id`, `email`, `pizza_id`, `pizza_sz`, `quantity`, `created`) VALUES (NULL, {$s->email()}, {$newItemId}, '{$newItemSz}', {$newItemQ}, current_timestamp());");
             }
         }
         else

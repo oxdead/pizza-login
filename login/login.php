@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__.'/../db_connect.php';
-require_once __DIR__.'/../rooturl.php';
+require_once __DIR__.'/../db/connect.php';
+require_once __DIR__.'/../site/rooturl.php';
 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	else
 	{
 		$user = $result->fetch_assoc();
-	
+
 		if(password_verify($_POST['password'], $user['password']))
 		{
 			$_SESSION['message'] = "Welcome!";
@@ -31,15 +31,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			$_SESSION['logged_in'] = true;
 			if($_SESSION['active']) { setcookie("mkpzactv", "1", time() + (86400*30), '/'); } // todo: learn why without '/' path cookie gets saved only on current page and is erased after loading index.php page ?
 
-require_once __DIR__.'/../db_implode_orders.php';
+require_once __DIR__.'/../db/implode_orders.php';
 
-			//header("location: ../index.php");
 			headTo($rooturl.'/index.php');
 		}
 		else
 		{
 			$_SESSION['message'] = "Некорректний пароль, будь-ласка спробуй ще раз!";
-			//header("location: error.php");
 			headTo($rooturl.'/login/error.php');
 		}
 	}
@@ -52,9 +50,9 @@ require_once __DIR__.'/../db_implode_orders.php';
 <!DOCTYPE html>
 <html>
 
-<?php require_once __DIR__.'/../head.php'; ?>
+<?php require_once __DIR__.'/../site/head.php'; ?>
 <body class="grey lighten-4" onload="load()">
-<?php require_once __DIR__.'/../header.php'; ?>
+<?php require_once __DIR__.'/../site/header.php'; ?>
 
 <section class="container">
 
@@ -86,6 +84,6 @@ require_once __DIR__.'/../db_implode_orders.php';
 </section>
 
 
-<?php require_once __DIR__.'/../footer.php'; ?>
+<?php require_once __DIR__.'/../site/footer.php'; ?>
 </body>
 </html>

@@ -1,14 +1,16 @@
 <?php
-$sql = "CREATE DATABASE IF NOT EXISTS 3664109_mkpz";
+require_once __DIR__.'/connect.php'; 
+
+$sql = "CREATE DATABASE IF NOT EXISTS ".DB_DB;
     if ($conn->query($sql) === TRUE) 
     {
-        $sql = "CREATE TABLE IF NOT EXISTS `3664109_mkpz`.`users` ( `id` INT NOT NULL AUTO_INCREMENT, `first_name` VARCHAR(50) NOT NULL, `last_name` VARCHAR(50) NOT NULL, `email` VARCHAR(100) NOT NULL UNIQUE, `password` VARCHAR(100) NOT NULL, `hash` VARCHAR(32) NOT NULL, `active` BOOL NOT NULL DEFAULT 0, PRIMARY KEY (`id`) )";
+        $sql = "CREATE TABLE IF NOT EXISTS \`".DB_DB."\`.`users` ( `id` INT NOT NULL AUTO_INCREMENT, `first_name` VARCHAR(50) NOT NULL, `last_name` VARCHAR(50) NOT NULL, `email` VARCHAR(100) NOT NULL UNIQUE, `password` VARCHAR(100) NOT NULL, `hash` VARCHAR(32) NOT NULL, `active` BOOL NOT NULL DEFAULT 0, PRIMARY KEY (`id`) )";
         if ($conn->query($sql) === FALSE)
         {
             echo "Error creating table: " . $conn->error;
         }
 
-        $sql = "CREATE TABLE IF NOT EXISTS `3664109_mkpz`.`pizzas` ( `id` INT NOT NULL AUTO_INCREMENT, `title` VARCHAR(50) NOT NULL, `ingredients` VARCHAR(255) NOT NULL, `size` INT NOT NULL DEFAULT 0, `thickness` BOOL NOT NULL DEFAULT 0, PRIMARY KEY (`id`) )";
+        $sql = "CREATE TABLE IF NOT EXISTS \`".DB_DB."\`.`pizzas` ( `id` INT NOT NULL AUTO_INCREMENT, `title` VARCHAR(50) NOT NULL, `ingredients` VARCHAR(255) NOT NULL, `size` INT NOT NULL DEFAULT 0, `thickness` BOOL NOT NULL DEFAULT 0, PRIMARY KEY (`id`) )";
         if ($conn->query($sql) === FALSE)
         {
             echo "Error creating table: " . $conn->error;    
@@ -76,7 +78,7 @@ $sql = "CREATE DATABASE IF NOT EXISTS 3664109_mkpz";
         $sql = "UPDATE `pizzas` SET `price_small` = '167.5', `price_medium` = '227.5', `price_large` = '259.5' WHERE `pizzas`.`id` = 8";
         $conn->query($sql);
         
-        $sql = "CREATE TABLE IF NOT EXISTS `3664109_mkpz`.`orders` ( `order_id` INT NOT NULL AUTO_INCREMENT, `email` VARCHAR(40) NOT NULL, `pizza_id` INT NOT NULL, `pizza_sz` CHAR(1) NOT NULL, `quantity` INT NOT NULL, `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`order_id`) )";
+        $sql = "CREATE TABLE IF NOT EXISTS \`".DB_DB."\`.`orders` ( `order_id` INT NOT NULL AUTO_INCREMENT, `email` VARCHAR(40) NOT NULL, `pizza_id` INT NOT NULL, `pizza_sz` CHAR(1) NOT NULL, `quantity` INT NOT NULL, `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`order_id`) )";
         $conn->query($sql);
     
     } 
@@ -85,4 +87,4 @@ $sql = "CREATE DATABASE IF NOT EXISTS 3664109_mkpz";
         echo "Error creating database: " . $conn->error;
         die();
     }
-    ?>
+?>

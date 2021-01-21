@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__.'/../db_connect.php'; 
+require_once __DIR__.'/../db/connect.php'; 
 
 // make sure email and hash parameters aren't empty
 if(isset($_GET['email']) && !empty($_GET['email']) AND isset($_GET['hash']) && !empty($_GET['hash']))
@@ -13,23 +13,22 @@ if(isset($_GET['email']) && !empty($_GET['email']) AND isset($_GET['hash']) && !
     if($result->num_rows == 0)
     {
         $_SESSION['message'] = "Ви вказали некоректний URL для зміни паролю";
-        header("location: error.php");
+        header("Location: error.php");
     }
-
 }
 else
 {
     $_SESSION['message'] = "Вибачте, верифікація невдала, спробуйте будь-ласка ще раз!";
-    header("location: error.php");
+    header("Location: error.php");
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 
-<?php require_once __DIR__.'/../head.php'; ?>
+<?php require_once __DIR__.'/../site/head.php'; ?>
 <body class="grey lighten-4" onload="load()">
-<?php require_once __DIR__.'/../header.php'; ?>
+<?php require_once __DIR__.'/../site/header.php'; ?>
 
     <section class="container grey-text">
         <div id="forgot">
@@ -63,6 +62,6 @@ else
         </div>
     </section>
 
-<?php require_once __DIR__.'/../footer.php'; ?>
+<?php require_once __DIR__.'/../site/footer.php'; ?>
 </body>
 </html>

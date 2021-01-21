@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once __DIR__.'/db_connect.php'; 
+    require_once __DIR__.'/../db/connect.php'; 
 
     $sql = "SELECT id, title, ingredients, price_small AS s, price_medium AS m, price_large AS l FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
     $results = mysqli_query($conn, $sql);
@@ -23,6 +23,7 @@
         
         <ul class="collapsible expandable">
             <?php 
+
                 if(isset($_COOKIE['mikeypizzacart']))
                 {
                     $orders = JSON_decode($_COOKIE['mikeypizzacart'], true);
@@ -47,9 +48,7 @@
                                                     <?=$pizza['title'];?>
                                                 </div>
                                                 <div class="col s2">
-                                                    <?php
-                                                        if(isset($sizes[$order['sz']])) { echo $sizes[$order['sz']]; }
-                                                    ?>
+                                                    <?php if(isset($sizes[$order['sz']])) { echo $sizes[$order['sz']]; } ?>
                                                 </div>
                                                 <div id="order-price<?=$orderSuffix;?>"class="col s2 price-tag">
                                                     <?php
