@@ -51,7 +51,7 @@ require_once __DIR__.'/../db/implode_orders.php';
 <html>
 
 <?php require_once __DIR__.'/../site/head.php'; ?>
-<body class="grey lighten-4" onload="load()">
+<body class="grey lighten-4">
 <?php require_once __DIR__.'/../site/header.php'; ?>
 
 <section class="container">
@@ -76,8 +76,8 @@ require_once __DIR__.'/../db/implode_orders.php';
 	
 		<div class="row">
 			<button class="btn brand z-depth-0 col s2 offset-s7" name="login">Ввійти</button>
-			<p class="col s6 offset-s7 no-padding"><a class="active" href="forgot.php">Не пам'ятаєш пароль?</a></p>
-			<p class="col s6 offset-s7 no-padding"><a class="active" href="register.php">Реєстрація</a></p>
+			<p class="col s6 offset-s7 no-padding" style="margin-top:20px;"><a class="active" href="forgot.php">Не пам'ятаєш пароль?</a></p>
+			<p class="col s6 offset-s7 no-padding" style="margin-top:0px;"><a class="active" href="register.php">Реєстрація</a></p>
 		</div>
 	</form>
 

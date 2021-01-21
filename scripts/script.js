@@ -1,16 +1,3 @@
-// // hack to reload entire stylesheet, tries to trick caching, can be visual artefacts, no need to use
-// refreshCSS = () => { 
-//             let links = document.getElementsByTagName('link'); 
-//             for (let i = 0; i < links.length; i++) { 
-//                 if (links[i].getAttribute('rel') == 'stylesheet') { 
-// 					let href = links[i].getAttribute('href').split('?')[0];
-// 					if (href == location.protocol + '//' + location.hostname + '/pizza_login/stylesheet.css') { 
-// 						let newHref = href + '?version=' + new Date().getMilliseconds();
-// 						links[i].setAttribute('href', newHref);
-// 					}
-//                 } 
-//             } 
-//         } 
 
 function isCookieExist(name)
 {
@@ -51,22 +38,22 @@ function decodeCookie(cookieStr)
 	return cookieStr ? JSON.parse(decodeURIComponent(cookieStr)) : [];
 }
 
+
 function encodeCookie(cookieArr)
 {
 	return cookieArr ? encodeURIComponent(JSON.stringify(cookieArr)) : "";
 }
 
 
-///////////////////////////////////////
-
+// put inside DOMContentLoaded
+function menuBehaviourInit()
+{
+	var elems = document.querySelectorAll('.sidenav');
+	var instances = M.Sidenav.init(elems, {edge:'right'});
+}
 
 function menuBehaviour()
 {
-	document.addEventListener('DOMContentLoaded', function() {
-		var elems = document.querySelectorAll('.sidenav');
-		var instances = M.Sidenav.init(elems, {edge:'right'});
-	});
-
 	var sidenavs = document.querySelectorAll('.sidenav')
 	for (let i = 0; i < sidenavs.length; i++){
 		M.Sidenav.init(sidenavs[i]);
@@ -109,7 +96,7 @@ function menuBehaviour()
 	}
 }
 
-function footerBehaviour()
+function footerBehaviourInit()
 {
 	var f = document.getElementsByTagName('footer')[0];
 	if(!f) { return; }
@@ -126,8 +113,8 @@ function footerBehaviour()
 		f.style.bottom = "";
 	}
 
-	window.removeEventListener("resize", footerBehaviour);
-	window.addEventListener("resize", footerBehaviour);
+	window.removeEventListener("resize", footerBehaviourInit);
+	window.addEventListener("resize", footerBehaviourInit);
 }
 
 
@@ -158,6 +145,7 @@ function cartClean()
 	return false;
 }
 
+
 function cartTotalUpdate()
 {
 	var cartPriceList = document.querySelectorAll("[id^='order-price']");
@@ -170,6 +158,7 @@ function cartTotalUpdate()
 	cartPriceTotal.innerText = totalPrice.toFixed(2).toString(10) + " грн.";
 
 }
+
 
 function cartIconBehaviour() {
 
@@ -199,14 +188,6 @@ function cartIconBehaviour() {
 	cartnumbg.style.display = "none";
 	cartnumtext.innerHTML = 0;
 
-}
-
-
-
-function load()
-{
-	footerBehaviour();
-	cartIconBehaviour();
 }
 
 
@@ -256,7 +237,6 @@ function cartAdd(pid, psz)
 		cvalue.push({"id": pid, "sz": psz, "q": "1"});
 		setCookie("mikeypizzacart", encodeCookie(cvalue), 30); 
 	}
-
 
 }
 
@@ -316,7 +296,11 @@ function cartSendItem(msg, dataObj)
 }
 
 
-window.addEventListener("load", () => {
+
+
+function cartOnClickInit()
+{
+//window.addEventListener("load", () => {
 	document.body.addEventListener('click', (event) => {
 		if (event.target.id.startsWith("addpizza")) {
 			
@@ -352,133 +336,153 @@ window.addEventListener("load", () => {
 
 		}
 	});
-});
+//});
+}
 
 
-// event bubbling way of creating callbacks
-var nodeList = document.querySelectorAll(".prevent-collapse");
-for (let node of nodeList) 
+//(details.php) put inside DOMContentLoaded
+function expandableBehaviourInit() {
+	var elems = document.querySelectorAll('.collapsible');
+	var instances = M.Collapsible.init(elems, {"accordion" : false});
+}
+
+//(details.php)
+function ordersOnClickInit()
 {
-	node.addEventListener("click", (event) => 
+	// event bubbling way of creating callbacks
+	var nodeList = document.querySelectorAll(".prevent-collapse");
+	for (let node of nodeList) 
 	{
-		event.stopPropagation(); // prevent sending event to parent element "collapsible" (do not collapse/expand)
-		if(event.target.id.startsWith("order-q-minus"))
+		node.addEventListener("click", (event) => 
 		{
-			var pid = event.target.id.match(/[0-9]+/);
-			var psz = event.target.id.match(/s?m?l?$/);
-			var cooStr = getCookie('mikeypizzacart');
-			var coo = decodeCookie(cooStr);
-			for(let [i, order] of coo.entries())
+			event.stopPropagation(); // prevent sending event to parent element "collapsible" (do not collapse/expand)
+			if(event.target.id.startsWith("order-q-minus"))
 			{
-				if(order['id'] == pid && order['sz'] == psz)
+				var pid = event.target.id.match(/[0-9]+/);
+				var psz = event.target.id.match(/s?m?l?$/);
+				var cooStr = getCookie('mikeypizzacart');
+				var coo = decodeCookie(cooStr);
+				for(let [i, order] of coo.entries())
 				{
-					if(order['q'] > 1) //update input field
-					{ 
-						let price_elm = document.body.querySelector("#order-price" + pid + "-" + psz);
-						let item_price = (price_elm.innerHTML)/(order['q']);
-
-						order['q']--; 
-						price_elm.innerHTML = (item_price*order['q']).toFixed(2);
-						
-						let input_elm = document.body.querySelector("#order-q-input" + pid + "-" + psz);
-						input_elm.innerHTML = order['q'];
-					}
-					else //remove order row if quantity is 0
+					if(order['id'] == pid && order['sz'] == psz)
 					{
-						coo.splice(i, 1);
-						let li_elm = document.body.querySelector("#li" + pid + "-" + psz);
-						li_elm.remove();
-					}
-					setCookie("mikeypizzacart", encodeCookie(coo), 30); 
-					cartClean(); // clean all orders with quantity = 0
-					cartIconBehaviour();
-
-					let q = cartGetItemQuantity(pid, psz);
-					if(q < 0) { q = 0; }
-					let cooStr = getCookie('mkpzactv');
-					if(cooStr == '1')
-					{
-						cartSendItem("mkpzupd",
+						if(order['q'] > 1) //update input field
 						{ 
-							id: pid,
-							sz: psz,
-							q: q
-						});
-					}
+							let price_elm = document.body.querySelector("#order-price" + pid + "-" + psz);
+							let item_price = (price_elm.innerHTML)/(order['q']);
 
+							order['q']--; 
+							price_elm.innerHTML = (item_price*order['q']).toFixed(2);
+							
+							let input_elm = document.body.querySelector("#order-q-input" + pid + "-" + psz);
+							input_elm.innerHTML = order['q'];
+						}
+						else //remove order row if quantity is 0
+						{
+							coo.splice(i, 1);
+							let li_elm = document.body.querySelector("#li" + pid + "-" + psz);
+							li_elm.remove();
+						}
+						setCookie("mikeypizzacart", encodeCookie(coo), 30); 
+						cartClean(); // clean all orders with quantity = 0
+						cartIconBehaviour();
+
+						let q = cartGetItemQuantity(pid, psz);
+						if(q < 0) { q = 0; }
+						let cooStr = getCookie('mkpzactv');
+						if(cooStr == '1')
+						{
+							cartSendItem("mkpzupd",
+							{ 
+								id: pid,
+								sz: psz,
+								q: q
+							});
+						}
+
+					}
 				}
 			}
-		}
-		else if(event.target.id.startsWith("order-q-input"))
-		{
-			//INPUT TODO
-		}
-		else if(event.target.id.startsWith("order-q-plus"))
-		{
-			var pid = event.target.id.match(/[0-9]+/);
-			var psz = event.target.id.match(/s?m?l?$/);
-			var cooStr = getCookie('mikeypizzacart');
-			var coo = decodeCookie(cooStr);
-			for(let order of coo)
+			else if(event.target.id.startsWith("order-q-input"))
 			{
-				if(order['id'] == pid && order['sz'] == psz)
+				//INPUT TODO
+			}
+			else if(event.target.id.startsWith("order-q-plus"))
+			{
+				var pid = event.target.id.match(/[0-9]+/);
+				var psz = event.target.id.match(/s?m?l?$/);
+				var cooStr = getCookie('mikeypizzacart');
+				var coo = decodeCookie(cooStr);
+				for(let order of coo)
 				{
-					if(order['q'] >= 0) //update input field
-					{ 
-						let price_elm = document.body.querySelector("#order-price" + pid + "-" + psz);
-						let item_price = (price_elm.innerHTML)/(order['q']);
-
-						order['q']++; 
-						price_elm.innerHTML = (item_price*order['q']).toFixed(2); // .toFixed(2) round to float with 2 decimal places
-
-						let input_elm = document.body.querySelector("#order-q-input" + pid + "-" + psz);
-						input_elm.innerHTML = order['q'];
-					}
-
-					setCookie("mikeypizzacart", encodeCookie(coo), 30); 
-					cartClean(); // clean all orders with quantity = 0
-					cartIconBehaviour();
-
-					let q = cartGetItemQuantity(pid, psz);
-					let cooStr = getCookie('mkpzactv');
-					if(cooStr == '1' && q > 0)
+					if(order['id'] == pid && order['sz'] == psz)
 					{
-						cartSendItem("mkpzupd",
+						if(order['q'] >= 0) //update input field
 						{ 
-							id: pid,
-							sz: psz,
-							q: q
-						});
-					}
+							let price_elm = document.body.querySelector("#order-price" + pid + "-" + psz);
+							let item_price = (price_elm.innerHTML)/(order['q']);
 
+							order['q']++; 
+							price_elm.innerHTML = (item_price*order['q']).toFixed(2); // .toFixed(2) round to float with 2 decimal places
+
+							let input_elm = document.body.querySelector("#order-q-input" + pid + "-" + psz);
+							input_elm.innerHTML = order['q'];
+						}
+
+						setCookie("mikeypizzacart", encodeCookie(coo), 30); 
+						cartClean(); // clean all orders with quantity = 0
+						cartIconBehaviour();
+
+						let q = cartGetItemQuantity(pid, psz);
+						let cooStr = getCookie('mkpzactv');
+						if(cooStr == '1' && q > 0)
+						{
+							cartSendItem("mkpzupd",
+							{ 
+								id: pid,
+								sz: psz,
+								q: q
+							});
+						}
+
+					}
 				}
 			}
-		}
 
-		cartTotalUpdate();
-		
+			cartTotalUpdate();
 
-	});
+		});
+	}
 }
 
 
-
-
-
-/////////////////////////////////////////////////
-// details.php
-function expandableBehaviour() {
-	window.document.addEventListener('DOMContentLoaded', function() {
-		var elems = document.querySelectorAll('.collapsible');
-		var instances = M.Collapsible.init(elems, {"accordion" : false});
-	});
-}
 
 
 /////////////////////////////////////////////////
 // run
-expandableBehaviour(); // details.php
-menuBehaviour(); // header
+window.document.addEventListener('DOMContentLoaded', function() {
+	footerBehaviourInit();
+	cartIconBehaviour();
+
+	cartOnClickInit();
+	
+
+	menuBehaviourInit(); // header
+
+	if (window.location.pathname === '/site/details.php')
+	{
+		ordersOnClickInit();
+		expandableBehaviourInit(); 
+	}
+
+
+	
+});
+
+
+// should be outside for menu to work properly
+menuBehaviour();
+
 
 
 

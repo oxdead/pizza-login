@@ -1,6 +1,3 @@
-
-
-
 //auto carousel
 
 var slideId = 0;
@@ -75,5 +72,7 @@ function nextSlide()
 
 
 // push our carousel
-showSlides();
+window.document.addEventListener('DOMContentLoaded', function() {
+	showSlides();
+});
 

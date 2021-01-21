@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
 <?php require_once __DIR__.'/head.php'; ?>
-<body onload="load()" class="grey lighten-4">
+<body class="grey lighten-4">
 <?php require_once __DIR__.'/header.php'; ?>
 
     <section class="container">

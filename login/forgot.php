@@ -53,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 <!DOCTYPE html>
 <html>
 <?php require_once __DIR__.'/../site/head.php'; ?>
-<body class="grey lighten-4" onload="load()">
+<body class="grey lighten-4">
 <?php require_once __DIR__.'/../site/header.php'; ?>
 
     <section class="container">

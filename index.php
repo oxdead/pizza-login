@@ -25,8 +25,6 @@ require_once __DIR__.'/site/session_ease.php';
 #details.php: move all logic to top part, php runs on server before js gets cookie on client side anyway
 #index.php: (create database table for slideshow and put data related to slides into it, create php function to parse slides)
 #index.php: (put ul/li cards logic on top and create functions to do all the stuff)
-#script.js: group all load funcs into one DOMContentLoaded listener in the end of script
-#script.js: replace getElementsByTagName with querySelector
 #details.php: htmlspecialchars
 
 
@@ -65,7 +63,7 @@ mysqli_close($conn);
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once __DIR__.'/site/head.php'; ?>
-<body onload="load()">
+<body>
 <?php require_once __DIR__.'/site/header.php'; ?>
 
 
