@@ -13,7 +13,7 @@ $obj = json_decode($_POST["x"], false);
 //echo isset($_POST["x"]) ? "POST set".PHP_EOL : "post NO";
 
 
-require_once __DIR__.'/../../.pw.php';
+require_once __DIR__.'/../../.secret.php';
 
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, 'accounts');
 $stmt = $conn->prepare("SELECT * FROM users LIMIT ?");
