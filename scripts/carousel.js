@@ -4,6 +4,19 @@ var slideId = 0;
 var currentTimerId = 0;
 
 
+function CreateCarouselContent(slides)
+{
+	//add "<div class="numbertext">1 / 4</div>" for showing numbers of slides
+	var carouselContent = "";
+	for (let slide of slides)
+	{
+		carouselContent = carouselContent + `<div class="my-slides fade"><img src="${slide.img}" class="crsl-img"><div class="captiontext">${slide.caption}</div></div>`;
+	}
+
+	document.querySelector('.slideshow-container').insertAdjacentHTML('afterbegin', carouselContent);
+}
+
+
 function updateSlides()
 {
 	var slides = document.getElementsByClassName("my-slides");
@@ -73,6 +86,14 @@ function nextSlide()
 
 // push our carousel
 window.document.addEventListener('DOMContentLoaded', function() {
-	showSlides();
+
+	fetch(window.location.origin + '/scripts/carousel.json')
+	.then(response => response.json())
+	.then(slidesData => {
+		CreateCarouselContent(slidesData);
+		showSlides();
+	})
+	.catch(err => console.log(err));
+
 });
 

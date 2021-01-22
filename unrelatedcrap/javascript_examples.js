@@ -100,3 +100,25 @@
 // 	});
 // });
 
+// old way of adding stuff into DOM
+// function CreateCarouselContent(slides)
+// {
+// 	var parentList = document.getElementsByClassName("slideshow-container");
+// 	for (let slide of slides)
+// 	{
+// 		var div = document.createElement("div");
+// 		div.classList.add("my-slides", "fade");
+// 		var slideDiv = parentList[0].appendChild(div);
+
+// 		var img = document.createElement("img");
+// 		img.setAttribute('src', slide.img);
+// 		img.classList.add("crsl-img");
+// 		slideDiv.appendChild(img);
+
+// 		var captionDiv = document.createElement("div");
+// 		captionDiv.classList.add("captiontext");
+// 		var captionText = document.createTextNode(slide.caption);
+// 		captionDiv.appendChild(captionText);
+// 		slideDiv.appendChild(captionDiv);
+// 	}
+// }

@@ -23,10 +23,7 @@ require_once __DIR__.'/site/session_ease.php';
 #make profile page
 #build site-tree
 #details.php: move all logic to top part, php runs on server before js gets cookie on client side anyway
-#index.php: (create database table for slideshow and put data related to slides into it, create php function to parse slides)
-#index.php: (put ul/li cards logic on top and create functions to do all the stuff)
 #details.php: htmlspecialchars
-
 
 $sql = "SELECT id, title, ingredients, img, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
 $results = $conn->query($sql);
@@ -56,6 +53,28 @@ if($s->valid())
 mysqli_free_result($results);
 mysqli_close($conn);
 
+// for now limited to 7 ingredients at max
+function renderIngredients($pizza)
+{
+    if(!$pizza) { return; } 
+    $ingrs_exploded = explode(',', $pizza['ingredients']);
+    foreach($ingrs_exploded as $ingredient)
+    {
+        echo '<li>', htmlspecialchars($ingredient), '</li>';
+    }
+
+    $ingrs_expl_sz = ($ingrs_exploded !== false) ? count($ingrs_exploded) : 0;
+    if ($ingrs_expl_sz > 0 && $ingrs_expl_sz < 7)
+    {
+        for($i = 0; $i < 7 - $ingrs_expl_sz; ++$i)
+        {
+            echo '<li><br/></li>';
+        }
+    }
+}
+
+
+
 ?>
 
 
@@ -69,31 +88,7 @@ mysqli_close($conn);
 
 <!-- Slideshow container -->
 <div class="slideshow-container">
-
-    <!-- Full-width images with number and caption text -->
-    <div class="my-slides fade">
-        <!-- <div class="numbertext">1 / 4</div> -->
-        <img src="img/mikey_main.jpg" class="crsl-img">
-        <div class="captiontext">Піца від Mikey! :)</div>
-    </div>
-
-    <div class="my-slides fade">
-        <!-- <div class="numbertext">2 / 4</div> -->
-        <img src="img/carousel1.jpg" class="crsl-img">
-        <div class="captiontext">Піца Барбекю: Класика, Незрівнянний смак!</div>
-    </div>
-
-    <div class="my-slides fade">
-        <!-- <div class="numbertext">3 / 4</div> -->
-        <img src="img/carousel2.jpg" class="crsl-img">
-        <div class="captiontext">Піца Тоскана: Для справжніх гурманів</div>
-    </div>
-
-    <div class="my-slides fade">
-        <!-- <div class="numbertext">4 / 4</div> -->
-        <img src="img/carousel3.jpg" class="crsl-img">
-        <div class="captiontext">Піца Техас: Спробуй неймовірну суміш інгредієнтів</div>
-    </div>
+    <!-- Full-width images (with number) and caption text will be added here from javascript-->
 
     <!-- Next and previous buttons -->
     <a class="prev" onclick="prevSlide()">&#10094;</a>
@@ -132,28 +127,10 @@ mysqli_close($conn);
                         <div class="card-content center">
                             <h5 class="truncate"> <?php echo htmlspecialchars($pizza['title']); ?> </h5>
 
-                            <ul>
-                                <?php 
-                                    // move this to top and create function 
-                                    $ingrs_exploded = explode(',', $pizza['ingredients']);
-                                    foreach($ingrs_exploded as $ingredient)
-                                    {
-                                        echo '<li>', htmlspecialchars($ingredient), '</li>';
-                                    }
-
-                                    $ingrs_expl_sz = ($ingrs_exploded !== false) ? count($ingrs_exploded) : 0;
-                                    if ($ingrs_expl_sz > 0 && $ingrs_expl_sz < 7)
-                                    {
-                                        for($i = 0; $i < 7 - $ingrs_expl_sz; ++$i)
-                                        {
-                                            echo '<li><br/></li>';
-                                        }
-                                    }
-                                ?>
-                            </ul>
+                            <ul> <?php renderIngredients($pizza); ?> </ul>
                         </div>
                         <div class="card-tabs">
-                            <ul class="tabs tabs-fixed-width ">
+                            <ul class="tabs tabs-fixed-width" style="overflow:hidden;">
                                 <li class="tab"><a id="isactvsmall<?=$pizza_id;?>" class="grey-text text-darken-4" href="#psmall<?=$pizza_id;?>">Мала</a></li>
                                 <li class="tab"><a id="isactvmedium<?=$pizza_id;?>" class="grey-text text-darken-4 active" href="#pmedium<?=$pizza_id;?>">Середня</a></li>
                                 <li class="tab"><a id="isactvlarge<?=$pizza_id;?>" class="grey-text text-darken-4" href="#plarge<?=$pizza_id;?>">Велика</a></li>
@@ -161,9 +138,9 @@ mysqli_close($conn);
                         </div>
                         <div class="divider"></div>
                         <div class="card-content right-align grey lighten-4">
-                            <div class="white left price-tag grey lighten-4" id="psmall<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_small']);?>&nbspгрн.</div>
-                            <div class="white left price-tag grey lighten-4" id="pmedium<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_medium']);?>&nbspгрн.</div>
-                            <div class="white left price-tag grey lighten-4" id="plarge<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_large']);?>&nbspгрн.</div>
+                            <div class="left price-tag grey lighten-4" id="psmall<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_small']);?>&nbspгрн.</div>
+                            <div class="left price-tag grey lighten-4" id="pmedium<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_medium']);?>&nbspгрн.</div>
+                            <div class="left price-tag grey lighten-4" id="plarge<?=$pizza_id;?>"><?=htmlspecialchars($pizza['price_large']);?>&nbspгрн.</div>
                             
                             <a id="addpizza<?=$pizza_id;?>" href="index.php">В кошик</a>
 

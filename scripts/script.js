@@ -179,7 +179,7 @@ function cartIconBehaviour() {
 
 		if(num_items > 0)
 		{
-			cartnumbg.style.display = "inline";
+			cartnumbg.style.display = "inline-block";
 			cartnumtext.innerHTML = num_items;
 			return;
 		}
@@ -482,7 +482,3 @@ window.document.addEventListener('DOMContentLoaded', function() {
 
 // should be outside for menu to work properly
 menuBehaviour();
-
-
-
-
