@@ -5,8 +5,9 @@ require_once __DIR__.'/site/session_ease.php';
    
 
 #todo:
-#meta facebook-og, twittercards
 #learn and apply caching
+#profile.php: client's profile logs all orders
+#meta facebook-og, twittercards
 #change language of errors in tooltips on input field submit
 #every day run event at 2:00 to clean stale cart items (not purchased in 30 days)
 #add phone field to users table in db
@@ -15,15 +16,12 @@ require_once __DIR__.'/site/session_ease.php';
 #support for small screens for footer using Materialize (flex, grid)
 #support for small screens for other pages except index.php
 #make sure all text inputs wrapped into htmlspecialchars | msqli_escape_string
-#profile.php: client's profile logs all orders
-#details.php: replace pizza size with dropdown menu for changing size of pizza
 #details.php: input field for quantity
 #Menu: Мій Профіль, Залишити відгук, Про нас
 #link to profile in header dropdown
 #make profile page
 #build site-tree
-#details.php: move all logic to top part, php runs on server before js gets cookie on client side anyway
-#details.php: htmlspecialchars
+#details.php: replace pizza size with dropdown menu for changing size of pizza
 
 $sql = "SELECT id, title, ingredients, img, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
 $results = $conn->query($sql);
