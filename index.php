@@ -99,10 +99,10 @@ function renderIngredients($pizza)
     <span class="dot" onclick="thumbnailSlide(4)"></span>
 </div> 
 
-<br>
     
 
 <section class="container">
+        <h3 class="center-align" style="margin-top:2%;">Піца</h3>
         <div class="row">
             <?php 
             foreach($pizzas as $pizza) { 

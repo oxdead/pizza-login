@@ -102,8 +102,21 @@ const footerBehaviourOnHeightChange = (timeInterval) => {
 	let f = document.getElementsByTagName('footer')[0];
 	if(!f) { return; }
 
+	// do first time right away without delay
+	if(document.body.clientHeight < window.innerHeight)
+	{
+		f.style.position = "absolute";
+		f.style.bottom = "0";
+		f.style.width = "100%";
+	}
+	else
+	{
+		f.style.position = "static";
+		f.style.bottom = "";
+	}
+
+
     const myInterval = setInterval(() => {
-		console.log('interval', tmpHeight);
 		
 		if(document.body.clientHeight < window.innerHeight)
 		{
