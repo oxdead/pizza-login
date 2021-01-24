@@ -96,27 +96,30 @@ function menuBehaviour()
 	}
 }
 
-function footerBehaviourInit()
-{
-	var f = document.getElementsByTagName('footer')[0];
+
+const footerBehaviourOnHeightChange = (timeInterval) => {
+	let tmpHeight = 0;
+	let f = document.getElementsByTagName('footer')[0];
 	if(!f) { return; }
+
+    const myInterval = setInterval(() => {
+		console.log('interval', tmpHeight);
+		
+		if(document.body.clientHeight < window.innerHeight)
+		{
+			f.style.position = "absolute";
+			f.style.bottom = "0";
+			f.style.width = "100%";
+		}
+		else
+		{
+			f.style.position = "static";
+			f.style.bottom = "";
+		}
+	}, timeInterval);
 	
-	if(document.body.clientHeight < window.innerHeight)
-	{
-		f.style.position = "absolute";
-		f.style.bottom = "0";
-		f.style.width = "100%";
-	}
-	else
-	{
-		f.style.position = "static";
-		f.style.bottom = "";
-	}
-
-	window.removeEventListener("resize", footerBehaviourInit);
-	window.addEventListener("resize", footerBehaviourInit);
-}
-
+    return myInterval;
+};
 
 function cartClean()
 {
@@ -248,32 +251,6 @@ function cartFeedback(event)
 	}, 3000);
 }
 
-// loop way of creating callbacks
-// window.addEventListener("load", () => {
-// 	document.body.addEventListener('click', (event) => {
-
-// 		if (event.target.id.startsWith("addpizza")) {
-			
-// 			event.preventDefault(); // cancel the event (do not go to destination page)
-
-// 			var pid = event.target.id.replace("addpizza", "");
-
-// 			var psmall = document.querySelector('#isactvsmall'.concat(pid));
-// 			var pmedium = document.querySelector('#isactvmedium'.concat(pid));
-// 			var plarge = document.querySelector('#isactvlarge'.concat(pid));
-
-// 			var psz = null;
-// 			if(psmall && psmall.className.includes(" active")) { psz = 's'; }
-// 			else if(pmedium && pmedium.className.includes(" active")) { psz = 'm'; }
-// 			else if(pmedium && plarge.className.includes(" active")) { psz = 'l'; }
-
-// 			cartAdd(pid, psz);
-// 			cartFeedback(event);
-// 			cartIconBehaviour();
-// 		}
-// 	});
-// });
-
 
 serializeObjToUrlString = function(obj) {
 	var str = [];
@@ -294,8 +271,6 @@ function cartSendItem(msg, dataObj)
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.send(msg + "=" + encodeURIComponent(serializeObjToUrlString(dataObj)));
 }
-
-
 
 
 function cartOnClickInit()
@@ -346,6 +321,7 @@ function expandableBehaviourInit() {
 	var instances = M.Collapsible.init(elems, {"accordion" : false});
 }
 
+
 //(details.php)
 function ordersOnClickInit()
 {
@@ -356,7 +332,8 @@ function ordersOnClickInit()
 		node.addEventListener("click", (event) => 
 		{
 			event.stopPropagation(); // prevent sending event to parent element "collapsible" (do not collapse/expand)
-			if(event.target.id.startsWith("order-q-minus"))
+			
+			 if(event.target.id.startsWith("order-q-minus"))
 			{
 				var pid = event.target.id.match(/[0-9]+/);
 				var psz = event.target.id.match(/s?m?l?$/);
@@ -458,24 +435,21 @@ function ordersOnClickInit()
 
 
 
+
+
 /////////////////////////////////////////////////
 // run
 window.document.addEventListener('DOMContentLoaded', function() {
-	footerBehaviourInit();
-	cartIconBehaviour();
-
-	cartOnClickInit();
 	
-
+	footerBehaviourOnHeightChange(1000);
+	cartIconBehaviour();
+	cartOnClickInit();
 	menuBehaviourInit(); // header
 
-	if (window.location.pathname === '/site/details.php')
-	{
+	if (window.location.pathname === '/site/details.php') 	{
 		ordersOnClickInit();
 		expandableBehaviourInit(); 
 	}
-
-
 	
 });
 

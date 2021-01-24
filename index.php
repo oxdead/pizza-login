@@ -21,7 +21,6 @@ require_once __DIR__.'/site/session_ease.php';
 #link to profile in header dropdown
 #make profile page
 #build site-tree
-#details.php: replace pizza size with dropdown menu for changing size of pizza
 
 $sql = "SELECT id, title, ingredients, img, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
 $results = $conn->query($sql);
