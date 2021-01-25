@@ -17,7 +17,7 @@ if($s->loggedIn())
     $userProfileData["firstName"] = $s->name();
     $userProfileData["lastName"] = $s->surname();
     $userProfileData["email"] = $s->email();
-    $userProfileData["status"] = ($s->valid()) ? "Активований" : "Особовий рахунок не активний ще!";
+    $userProfileData["status"] = ($s->valid()) ? "Активований" : "Особовий рахунок ще не активний!";
     $userProfileData["statusColor"] = ($s->valid()) ? "green-text text-darken-1" : "lime-text text-darken-1";
 }
 else
@@ -39,7 +39,7 @@ else
             <ul class="collection with-header">
                 <li class="collection-header"><h4>Профіль користувача</h4></li>
                 <li class="collection-item">
-                    <strong>Імя:</strong> <?=$userProfileData['firstName']?>
+                    <strong>Ім'я:</strong> <?=$userProfileData['firstName']?>
                 </li>
                 <li class="collection-item">
                     <strong>Прізвище:</strong> <?=$userProfileData['lastName']?>

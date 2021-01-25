@@ -10,14 +10,14 @@ require_once __DIR__.'/site/session_ease.php';
 #profile.php: client's profile logs all orders
 #every day run event at 2:00 to clean stale cart items (not purchased in 30 days)
 #change language of errors in tooltips on input field submit
-#meta facebook-og, twittercards
 #add phone field to users table in db
-#learn how to use sizes and srcset
+#add avatar into users table in db
+#meta facebook-og, twittercards
 #support for small screens for other pages except index.php
 #details.php: input field for quantity
 #Menu: Залишити відгук, Про нас
-
-
+#use sizes and srcset to optimize downloading of images for carousel and cards on different screen sizes
+#make better -/+ buttons in details
 
 
 $sql = "SELECT id, title, ingredients, img, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
@@ -28,7 +28,6 @@ while($row = mysqli_fetch_array($results,MYSQLI_ASSOC))
 {
     $pizzas[] = $row;
 }
-
 
 
 if($s->valid())
@@ -68,12 +67,7 @@ function renderIngredients($pizza)
     }
 }
 
-
-
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once __DIR__.'/site/head.php'; ?>

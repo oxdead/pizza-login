@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="margin:0px;padding:0px;">
+    <!-- srcset: if width of browser window is below XXXw width then download corresponding picture -->
+    <!-- sizes: css loads later than srcset gets parsed in html, so we need to set directly in html the size of our element layout how it should look on a page, so image could already start downloading in the background -->
+    <img src="unrelatedcrap/test_srcset/future1920.jpg" alt="" sizes="(min-width: 50em) 30em, 50vw" 
+        srcset="unrelatedcrap/test_srcset/future480.jpg 480w,
+                unrelatedcrap/test_srcset/future960.jpg 960w,
+                unrelatedcrap/test_srcset/future1920.jpg 1920w,
+                unrelatedcrap/test_srcset/future3840.jpg 3840w">
+</body>
+</html>

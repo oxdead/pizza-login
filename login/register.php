@@ -52,15 +52,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			$first_name, 
 			'Account Verification (Mikey\'s Pizza)', 
 
-			'Привіт '.$first_name.', 
-			Дякуємо за реєстрацію!
-			Будь-ласка натисніть на посилання для активації вашого аккаунту: 
+			'Привіт '.$first_name.',\r\n 
+			Дякуємо за реєстрацію!\r\n
+			Будь-ласка натисніть на посилання для активації вашого аккаунту:\r\n
 			'.$rooturl.'/login/verify.php?email='.$email.'&hash='.$hash, 
 
 			'');
 			
 			//header('Location: login.php');
-			headTo($rooturl.'/index.php');
+			headTo($rooturl.'/login/success.php');
 		}
 		else
 		{
