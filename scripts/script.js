@@ -285,7 +285,7 @@ function cartSendItem(msg, dataObj)
 	xmlhttp.send(msg + "=" + encodeURIComponent(serializeObjToUrlString(dataObj)));
 }
 
-
+// into DOMContentLoaded
 function cartOnClickInit()
 {
 //window.addEventListener("load", () => {

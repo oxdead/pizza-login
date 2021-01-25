@@ -87,7 +87,7 @@
                                     </div>
                                     <div class="col s1">
                                         <div id="order-q-minus<?=$o['suffix'];?>" class="btn-minus prevent-collapse">
-                                            <strong>-</strong>
+                                            -
                                         </div>
                                     </div>
                                     <!-- todo: make this an input field -->
@@ -96,7 +96,7 @@
                                     </p>
                                     <div class="col s1">
                                         <div id="order-q-plus<?=$o['suffix'];?>" class="btn-plus prevent-collapse">
-                                            <strong>+</strong>
+                                            +
                                         </div>
                                     </div>
                                 </div>

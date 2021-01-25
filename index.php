@@ -15,9 +15,9 @@ require_once __DIR__.'/site/session_ease.php';
 #learn how to use sizes and srcset
 #support for small screens for other pages except index.php
 #details.php: input field for quantity
-#Menu: Мій Профіль, Залишити відгук, Про нас
-#link to profile in header dropdown
-#make profile page
+#Menu: Залишити відгук, Про нас
+
+
 
 
 $sql = "SELECT id, title, ingredients, img, price_small, price_medium, price_large FROM pizzas"; // select data from 3 columns from pizzas table and order them by 'created' timestamp property
@@ -99,7 +99,6 @@ function renderIngredients($pizza)
     <span class="dot" onclick="thumbnailSlide(4)"></span>
 </div> 
 
-    
 
 <section class="container">
         <h3 class="center-align" style="margin-top:2%;">Піца</h3>
@@ -111,13 +110,13 @@ function renderIngredients($pizza)
                 <div class="col s12 m6 xl4 md3">
                     <div class="card z-depth-1 hoverable">
 
-                        <!-- make another picture for mobile -->
-                        <!-- learn how to use sizes and srcset -->
+                        <!-- make another picture for mobile ? -->
                         <div class="row">
-                            <img src="<?= htmlspecialchars($pizza['img']); ?>" 
-                                sizes="" 
-                                srcset="<?= htmlspecialchars($pizza['img']);?> 2960w" 
-                                class="col s12">
+                            <!-- learn how to use sizes and srcset -->
+                            <!-- <img src="<?= htmlspecialchars($pizza['img']); ?>" 
+                            sizes="" srcset="<?= htmlspecialchars($pizza['img']);?> 2960w"
+                            class="col s12"> -->
+                            <img src="<?= htmlspecialchars($pizza['img']); ?>" class="col s12 responsive-img">
                         </div>
                         <div class="card-content center">
                             <h5 class="truncate"> <?php echo htmlspecialchars($pizza['title']); ?> </h5>

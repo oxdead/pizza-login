@@ -1,8 +1,24 @@
 <?php
 session_start();
 require_once __DIR__.'/../db/connect.php';
-if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
+require_once __DIR__.'/../site/session_ease.php';
+
+// profile page is not accessible from a get go
+$userProfileData = [
+    "firstName" => "",
+    "lastName" => "",
+    "email" => "",
+    "status" => "Не ввійшов в систему",
+    "statusColor" => "red-text text-darken-1",
+];
+
+if($s->loggedIn())
 {
+    $userProfileData["firstName"] = $s->name();
+    $userProfileData["lastName"] = $s->surname();
+    $userProfileData["email"] = $s->email();
+    $userProfileData["status"] = ($s->valid()) ? "Активований" : "Особовий рахунок не активний ще!";
+    $userProfileData["statusColor"] = ($s->valid()) ? "green-text text-darken-1" : "lime-text text-darken-1";
 }
 else
 {
@@ -17,43 +33,27 @@ else
 <?php require_once __DIR__.'/../site/header.php'; ?>
 
 <div class="container">
-    <h3 class="center-align">Вітаю!</h3>
-    <p class="center-align">
-        <?php
-            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
-            {
-                if(isset($_SESSION['message']) && !empty($_SESSION['message']))
-                {
-                    echo htmlspecialchars($_SESSION['message']);
-                    echo "<br/>";
-                }
-                
-                if($_SESSION['active'] != 1)
-                {
-                    echo "Account is not activated!";
-                    echo "<br/>";
-                }
+    <div class="row">
+        <div class="col s8 offset-s2">
+            <h4 class="center-align">Вітаю, <?=$userProfileData['firstName']?>!</h4>
+            <ul class="collection with-header">
+                <li class="collection-header"><h4>Профіль користувача</h4></li>
+                <li class="collection-item">
+                    <strong>Імя:</strong> <?=$userProfileData['firstName']?>
+                </li>
+                <li class="collection-item">
+                    <strong>Прізвище:</strong> <?=$userProfileData['lastName']?>
+                </li>
+                <li class="collection-item">
+                    <strong>E-mail:</strong> <?=$userProfileData['email']?>
+                </li>
+                <li class="collection-item">
+                    <strong>Стан особового рахунку:</strong> <span class="<?=$userProfileData['statusColor']?>"><?=$userProfileData['status']?></span>
+                </li>
 
-                if(isset($_SESSION['email']) && !empty($_SESSION['email']))
-                {
-                    echo htmlspecialchars($_SESSION['email']);
-                    echo "<br/>";
-                }
-
-                if(isset($_SESSION['first_name']) && !empty($_SESSION['first_name']))
-                {
-                    echo htmlspecialchars($_SESSION['first_name']);
-                    echo "<br/>";
-                }
-                
-                if(isset($_SESSION['last_name']) && !empty($_SESSION['last_name']))
-                {
-                    echo htmlspecialchars($_SESSION['last_name']);
-                    echo "<br/>";
-                }
-            }
-        ?>
-    </p>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <?php require_once __DIR__.'/../site/footer.php'; ?>

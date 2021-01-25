@@ -1,10 +1,19 @@
 <?php 
 require_once __DIR__.'/session_ease.php';
 
-$btnLogin = [
-    ($s->loggedIn()) ? "out" : "in",
-    ($s->loggedIn()) ? "ВИЙТИ" : "ВВІЙТИ"
-];
+$btnLogin = [];
+$entryProfile = "";
+if(($s->loggedIn())) 
+{ 
+    $btnLogin = [ "out", "ВИЙТИ"];
+}
+else
+{
+    $btnLogin = [ "in", "ВВІЙТИ"];
+    $entryProfile = "subheader";
+}
+
+
 ?>
 
 <header>
@@ -70,9 +79,9 @@ $btnLogin = [
         <li><a href="<?=$rooturl?>/index.php" target="_self">Головна</a></li>
         <li><a href="<?=$rooturl?>/login/login.php" target="_self">Ввійти</a></li>
         <li><a href="<?=$rooturl?>/login/register.php" target="_self">Реєстрація</a></li>
-            <!-- subheader example -->
-        <li><a class="subheader">Мій профіль</a></li>
-        <!-- divider example -->
+            
+        <li><a href="<?=$rooturl?>/login/profile.php" target="_self" class="<?=$entryProfile;?>">Мій профіль</a></li>
+        
         <li><div class="divider"></div></li>
         <li><a href="<?=$rooturl?>/site/dummypage.php" target="_blank">Залишити відгук</a></li>
         <li><a href="<?=$rooturl?>/site/dummypage.php" target="_blank">Про нас</a></li>
